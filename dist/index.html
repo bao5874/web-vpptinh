@@ -1,317 +1,52 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPP Tịnh - Góc Tĩnh Cho Sự Tập Trung</title>
-    <meta name="referrer" content="no-referrer">
-    <link rel="stylesheet" href="static/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
-</head>
-<body>
-    <header>
-        <a href="/" class="logo" style="display: flex; align-items: center; text-decoration: none;">
-            <img src="static/images/logo.png" alt="Logo VPP Tinh Tế" 
-           style="height: 50px; width: auto; margin-right: 10px;">
-            <span style="color: var(--primary-color); font-size: 24px; font-weight: bold;">VPP Tinh Tế</span>
-        </a>
-    </header>
 
-    <main class="container">
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="referrer" content="no-referrer"> 
+        <title>VPP Tịnh - Bình An Trao Tay</title>
         
-
-<div class="hero-banner">
-    <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?q=80&w=1000&auto=format&fit=crop" 
-         alt="Banner Góc Học Tập">
+    <style>
+        :root { --primary-color: #d4a373; --bg-color: #fefae0; --text-color: #333; --card-bg: #fff; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; color: var(--text-color); }
+        header { text-align: center; margin-bottom: 40px; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h1 { color: #8B4513; margin: 0; font-size: 2.5em; text-transform: uppercase; letter-spacing: 2px; }
+        .slogan { font-style: italic; color: #666; margin-top: 5px; font-size: 1.1em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .product-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; display: flex; flex-direction: column; border: 1px solid #eee; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
+        .product-image { width: 100%; height: 160px; object-fit: contain; padding: 10px; background: #fff; box-sizing: border-box; }
+        .product-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-title { font-size: 1em; margin: 0 0 10px 0; color: #333; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price { font-size: 1.2em; color: #e63946; font-weight: bold; margin-bottom: 15px; }
+        .btn-buy { display: block; width: 100%; padding: 10px; background-color: #2a9d8f; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background 0.2s; }
+        .btn-buy:hover { background-color: #21867a; }
+        .floating-contact { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+        .contact-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-weight: bold; font-size: 24px; transition: transform 0.2s; }
+        .contact-btn:hover { transform: scale(1.1); }
+        .zalo-btn { background-color: #0068FF; border: 2px solid white; }
+        .phone-btn { background-color: #008000; border: 2px solid white; animation: shake 2s infinite; }
+        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+        @media (max-width: 600px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .product-image { height: 140px; } h1 { font-size: 1.8em; } }
+    </style>
     
-    <div style="margin-top: 15px;">
-        <h2 style="color: var(--primary-color); margin: 0;">✨ Thiên Đường Văn Phòng Phẩm ✨</h2>
-        <p style="color: #888;">Góc nhỏ xinh xắn - Cảm hứng sáng tạo mỗi ngày</p>
-    </div>
-</div>
+    </head>
+    <body>
+        <header>
+            <h1>VPP Tịnh</h1>
+            <p class="slogan">🌿 Bình An Trao Tay 🌿</p>
+        </header>
 
-<div class="product-list">
+        <div class="product-grid">
     
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vWCVDMyU4MUNILTEyLUNVJUUxJUJCJTk4Ti1HSSVFMSVCQSVBNFktViVFMSVCQiU4Ni1TSU5ILVdBVEVSU0lMSy0yLUwlRTElQkIlOUFQLS0tQkFUSFJPT00tVElTU1VFLTEyLVJPTExTLWkuMjM5NDAwMzg0LjI0MzczODE5NDU5&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="1.XÁCH 12 CUỘN GIẤY VỆ SINH WATERSILK 2 LỚP - BATHROOM TISSUE 12 ROLLS" loading="lazy">
-        </a>
-
-        <h3>1.XÁCH 12 CUỘN GIẤY VỆ SINH WATERSILK 2 LỚP - BATHROOM TISSUE 12 ROLLS</h3>
-        
-        <div class="price">
-            64,000đ
         </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vWCVDMyU4MUNILTEyLUNVJUUxJUJCJTk4Ti1HSSVFMSVCQSVBNFktViVFMSVCQiU4Ni1TSU5ILVdBVEVSU0lMSy0yLUwlRTElQkIlOUFQLS0tQkFUSFJPT00tVElTU1VFLTEyLVJPTExTLWkuMjM5NDAwMzg0LjI0MzczODE5NDU5&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vVCVFMSVCQSVCN25nLVQlQzMlQkFpLUNvbWJvLTEwLUN1JUUxJUJCJTk5bi1HaSVFMSVCQSVBNXktViVFMSVCQiU4Ny1TaW5oLUMlQzMlQjRuZy1OZ2hpJUUxJUJCJTg3cC0lQzMlODFuaC1EJUM2JUIwJUM2JUExbmctMTAwMGctJUUyJTgwJTkzLUtoJUMzJUI0bmctVCVFMSVCQSVBOXktVHIlRTElQkElQUZuZy0tQW4tVG8lQzMlQTBuLWkuMTcwNTM0MTQ3Ny41NTA1NDY1Njk4OQ==&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="2.[Tặng Túi] Combo 10 Cuộn Giấy Vệ Sinh Công Nghiệp Ánh Dương 1000g – Không Tẩy Trắng, An Toàn" loading="lazy">
-        </a>
 
-        <h3>2.[Tặng Túi] Combo 10 Cuộn Giấy Vệ Sinh Công Nghiệp Ánh Dương 1000g – Không Tẩy Trắng, An Toàn</h3>
-        
-        <div class="price">
-            99,000đ
+        <div class="floating-contact">
+            <a href="https://zalo.me/0931736266" class="contact-btn zalo-btn" target="_blank">Z</a>
+            <a href="tel:0931736266" class="contact-btn phone-btn">📞</a>
         </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vVCVFMSVCQSVCN25nLVQlQzMlQkFpLUNvbWJvLTEwLUN1JUUxJUJCJTk5bi1HaSVFMSVCQSVBNXktViVFMSVCQiU4Ny1TaW5oLUMlQzMlQjRuZy1OZ2hpJUUxJUJCJTg3cC0lQzMlODFuaC1EJUM2JUIwJUM2JUExbmctMTAwMGctJUUyJTgwJTkzLUtoJUMzJUI0bmctVCVFMSVCQSVBOXktVHIlRTElQkElQUZuZy0tQW4tVG8lQzMlQTBuLWkuMTcwNTM0MTQ3Ny41NTA1NDY1Njk4OQ==&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
+
+    </body>
+    </html>
     
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ29tQm8tNS1HJUMzJUIzaS1LaCVDNCU4M24tJUM2JUFGJUUxJUJCJTlCdC1LaCVDMyVBMW5nLUtodSVFMSVCQSVBOW4tS2glRTElQkIlQUQtTSVDMyVCOWktTGV0LUdyZWVuLUxvJUUxJUJBJUExaS0xNS1NaSVFMSVCQSVCRm5nLUclQzMlQjNpLWkuMTI4NTQwMzYzNS4yNTQzNTMwNjMyNg==&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="3.ComBo 5 Gói Khăn Ướt Kháng Khuẩn Khử Mùi Let Green Loại 15 Miếng/Gói" loading="lazy">
-        </a>
-
-        <h3>3.ComBo 5 Gói Khăn Ướt Kháng Khuẩn Khử Mùi Let Green Loại 15 Miếng/Gói</h3>
-        
-        <div class="price">
-            46,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ29tQm8tNS1HJUMzJUIzaS1LaCVDNCU4M24tJUM2JUFGJUUxJUJCJTlCdC1LaCVDMyVBMW5nLUtodSVFMSVCQSVBOW4tS2glRTElQkIlQUQtTSVDMyVCOWktTGV0LUdyZWVuLUxvJUUxJUJBJUExaS0xNS1NaSVFMSVCQSVCRm5nLUclQzMlQjNpLWkuMTI4NTQwMzYzNS4yNTQzNTMwNjMyNg==&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vR2klRTElQkElQTV5LUwlRTElQkIlQTVhLUN1JUUxJUJCJTk5bi1Bbi1Bbi0oMTAtQ3UlRTElQkIlOTluLUwlRTElQkIlOTBDKV8wMDExOC1sJUUxJUJCJTkxYy1pLjE3MDM4NDc5OTQuNTM0NTQ2NDM2NzI=&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="4.Giấy Lụa Cuộn An An (10 Cuộn/LỐC)_00118 lốc" loading="lazy">
-        </a>
-
-        <h3>4.Giấy Lụa Cuộn An An (10 Cuộn/LỐC)_00118 lốc</h3>
-        
-        <div class="price">
-            46,400đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vR2klRTElQkElQTV5LUwlRTElQkIlQTVhLUN1JUUxJUJCJTk5bi1Bbi1Bbi0oMTAtQ3UlRTElQkIlOTluLUwlRTElQkIlOTBDKV8wMDExOC1sJUUxJUJCJTkxYy1pLjE3MDM4NDc5OTQuNTM0NTQ2NDM2NzI=&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vZ2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1jYW8tYyVFMSVCQSVBNXAtY2FpdG9uZy4xLWIlRTElQkIlOEJjaC0xMC1jdSVFMSVCQiU5OW4taS44NDkyNDI0NC4yMjI2NDE4NDc1Mg==&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="5.giấy vệ sinh cao cấp caitong.1 bịch 10 cuộn" loading="lazy">
-        </a>
-
-        <h3>5.giấy vệ sinh cao cấp caitong.1 bịch 10 cuộn</h3>
-        
-        <div class="price">
-            120,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vZ2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1jYW8tYyVFMSVCQSVBNXAtY2FpdG9uZy4xLWIlRTElQkIlOEJjaC0xMC1jdSVFMSVCQiU5OW4taS44NDkyNDI0NC4yMjI2NDE4NDc1Mg==&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vTCVFMSVCQiU5MWMtMTAtY3UlRTElQkIlOTluLUdpJUUxJUJBJUE1eS1WJUUxJUJCJTg3LVNpbmgtUGFzZW8tRG9scGhpbi1DYW8tQyVFMSVCQSVBNXAtKDQtTCVFMSVCQiU5QnApLS0tVGFuLU5oYW5oLVRyb25nLU4lQzYlQjAlRTElQkIlOUJjLWkuMzU5NzgxODE0LjU3NzIzNzgyMTA=&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="6.Lốc 10 cuộn Giấy Vệ Sinh Paseo Dolphin Cao Cấp (4 Lớp) - Tan Nhanh Trong Nước" loading="lazy">
-        </a>
-
-        <h3>6.Lốc 10 cuộn Giấy Vệ Sinh Paseo Dolphin Cao Cấp (4 Lớp) - Tan Nhanh Trong Nước</h3>
-        
-        <div class="price">
-            463,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vTCVFMSVCQiU5MWMtMTAtY3UlRTElQkIlOTluLUdpJUUxJUJBJUE1eS1WJUUxJUJCJTg3LVNpbmgtUGFzZW8tRG9scGhpbi1DYW8tQyVFMSVCQSVBNXAtKDQtTCVFMSVCQiU5QnApLS0tVGFuLU5oYW5oLVRyb25nLU4lQzYlQjAlRTElQkIlOUJjLWkuMzU5NzgxODE0LjU3NzIzNzgyMTA=&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vR2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1BbkFuLTEyLWN1JUUxJUJCJTk5bi14Mi1sJUUxJUJCJTlCcC10aSVFMSVCQSVCRnQta2klRTElQkIlODdtLWJhdGhyb29tLXRpc3N1ZS0xMi1pLjIxMTk0MzAyMC4yMTg3Mzk2OTUxMQ==&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="7.Giấy vệ sinh AnAn 12 cuộn x2 lớp tiết kiệm bathroom tissue 12" loading="lazy">
-        </a>
-
-        <h3>7.Giấy vệ sinh AnAn 12 cuộn x2 lớp tiết kiệm bathroom tissue 12</h3>
-        
-        <div class="price">
-            55,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vR2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1BbkFuLTEyLWN1JUUxJUJCJTk5bi14Mi1sJUUxJUJCJTlCcC10aSVFMSVCQSVCRnQta2klRTElQkIlODdtLWJhdGhyb29tLXRpc3N1ZS0xMi1pLjIxMTk0MzAyMC4yMTg3Mzk2OTUxMQ==&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ3UlRTElQkIlOTluLWtoJUM0JTgzbi1naSVFMSVCQSVBNXktbGF1LW5oJUMzJUEwLWIlRTElQkElQkZwLSVDNCU5MWEtbiVDNCU4M25nLWglRTElQkIlOERhLXRpJUUxJUJBJUJGdC10aCVFMSVCQSVBNW0taCVDMyVCQXQtZCVFMSVCQSVBN3UtbSVFMSVCQiVBMS10JUUxJUJCJTkxdC1pLjc1Njk0NzguMTU2MjY5MTcxMTY=&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="8.Cuộn khăn giấy lau nhà bếp đa năng họa tiết thấm hút dầu mỡ tốt" loading="lazy">
-        </a>
-
-        <h3>8.Cuộn khăn giấy lau nhà bếp đa năng họa tiết thấm hút dầu mỡ tốt</h3>
-        
-        <div class="price">
-            17,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ3UlRTElQkIlOTluLWtoJUM0JTgzbi1naSVFMSVCQSVBNXktbGF1LW5oJUMzJUEwLWIlRTElQkElQkZwLSVDNCU5MWEtbiVDNCU4M25nLWglRTElQkIlOERhLXRpJUUxJUJBJUJGdC10aCVFMSVCQSVBNW0taCVDMyVCQXQtZCVFMSVCQSVBN3UtbSVFMSVCQiVBMS10JUUxJUJCJTkxdC1pLjc1Njk0NzguMTU2MjY5MTcxMTY=&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ09NQk8tMS0tLTMtLS01LUwlRTElQkIlOTBDLUwlRTElQkIlOTFjLTEwLWN1JUUxJUJCJTk5bi1naSVFMSVCQSVBNXktdiVFMSVCQiU4Ny1zaW5oLVB1bHBweS0yLWwlRTElQkIlOUJwLS0tQ0FPLUMlRTElQkElQTRQLS1DSCVDMyU4RE5ILUglQzMlODNORy1pLjE3MjE4ODM5MTguNDk5NTUxNzU2MjI=&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="9.[COMBO 1 - 3 - 5 LỐC] Lốc 10 cuộn giấy vệ sinh Pulppy 2 lớp - CAO CẤP/ CHÍNH HÃNG" loading="lazy">
-        </a>
-
-        <h3>9.[COMBO 1 - 3 - 5 LỐC] Lốc 10 cuộn giấy vệ sinh Pulppy 2 lớp - CAO CẤP/ CHÍNH HÃNG</h3>
-        
-        <div class="price">
-            81,250đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ09NQk8tMS0tLTMtLS01LUwlRTElQkIlOTBDLUwlRTElQkIlOTFjLTEwLWN1JUUxJUJCJTk5bi1naSVFMSVCQSVBNXktdiVFMSVCQiU4Ny1zaW5oLVB1bHBweS0yLWwlRTElQkIlOUJwLS0tQ0FPLUMlRTElQkElQTRQLS1DSCVDMyU4RE5ILUglQzMlODNORy1pLjE3MjE4ODM5MTguNDk5NTUxNzU2MjI=&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vR2klRTElQkElQTV5LVYlRTElQkIlODctU2luaC1DYW8tQyVFMSVCQSVBNXAtU2hlZXBweS0xMi1DdSVFMSVCQiU5OW4tVCVFMSVCQSVCN25nLUclQzMlQjNpLVIlQzMlQkF0LU5oJUUxJUJCJThGLU0lRTElQkIlODFtLU0lRTElQkIlOEJuLVRpJUUxJUJCJTg3bi1MJUUxJUJCJUEzaS1DaG8tR2lhLSVDNCU5MCVDMyVBQ25oLUglQzMlQTBuZy1OZyVDMyVBMHktaS42NTc2NTg4My40NDg1NDEyODQxNw==&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="10.Giấy Vệ Sinh Cao Cấp Sheeppy 12 Cuộn Tặng Gói Rút Nhỏ Mềm Mịn Tiện Lợi Cho Gia Đình Hàng Ngày" loading="lazy">
-        </a>
-
-        <h3>10.Giấy Vệ Sinh Cao Cấp Sheeppy 12 Cuộn Tặng Gói Rút Nhỏ Mềm Mịn Tiện Lợi Cho Gia Đình Hàng Ngày</h3>
-        
-        <div class="price">
-            50,600đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vR2klRTElQkElQTV5LVYlRTElQkIlODctU2luaC1DYW8tQyVFMSVCQSVBNXAtU2hlZXBweS0xMi1DdSVFMSVCQiU5OW4tVCVFMSVCQSVCN25nLUclQzMlQjNpLVIlQzMlQkF0LU5oJUUxJUJCJThGLU0lRTElQkIlODFtLU0lRTElQkIlOEJuLVRpJUUxJUJCJTg3bi1MJUUxJUJCJUEzaS1DaG8tR2lhLSVDNCU5MCVDMyVBQ25oLUglQzMlQTBuZy1OZyVDMyVBMHktaS42NTc2NTg4My40NDg1NDEyODQxNw==&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ09NQk8tMy1MJUUxJUJCJTkwQy1HaSVFMSVCQSVBNXktViVFMSVCQiU4Ny1TaW5oLVByZXN0aWdlLTQtTCVFMSVCQiU5QnAtVGVtcG8tVGglQzYlQjAlQzYlQTFuZy1IaSVFMSVCQiU4N3UtJUM0JTkwJUUxJUJCJUE5Yy0oTCVFMSVCQiU5MWMtMTAtY3UlRTElQkIlOTluKS1pLjQ2NTE2MDA3MS4yMzU3NTg0MTk1Nw==&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="11.[COMBO 3 LỐC] Giấy Vệ Sinh Prestige 4 Lớp Tempo Thương Hiệu Đức (Lốc 10 cuộn)" loading="lazy">
-        </a>
-
-        <h3>11.[COMBO 3 LỐC] Giấy Vệ Sinh Prestige 4 Lớp Tempo Thương Hiệu Đức (Lốc 10 cuộn)</h3>
-        
-        <div class="price">
-            819,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQ09NQk8tMy1MJUUxJUJCJTkwQy1HaSVFMSVCQSVBNXktViVFMSVCQiU4Ny1TaW5oLVByZXN0aWdlLTQtTCVFMSVCQiU5QnAtVGVtcG8tVGglQzYlQjAlQzYlQTFuZy1IaSVFMSVCQiU4N3UtJUM0JTkwJUUxJUJCJUE5Yy0oTCVFMSVCQiU5MWMtMTAtY3UlRTElQkIlOTluKS1pLjQ2NTE2MDA3MS4yMzU3NTg0MTk1Nw==&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vMi1iJUUxJUJCJThCY2gtZ2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1YQU5ILVZJJUUxJUJCJTg2VC1jdSVFMSVCQiU5OW4tbmglRTElQkIlOEYtYyVDMyVCMy1sJUMzJUI1aS0ta2glQzMlQjRuZy1sJUMzJUI1aS0xNTAwR3ItSGFubmFoLVNleW8tc2klQzMlQUF1LWRhaS1tJUUxJUJCJTgxbS1tJUUxJUJCJThCbi1pLjEyMDM2OTA4OTguMjY3MDI5MzE4MDA=&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="12.2 bịch giấy vệ sinh XANH VIỆT cuộn nhỏ có lõi/ không lõi 1500Gr Hannah Seyo siêu dai mềm mịn" loading="lazy">
-        </a>
-
-        <h3>12.2 bịch giấy vệ sinh XANH VIỆT cuộn nhỏ có lõi/ không lõi 1500Gr Hannah Seyo siêu dai mềm mịn</h3>
-        
-        <div class="price">
-            198,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vMi1iJUUxJUJCJThCY2gtZ2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1YQU5ILVZJJUUxJUJCJTg2VC1jdSVFMSVCQiU5OW4tbmglRTElQkIlOEYtYyVDMyVCMy1sJUMzJUI1aS0ta2glQzMlQjRuZy1sJUMzJUI1aS0xNTAwR3ItSGFubmFoLVNleW8tc2klQzMlQUF1LWRhaS1tJUUxJUJCJTgxbS1tJUUxJUJCJThCbi1pLjEyMDM2OTA4OTguMjY3MDI5MzE4MDA=&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQiVFMSVCQiU4QUNILTUwLUNVJUUxJUJCJTk4Ti1HSSVFMSVCQSVBNFktViVFMSVCQiU4Ni1TSU5ILTEuNktHLUxPJUUxJUJBJUEwSS0lQzQlOTAlRTElQkElQjhQLWkuMTEzMjYzOTE3LjE0Njc0Mjk0NTIz&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="13.BỊCH 50 CUỘN GIẤY VỆ SINH 1.6KG LOẠI ĐẸP" loading="lazy">
-        </a>
-
-        <h3>13.BỊCH 50 CUỘN GIẤY VỆ SINH 1.6KG LOẠI ĐẸP</h3>
-        
-        <div class="price">
-            69,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vQiVFMSVCQiU4QUNILTUwLUNVJUUxJUJCJTk4Ti1HSSVFMSVCQSVBNFktViVFMSVCQiU4Ni1TSU5ILTEuNktHLUxPJUUxJUJBJUEwSS0lQzQlOTAlRTElQkElQjhQLWkuMTEzMjYzOTE3LjE0Njc0Mjk0NTIz&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vTCVFMSVCQiU5MWMtNi1jdSVFMSVCQiU5OW4tZ2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1Mb25nLU5oJUUxJUJBJUFEdC1raCVDMyVCNG5nLWwlQzMlQjVpLTQtbCVFMSVCQiU5QnAtaS4xNjYxMjQ0NzYuMjM2NzQ3NTYzNjY=&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="14.Lốc 6 cuộn giấy vệ sinh Long Nhật không lõi 4 lớp" loading="lazy">
-        </a>
-
-        <h3>14.Lốc 6 cuộn giấy vệ sinh Long Nhật không lõi 4 lớp</h3>
-        
-        <div class="price">
-            55,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vTCVFMSVCQiU5MWMtNi1jdSVFMSVCQiU5OW4tZ2klRTElQkElQTV5LXYlRTElQkIlODctc2luaC1Mb25nLU5oJUUxJUJBJUFEdC1raCVDMyVCNG5nLWwlQzMlQjVpLTQtbCVFMSVCQiU5QnAtaS4xNjYxMjQ0NzYuMjM2NzQ3NTYzNjY=&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-    <div class="product-item">
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vKEtpJUUxJUJCJTgzbS10cmEtayVDNCVBOS1xdSVDMyVBMC10JUUxJUJBJUI3bmctdHJvbmctJUM0JTkxJUM2JUExbi1oJUMzJUEwbmctbiVFMSVCQSVCRnUtYyVDMyVCMyktR2klRTElQkElQTV5LVYlRTElQkIlODctU2luaC1IJUMzJUEwLU4lRTElQkIlOTlpLVNpbGstS2glQzMlQjRuZy1MJUMzJUI1aS1DJUMzJUIzLUwlQzMlQjVpLTMtTCVFMSVCQiU5QnAtQ29tYm8tVGklRTElQkElQkZ0LUtpJUUxJUJCJTg3bS1pLjE0NzIwODcwOTkuMjY3NzYwNzI1MTk=&utm_source=vpptinh_web" target="_blank">
-            <img src="https://via.placeholder.com/300" alt="15.(Kiểm tra kĩ quà tặng trong đơn hàng nếu có) Giấy Vệ Sinh Hà Nội Silk Không Lõi Có Lõi 3 Lớp Combo Tiết Kiệm" loading="lazy">
-        </a>
-
-        <h3>15.(Kiểm tra kĩ quà tặng trong đơn hàng nếu có) Giấy Vệ Sinh Hà Nội Silk Không Lõi Có Lõi 3 Lớp Combo Tiết Kiệm</h3>
-        
-        <div class="price">
-            126,000đ
-        </div>
-        
-        <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc=aHR0cHM6Ly9zaG9wZWUudm4vKEtpJUUxJUJCJTgzbS10cmEtayVDNCVBOS1xdSVDMyVBMC10JUUxJUJBJUI3bmctdHJvbmctJUM0JTkxJUM2JUExbi1oJUMzJUEwbmctbiVFMSVCQSVCRnUtYyVDMyVCMyktR2klRTElQkElQTV5LVYlRTElQkIlODctU2luaC1IJUMzJUEwLU4lRTElQkIlOTlpLVNpbGstS2glQzMlQjRuZy1MJUMzJUI1aS1DJUMzJUIzLUwlQzMlQjVpLTMtTCVFMSVCQiU5QnAtQ29tYm8tVGklRTElQkElQkZ0LUtpJUUxJUJCJTg3bS1pLjE0NzIwODcwOTkuMjY3NzYwNzI1MTk=&utm_source=vpptinh_web" target="_blank" class="btn-buy">
-            Mua Ngay 🛒
-        </a>
-        
-    </div>
-    
-
-</div>
-
-
-    </main>
-
-    <footer style="text-align: center; padding: 2rem; color: #718096; font-size: 0.9rem;">
-        <p>&copy; 2026 VPPTinh.com - Tổng hợp giá tốt nhất từ Shopee & Lazada.</p>
-    </footer>
-</body>
-</html>
