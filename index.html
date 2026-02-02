@@ -1,18 +1,11 @@
-import json
-import os
 
-# Cấu hình
-DATA_FILE = 'products.json'
-OUTPUT_FILE = 'index.html'
-
-def load_products():
-    if not os.path.exists(DATA_FILE):
-        return []
-    with open(DATA_FILE, 'r', encoding='utf-8') as f:
-        return json.load(f)
-
-def generate_html(products):
-    css = """
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="referrer" content="no-referrer"> <title>VPP Tịnh - Bình An Trao Tay</title>
+        
     <style>
         :root {
             --primary-color: #d4a373;
@@ -154,18 +147,7 @@ def generate_html(products):
             h1 { font-size: 1.8em; }
         }
     </style>
-    """
-
-    # --- ĐÂY LÀ CHỖ QUAN TRỌNG NHẤT ---
-    # Thêm dòng meta referrer để Shopee không chặn ảnh
-    html_content = f"""
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="referrer" content="no-referrer"> <title>VPP Tịnh - Bình An Trao Tay</title>
-        {css}
+    
     </head>
     <body>
 
@@ -175,21 +157,7 @@ def generate_html(products):
         </header>
 
         <div class="product-grid">
-    """
-
-    for p in products:
-        html_content += f"""
-            <div class="product-card">
-                <img src="{p['image']}" alt="{p['name']}" class="product-image" loading="lazy">
-                <div class="product-info">
-                    <h3 class="product-title">{p['name']}</h3>
-                    <div class="product-price">{p['price']}</div>
-                    <a href="{p['link']}" class="btn-buy" target="_blank">Mua Ngay</a>
-                </div>
-            </div>
-        """
-
-    html_content += """
+    
         </div>
 
         <div class="floating-contact">
@@ -199,19 +167,4 @@ def generate_html(products):
 
     </body>
     </html>
-    """
     
-    return html_content
-
-def main():
-    print("🔨 Đang sửa lỗi ảnh và xây dựng web...")
-    products = load_products()
-    html = generate_html(products)
-    
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        f.write(html)
-    
-    print(f"✅ Xong! Đã tạo file {OUTPUT_FILE} mới.")
-
-if __name__ == "__main__":
-    main()
