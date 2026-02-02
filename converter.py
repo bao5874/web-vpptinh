@@ -1,30 +1,31 @@
-import urllib.parse
+import base64
 
-# ĐÂY LÀ LINK KIẾM TIỀN RIÊNG CỦA BẠN (Đừng để lộ cho người khác nhé)
-# Tôi đã cắt phần đuôi thừa, chỉ giữ lại phần khung sườn quan trọng nhất.
+# Link gốc chiến dịch của bạn
 ACCESSTRADE_BASE = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237"
 
 def make_money_link(shopee_link):
     """
-    Hàm này biến link Shopee thường -> Link Kiếm Tiền (Affiliate)
+    Hàm tạo link kiếm tiền chuẩn V6 (Dùng mã hóa Base64)
     """
     try:
-        # 1. Mã hóa link Shopee (Để máy tính hiểu được các ký tự đặc biệt)
-        encoded_url = urllib.parse.quote(shopee_link, safe='')
+        # BƯỚC 1: Mã hóa link Shopee sang dạng "Mật mã" (Base64)
+        # Accesstrade V6 yêu cầu bước này để bảo mật link
+        link_bytes = shopee_link.encode('utf-8')
+        base64_bytes = base64.b64encode(link_bytes)
+        base64_str = base64_bytes.decode('utf-8')
         
-        # 2. Ghép vào link của bạn
-        # Cấu trúc: [LINK_CỦA_BẠN] + ?url=[LINK_SHOPEE] + [NGUỒN_KHÁCH]
-        final_link = f"{ACCESSTRADE_BASE}?url={encoded_url}&utm_source=vpptinh_web"
+        # BƯỚC 2: Ghép vào link gốc
+        # Lưu ý: Dùng tham số 'url_enc' (Link đã mã hóa) thay vì 'url' thường
+        final_link = f"{ACCESSTRADE_BASE}?url_enc={base64_str}&utm_source=vpptinh_web"
         
         return final_link
         
     except Exception as e:
-        # Nếu lỗi thì trả về link gốc (Khách vẫn mua được, chỉ là mình không có tiền thôi)
         print(f"Lỗi tạo link: {e}")
         return shopee_link
 
-# Test thử luôn xem máy in tiền có chạy không
+# Test thử xem nó có ra một chuỗi ký tự loằng ngoằng không (Nếu có là đúng!)
 if __name__ == "__main__":
     link_thu = "https://shopee.vn/but-bi-thien-long"
-    print("Link kiếm tiền của bạn là:")
+    print("Link mã hóa của bạn:")
     print(make_money_link(link_thu))
