@@ -1,41 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="hero-banner" style="text-align: center; margin: 20px 0;">
-        <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1000&auto=format&fit=crop" 
-         alt="Banner khuyến mãi" 
-         style="width: 100%; max-width: 1200px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-    
-        <div style="margin-top: 20px;">
-            <h2 style="color: #ff9a9e;">✨ Góc Học Tập Xinh Xắn ✨</h2>
-            <p>Săn deal văn phòng phẩm cute giá rẻ mỗi ngày</p>
-        </div>
-    </div>
-    <div style="text-align: center; margin-bottom: 3rem;">
-        <h1 style="color: var(--primary-color);">Góc Tĩnh Tại</h1>
-        <p>Tuyển chọn những món đồ văn phòng phẩm giúp bạn tập trung và sáng tạo.</p>
-    </div>
 
-    <div class="product-grid">
-        {% for item in products %}
-        <div class="card">
-            <img src="{{ item.image_url or 'https://via.placeholder.com/300' }}" alt="{{ item.name }}" class="card-img" loading="lazy">
-            
-            <div class="card-body">
-                <h3 class="card-title">{{ item.name }}</h3>
-                <div class="price-tag">{{ "{:,.0f}".format(item.price) }}đ</div>
-                
-                <div class="btn-group">
-                    {% if item.shopee_link %}
-                    <a href="{{ item.shopee_link }}" target="_blank" class="btn btn-shopee">Shopee</a>
-                    {% endif %}
-                    
-                    {% if item.lazada_link %}
-                    <a href="{{ item.lazada_link }}" target="_blank" class="btn btn-lazada">Lazada</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+<div class="hero-banner">
+    <img src="https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?q=80&w=1000&auto=format&fit=crop" 
+         alt="Banner Góc Học Tập">
+    
+    <div style="margin-top: 15px;">
+        <h2 style="color: var(--primary-color); margin: 0;">✨ Thiên Đường Văn Phòng Phẩm ✨</h2>
+        <p style="color: #888;">Góc nhỏ xinh xắn - Cảm hứng học tập mỗi ngày</p>
     </div>
+</div>
+
+<div class="product-list">
+    
+    {% for product in products %}
+    <div class="product-item">
+        
+        <a href="{{ product.shopee_link }}" target="_blank">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy">
+        </a>
+
+        <h3>{{ product.name }}</h3>
+        
+        <div class="price">
+            {{ "{:,.0f}".format(product.price) }}đ
+        </div>
+        
+        <a href="{{ product.shopee_link }}" target="_blank" class="btn-buy">
+            Mua trên Shopee 🛒
+        </a>
+        
+    </div>
+    {% endfor %}
+
+</div>
+
 {% endblock %}
