@@ -1,21 +1,34 @@
 import json
 import os
+import shutil
 
-# --- CẤU HÌNH QUAN TRỌNG ---
-DATA_FILE = 'products.json'
-# Sửa đường dẫn để ghi đè đúng vào file bạn đang xem trong thư mục dist
-OUTPUT_FILE = 'dist/index.html' 
+def tim_kho_hang():
+    """Hàm này sẽ đi lùng sục khắp nơi để tìm file products.json"""
+    cac_cho_co_the_giau = [
+        'products.json',           # Tìm ở ngay bên ngoài
+        'data/products.json',      # Tìm trong thư mục data
+        'web-banhang/products.json' # Tìm kỹ hơn chút nữa
+    ]
+    
+    for duong_dan in cac_cho_co_the_giau:
+        if os.path.exists(duong_dan):
+            print(f"✅ ĐÃ TÌM THẤY KHO HÀNG TẠI: {duong_dan}")
+            return duong_dan
+            
+    return None
 
-def load_products():
-    if not os.path.exists(DATA_FILE):
+def load_products(path):
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            print(f"📊 Đã đọc được {len(data)} sản phẩm.")
+            return data
+    except Exception as e:
+        print(f"❌ File có lỗi, không đọc được: {e}")
         return []
-    with open(DATA_FILE, 'r', encoding='utf-8') as f:
-        return json.load(f)
 
 def generate_html(products):
-    # Đảm bảo thư mục dist tồn tại
-    os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-
+    # CSS và HTML giao diện (Giữ nguyên giao diện đẹp)
     css = """
     <style>
         :root { --primary-color: #d4a373; --bg-color: #fefae0; --text-color: #333; --card-bg: #fff; }
@@ -61,43 +74,65 @@ def generate_html(products):
         <div class="product-grid">
     """
 
+    count = 0
     for p in products:
-        # THÊM referrerpolicy VÀO THẺ IMG
+        name = p.get('name', p.get('title', 'Sản phẩm không tên'))
+        price = p.get('price', 'Liên hệ')
+        image = p.get('image', p.get('img', 'https://via.placeholder.com/150'))
+        link = p.get('link', p.get('url', '#'))
+        
         html_content += f"""
             <div class="product-card">
-                <img src="{p['image']}" referrerpolicy="no-referrer" alt="{p['name']}" class="product-image" loading="lazy">
+                <img src="{image}" referrerpolicy="no-referrer" alt="{name}" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">{p['name']}</h3>
-                    <div class="product-price">{p['price']}</div>
-                    <a href="{p['link']}" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">{name}</h3>
+                    <div class="product-price">{price}</div>
+                    <a href="{link}" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         """
+        count += 1
 
     html_content += """
         </div>
-
         <div class="floating-contact">
             <a href="https://zalo.me/0931736266" class="contact-btn zalo-btn" target="_blank">Z</a>
             <a href="tel:0931736266" class="contact-btn phone-btn">📞</a>
         </div>
-
     </body>
     </html>
     """
-    
-    return html_content
+    return html_content, count
 
 def main():
-    print("🔨 Đang xây dựng web (Ghi đè vào thư mục dist)...")
-    products = load_products()
-    html = generate_html(products)
+    print("🚀 BẮT ĐẦU XÂY DỰNG WEB...")
     
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+    # 1. Tìm kho hàng
+    file_kho = tim_kho_hang()
+    if not file_kho:
+        print("❌ LỖI TO: Vẫn không tìm thấy file products.json đâu cả!")
+        print("👉 GỢI Ý: Bạn hãy thử kéo file products.json ra thư mục ngoài cùng xem sao.")
+        return
+
+    # 2. Đọc dữ liệu
+    products = load_products(file_kho)
+    
+    # 3. Tạo nội dung web
+    html, count = generate_html(products)
+    
+    # 4. Ghi file ra 2 chỗ (Cho chắc ăn)
+    # Chỗ 1: Ngay thư mục gốc
+    with open('index.html', 'w', encoding='utf-8') as f:
         f.write(html)
     
-    print(f"✅ XONG! Đã cập nhật file: {OUTPUT_FILE}")
-    print("👉 Bạn hãy quay lại trình duyệt và tải lại trang (F5) ngay nhé!")
+    # Chỗ 2: Trong thư mục dist (Nếu có)
+    if os.path.exists('dist'):
+        with open('dist/index.html', 'w', encoding='utf-8') as f:
+            f.write(html)
+        print("✅ Đã lưu thêm một bản vào thư mục dist/index.html")
+    
+    print(f"🎉 THÀNH CÔNG! Đã đưa {count} sản phẩm lên web.")
+    print("👉 Hãy mở file index.html lên xem ngay nhé!")
 
 if __name__ == "__main__":
     main()
