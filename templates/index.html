@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="color: var(--primary-color);">Góc Tĩnh Tại</h1>
+        <p>Tuyển chọn những món đồ văn phòng phẩm giúp bạn tập trung và sáng tạo.</p>
+    </div>
+
+    <div class="product-grid">
+        {% for item in products %}
+        <div class="card">
+            <img src="{{ item.image_url or 'https://via.placeholder.com/300' }}" alt="{{ item.name }}" class="card-img" loading="lazy">
+            
+            <div class="card-body">
+                <h3 class="card-title">{{ item.name }}</h3>
+                <div class="price-tag">{{ "{:,.0f}".format(item.price) }}đ</div>
+                
+                <div class="btn-group">
+                    {% if item.shopee_link %}
+                    <a href="{{ item.shopee_link }}" target="_blank" class="btn btn-shopee">Shopee</a>
+                    {% endif %}
+                    
+                    {% if item.lazada_link %}
+                    <a href="{{ item.lazada_link }}" target="_blank" class="btn btn-lazada">Lazada</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
