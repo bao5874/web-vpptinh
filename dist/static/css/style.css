@@ -1,15 +1,15 @@
-/* --- 1. CẤU HÌNH MÀU SẮC (Bảng màu Cute) --- */
+/* --- 1. BẢNG MÀU CUTE (PASTEL) --- */
 :root {
     --primary-color: #ff9a9e;       /* Màu hồng chủ đạo */
     --primary-dark: #ff758c;        /* Màu hồng đậm (khi rê chuột) */
-    --bg-color: #fff9f0;            /* Màu nền kem nhạt */
+    --bg-color: #fff9f0;            /* Màu nền kem nhạt (thay vì trắng) */
     --card-bg: #ffffff;             /* Màu nền ô sản phẩm */
-    --text-color: #4a4a4a;          /* Màu chữ xám đậm */
-    --price-color: #ff4757;         /* Màu giá tiền đỏ nổi bật */
-    --shadow: 0 5px 15px rgba(255, 154, 158, 0.15); /* Bóng đổ hồng nhẹ */
+    --text-color: #555;             /* Màu chữ xám dịu mắt */
+    --price-color: #ff4757;         /* Màu giá tiền đỏ cam */
+    --shadow: 0 8px 20px rgba(255, 154, 158, 0.15); /* Bóng đổ màu hồng nhẹ */
 }
 
-/* --- 2. CẤU TRÚC CHUNG --- */
+/* --- 2. CẤU TRÚC CƠ BẢN --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
@@ -20,34 +20,35 @@ body {
 
 a { text-decoration: none; }
 
-/* --- 3. BANNER (HERO SECTION) --- */
+/* --- 3. BANNER (ẢNH BÌA TO) --- */
 .hero-banner {
     text-align: center;
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .hero-banner img {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1100px; /* Giới hạn chiều rộng banner */
     border-radius: 20px;
     box-shadow: var(--shadow);
     transition: transform 0.3s;
 }
 
 .hero-banner img:hover {
-    transform: scale(1.01); /* Hiệu ứng phóng to nhẹ banner */
+    transform: scale(1.01); /* Phóng to nhẹ khi rê chuột vào banner */
 }
 
 /* --- 4. LƯỚI SẢN PHẨM (QUAN TRỌNG NHẤT) --- */
+/* Đây là đoạn code sửa lỗi "xếp dài dài" thành "xếp lưới" */
 .product-list {
     display: grid;
-    /* Tự động chia cột: Mỗi cột tối thiểu 220px, tối đa full màn hình */
+    /* Tự động chia cột: Mỗi cột tối thiểu 220px, tự co giãn */
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 25px; /* Khoảng cách giữa các ô */
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 0 auto; /* Căn giữa màn hình */
+    padding: 0 20px;
 }
 
 /* --- 5. Ô SẢN PHẨM (CARD) --- */
@@ -56,27 +57,29 @@ a { text-decoration: none; }
     border-radius: 15px;
     padding: 15px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid transparent; /* Viền trong suốt */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.03);
     transition: all 0.3s ease;
+    
+    /* Giúp các thành phần bên trong (ảnh, tên, nút) căn đều nhau */
     display: flex;
-    flex-direction: column; /* Xếp các phần tử dọc trong 1 ô */
+    flex-direction: column; 
     justify-content: space-between;
 }
 
 /* Hiệu ứng khi rê chuột vào ô sản phẩm */
 .product-item:hover {
-    transform: translateY(-7px); /* Nổi lên trên */
-    box-shadow: 0 10px 25px rgba(255, 154, 158, 0.3);
-    border-color: var(--primary-color);
+    transform: translateY(-5px); /* Nổi lên trên */
+    box-shadow: 0 15px 30px rgba(255, 154, 158, 0.3);
+    border-color: var(--primary-color); /* Hiện viền hồng */
 }
 
 /* Ảnh sản phẩm */
 .product-item img {
     width: 100%;
-    height: 200px; /* Cố định chiều cao để hàng lối thẳng tắp */
+    height: 200px; /* Cố định chiều cao ảnh để hàng lối thẳng tắp */
     object-fit: contain; /* Ảnh không bị méo */
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border-radius: 10px;
 }
 
@@ -84,9 +87,9 @@ a { text-decoration: none; }
 .product-item h3 {
     font-size: 15px;
     color: var(--text-color);
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     line-height: 1.4;
-    height: 42px; /* Cố định chiều cao tên (2 dòng) */
+    height: 42px; /* Giới hạn chiều cao tên (2 dòng) */
     overflow: hidden; /* Dài quá thì ẩn đi */
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -101,7 +104,7 @@ a { text-decoration: none; }
     margin-bottom: 15px;
 }
 
-/* Nút mua hàng */
+/* Nút Mua Hàng */
 .btn-buy {
     background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
     color: white;
@@ -110,19 +113,20 @@ a { text-decoration: none; }
     font-weight: bold;
     display: block;
     width: 100%;
-    transition: opacity 0.3s;
     box-shadow: 0 4px 10px rgba(255, 117, 140, 0.4);
+    transition: all 0.3s;
 }
 
 .btn-buy:hover {
     opacity: 0.9;
     box-shadow: 0 6px 15px rgba(255, 117, 140, 0.6);
+    transform: scale(1.02);
 }
 
-/* --- 6. GIAO DIỆN ĐIỆN THOẠI (Mobile) --- */
+/* --- 6. MOBILE (ĐIỆN THOẠI) --- */
 @media (max-width: 600px) {
     .product-list {
-        grid-template-columns: repeat(2, 1fr); /* Trên đt hiện 2 cột */
+        grid-template-columns: repeat(2, 1fr); /* Điện thoại hiện 2 cột */
         gap: 10px;
         padding: 10px;
     }
