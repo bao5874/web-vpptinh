@@ -14,67 +14,58 @@ ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&url_enc="
 
-# 1. TỪ KHÓA DUYỆT (Bắt buộc phải là CỤM TỪ RÕ RÀNG)
-# Tuyệt đối không để từ đơn như "bút", "giấy", "kẹp" đứng một mình
+# CHỈ LẤY NẾU TÊN SẢN PHẨM CHỨA ĐÚNG CỤM TỪ NÀY
+# (Lưu ý: Phải viết chữ thường)
 TU_KHOA_DUYET = [
-    # Nhóm Bút
-    "bút bi", "bút chì", "bút gel", "bút nước", "bút lông", "bút dạ", "bút xóa", "bút nhớ", "bút highlight", "ngòi bút", "hộp bút",
-    # Nhóm Giấy/Vở
-    "giấy a4", "giấy in", "giấy note", "giấy nhớ", "giấy than", "giấy bìa", "vở kẻ ngang", "vở ô ly", "vở học sinh", "sổ tay", "sổ lò xo", "sổ da",
-    # Nhóm File/Kẹp
-    "file còng", "file lá", "file đục lỗ", "túi clear bag", "bìa hồ sơ", "bìa trình ký", "bìa nút", "kẹp giấy", "kẹp bướm", "kẹp tài liệu", "ghim bấm", "ghim cài",
-    # Nhóm Dụng cụ
-    "băng keo văn phòng", "băng dính trong", "hồ dán giấy", "keo dán giấy", "thước kẻ", "thước eke", "compa", "gọt chì", "chuốt chì", "tẩy chì", "gôm tẩy",
-    # Nhóm Máy/Khác
-    "máy tính bỏ túi", "máy tính casio", "máy tính vinacal", "khay đựng tài liệu", "hộp cắm bút", "bảng tên", "dây đeo thẻ"
+    "bút bi", "bút chì", "bút gel", "bút nước", "bút ký", "bút xóa", "bút nhớ", "bút dạ", "ngòi bút",
+    "giấy a4", "giấy in", "giấy photo", "giấy note", "giấy nhớ", "giấy bìa", "giấy than",
+    "vở ô ly", "vở kẻ ngang", "vở học sinh", "vở ghi",
+    "sổ tay", "sổ da", "sổ lò xo", "sổ ghi chép",
+    "file còng", "file lá", "túi clear bag", "kẹp giấy", "kẹp bướm", "ghim bấm", "dập ghim",
+    "băng dính văn phòng", "băng keo trong", "keo dán giấy", "hồ dán",
+    "thước kẻ", "compa", "ê ke", "bộ thước",
+    "máy tính bỏ túi", "máy tính casio", "máy tính vinacal",
+    "bảng tên", "dây đeo thẻ", "khay đựng tài liệu", "hộp cắm bút"
 ]
 
-# 2. TỪ KHÓA CẤM (BLACKLIST) - Gặp là diệt
+# TỪ KHÓA CẤM (VẪN GIỮ ĐỂ CHẶN RÁC)
 TU_KHOA_CAM = [
-    # Đồ ăn (Diệt bánh sandwich, kẹo, mắm...)
-    "bánh", "kẹo", "ăn vặt", "thực phẩm", "mắm", "muối", "gia vị", "đồ ăn", "nấu", "bếp", "nướng", "chiên", "sữa", "trà", "cà phê",
-    # Xe cộ (Diệt phụ tùng Honda, Yamaha...)
-    "xe máy", "ô tô", "honda", "yamaha", "phụ tùng", "lốp", "nhớt", "gác chân", "pô", "đèn xe", "còi", "xi nhan", "baga", "tay thắng",
-    # Đồ chơi (Diệt siêu nhân, robot...)
-    "đồ chơi", "siêu nhân", "lắp ráp", "lego", "robot", "búp bê", "thú bông", "game",
-    # Thời trang/Mỹ phẩm (Diệt kẹp tóc, quần áo...)
-    "tóc", "dầu gội", "sữa tắm", "kem dưỡng", "son", "phấn", "áo", "quần", "váy", "giày", "dép", "túi xách", "thời trang", "trang sức",
-    # Khác
-    "vệ sinh", "tã", "bỉm", "khăn ướt", "giấy vệ sinh"
+    "bánh", "kẹo", "đồ ăn", "thực phẩm", "xe", "honda", "yamaha", "phụ tùng", 
+    "áo", "quần", "váy", "giày", "dép", "túi xách", "thời trang",
+    "tóc", "son", "phấn", "kem", "dưỡng", "mỹ phẩm", "nước hoa",
+    "đồ chơi", "siêu nhân", "lego", "robot", "búp bê",
+    "ốp lưng", "cường lực", "tai nghe", "sạc", "cáp", # Chặn phụ kiện điện thoại
+    "vệ sinh", "tắm", "gội", "giặt", "bếp", "nồi", "chảo"
 ]
 
 def check_hang_chuan(row):
+    # Chuyển tên về chữ thường để so sánh
     ten_sp = row.get('name', '').lower()
-    danh_muc = row.get('category', '').lower()
     
-    # 1. BƯỚC LOẠI TRỪ (QUAN TRỌNG NHẤT)
-    for tu_cam in TU_KHOA_CAM:
-        if tu_cam in ten_sp:
-            return False # Có từ cấm -> Vứt
-            
-    # 2. LOẠI HÀNG GIÁ RẺ BÈO (Thường là rác phụ kiện)
+    # 1. KIỂM TRA GIÁ (Lọc giá ảo < 3k)
     try:
         gia = float(row.get('price', 0))
-        if gia < 3000: return False # Dưới 3k vứt
+        if gia < 3000: return False 
     except:
         return False
 
-    if "hết hàng" in ten_sp: return False
+    # 2. BLACKLIST (Thấy từ cấm là bỏ ngay)
+    for tu_cam in TU_KHOA_CAM:
+        if tu_cam in ten_sp:
+            return False
 
-    # 3. BƯỚC DUYỆT (Phải khớp chính xác CỤM TỪ)
-    
-    # Ưu tiên 1: Nếu danh mục chuẩn xác
-    if "văn phòng phẩm" in danh_muc or "thiết bị văn phòng" in danh_muc or "dụng cụ học sinh" in danh_muc:
-        # Vẫn phải check lại tên để tránh "kẹp tóc" lọt vào danh mục VPP (Shopee hay xếp sai)
-        if "tóc" in ten_sp or "xe" in ten_sp: return False
-        return True
-
-    # Ưu tiên 2: Soi tên sản phẩm với danh sách DUYỆT (từ khóa kép)
+    # 3. WHITELIST (Bắt buộc phải chứa cụm từ chính xác)
+    # Ví dụ: "Bút" thì không lấy, nhưng "Bút bi" thì lấy.
+    tim_thay = False
     for tu_khoa in TU_KHOA_DUYET:
         if tu_khoa in ten_sp:
-            return True
+            tim_thay = True
+            break
+            
+    if not tim_thay:
+        return False # Không chứa từ khóa chuẩn -> Bỏ
 
-    return False
+    return True
 
 def tao_link_kiem_tien(link_goc):
     if not link_goc: return "#"
@@ -151,7 +142,7 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG CHẠY CHẾ ĐỘ 'BỘ LỌC QUÂN ĐỘI'...")
+    print("🚀 ĐANG CHẠY CHẾ ĐỘ 'BẮN TỈA' (Strict Mode)...")
     
     try:
         print("⏳ Đang tải dữ liệu...")
@@ -162,14 +153,22 @@ def chay_ngay_di():
         f = io.StringIO(r.text)
         reader = csv.DictReader(f)
         
+        # IN RA TÊN CỘT ĐỂ KIỂM TRA (DEBUG)
+        print(f"🔍 Danh sách cột trong file: {reader.fieldnames}")
+        
         san_pham_list = []
         count = 0
         tong_so = 0
         
-        print("⚙️ Đang lọc cực gắt (Chỉ lấy Từ Khóa Kép)...")
+        print("⚙️ Đang lọc kỹ... (Có thể mất 1-2 phút vì quét rất nhiều)")
         
         for row in reader:
             tong_so += 1
+            
+            # Chỉ in ra 5 món ĐẦU TIÊN bị loại để kiểm tra (Debug)
+            if tong_so <= 5:
+                print(f"   [Kiểm tra dòng {tong_so}]: {row.get('name', 'No Name')[:30]}... -> {'LẤY' if check_hang_chuan(row) else 'LOẠI'}")
+
             if check_hang_chuan(row):
                 link_goc = row.get('url', '')
                 if link_goc:
@@ -180,9 +179,17 @@ def chay_ngay_di():
                         "link": tao_link_kiem_tien(link_goc)
                     })
                     count += 1
+            
+            # QUAN TRỌNG: Không dừng lại ở 60 dòng, mà quét đến khi tìm đủ 60 món NGON
             if count >= 60: break 
+            
+            # Giới hạn quét tối đa 20.000 dòng để tránh treo máy nếu không tìm thấy gì
+            if tong_so > 20000: 
+                print("⚠️ Đã quét 20.000 dòng mà chưa đủ 60 món. Dừng lại.")
+                break
 
-        print(f"📊 Đã quét {tong_so} món. Lấy được {len(san_pham_list)} món CHUẨN.")
+        print(f"\n📊 Đã quét tổng cộng: {tong_so} sản phẩm.")
+        print(f"✅ Tìm được: {len(san_pham_list)} sản phẩm CHUẨN.")
 
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(san_pham_list, f, ensure_ascii=False, indent=4)
@@ -193,9 +200,9 @@ def chay_ngay_di():
             
         print("☁️ Đang đẩy lên mạng...")
         os.system("git add .")
-        os.system('git commit -m "Loc bang tu khoa kep"')
+        os.system('git commit -m "Update che do ban tia"')
         os.system("git push")
-        print("🎉 XONG! Vào kiểm tra lại xem còn sót tên giặc nào không!")
+        print("🎉 XONG! Bạn kiểm tra web xem còn rác không nhé!")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
