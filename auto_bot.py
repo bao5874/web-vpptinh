@@ -1,35 +1,43 @@
-import schedule
-import time
 import os
 import datetime
+import time
 
-def cong_viec_buoi_sang():
-    print(f"⏰ RENG RENG! Bây giờ là {datetime.datetime.now()}. Bắt đầu làm việc!")
+def kich_hoat_he_thong():
+    thoi_gian = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"🚀 [KÍCH HOẠT] Bắt đầu lúc: {thoi_gian}")
     
-    # 1. Chạy Bot đi săn hàng và tạo link tiền
-    print("1️⃣  Đang đi săn hàng mới...")
-    os.system("python spider_hunt.py")
+    # BƯỚC 1: GỌI FINAL BOSS (Làm tất cả: Tải CSV, Lọc, Gắn link tiền, Tạo HTML)
+    # Lưu ý: Không cần gọi build.py nữa vì final_boss làm luôn rồi
+    print("1️⃣  Đang khởi động 'Sếp Tổng' (Final Boss)...")
     
-    # 2. Xây lại giao diện web
-    print("2️⃣  Đang xây lại Web...")
-    os.system("python build.py")
+    # Lệnh os.system trả về 0 nếu thành công, khác 0 nếu lỗi
+    ket_qua = os.system("python final_boss.py")
     
-    # 3. Đẩy lên mạng (Cloudflare)
-    print("3️⃣  Đang đẩy lên mạng...")
-    os.system("git add .")
-    os.system('git commit -m "Tu dong cap nhat luc 5h sang"')
-    os.system("git push")
-    
-    print("✅ HOÀN TẤT! Web đã mới toanh. Giờ tôi đi ngủ tiếp đây.")
+    if ket_qua != 0:
+        print("❌ CẢNH BÁO: Final Boss gặp lỗi hoặc không tìm thấy file!")
+        print("👉 Hãy kiểm tra xem file 'final_boss.py' có nằm cùng thư mục không.")
+        # Dừng lại, không đẩy code lỗi lên mạng
+        return 
 
-# --- CẤU HÌNH THỜI GIAN ---
-# Đặt giờ chạy là 05:00 sáng mỗi ngày
-schedule.every().day.at("05:00").do(cong_viec_buoi_sang)
+    # BƯỚC 2: ĐẨY LÊN MẠNG (Chỉ chạy khi bước 1 thành công)
+    print("2️⃣  Dữ liệu ngon lành. Đang đẩy lên Github...")
+    try:
+        os.system("git add .")
+        # Ghi chú thời gian cập nhật vào commit để dễ theo dõi
+        os.system(f'git commit -m "Auto Update: {thoi_gian}"')
+        os.system("git push")
+        print("✅ PUSH THÀNH CÔNG!")
+    except Exception as e:
+        print(f"⚠️ Lỗi khi Push: {e}")
+    
+    print("-" * 30)
+    print(f"🎉 HOÀN TẤT TOÀN BỘ LÚC: {datetime.datetime.now()}")
+    print("Web vpptinh.com đã được làm mới. Cửa sổ này sẽ tự đóng sau 5 giây.")
+    
+    # Chờ 5 giây cho bạn kịp đọc thông báo rồi mới thoát
+    time.sleep(5)
 
-print("🤖 BOT ĐANG CHẠY NGẦM... (Đừng tắt cửa sổ này nhé)")
-print("Hẹn gặp lại vào 5:00 sáng mai!")
-
-# Vòng lặp vô tận để chờ đến giờ
-while True:
-    schedule.run_pending()
-    time.sleep(60) # Cứ 1 phút kiểm tra đồng hồ 1 lần
+# --- PHẦN CHÍNH ---
+# Khi file này được gọi, nó chạy hàm trên ngay lập tức
+if __name__ == "__main__":
+    kich_hoat_he_thong()

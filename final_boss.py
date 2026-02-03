@@ -4,36 +4,58 @@ import json
 import io
 import os
 import re
-import base64 # Thư viện "Mật mã hóa"
+import base64 
 
 # --- CẤU HÌNH ---
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
 
-# ID CỦA BẠN (GIỮ NGUYÊN)
+# ID CỦA BẠN
 ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
-
-# Link nền (Lần này dùng url_enc thay vì url)
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&url_enc="
 
-TU_KHOA_VPP = ["bút", "giấy", "vở", "sổ", "file", "bìa", "kẹp", "ghim", "băng dính", "thước", "mực", "kéo", "hồ dán", "đế cắm", "khay", "văn phòng", "học sinh"]
+# 1. DANH SÁCH DUYỆT (Phải có từ này mới lấy)
+TU_KHOA_VPP = [
+    "bút", "giấy a4", "giấy in", "giấy note", "vở", "sổ", "file", "bìa", 
+    "kẹp giấy", "kẹp bướm", "ghim", "băng dính", "thước", "mực bút", "mực in", 
+    "kéo văn phòng", "hồ dán", "keo dán", "đế cắm", "khay đựng", "máy tính bỏ túi",
+    "văn phòng", "học sinh", "balo đi học", "cặp sách", "bút chì", "tẩy", "gọt chì"
+]
+
+# 2. DANH SÁCH CẤM (Thấy từ này là vứt ngay) - CHỐNG HÀNG RÁC
+TU_KHOA_CAM = [
+    "vệ sinh", "ăn", "thấm dầu", "nướng", "bạc", # Chặn giấy vệ sinh, giấy ăn
+    "khô", "rim", "tẩm", "nước mắm", "đông lạnh", # Chặn mực khô, đồ ăn
+    "tóc", "ngực", "nách", "mặt", "dưỡng", "serum", # Chặn kẹp tóc, mỹ phẩm
+    "áo", "quần", "váy", "giày", "dép", "thời trang", # Chặn quần áo
+    "bếp", "nồi", "chảo", "dao", "thớt", # Chặn đồ gia dụng
+    "đồ chơi", "trẻ em", "sơ sinh", "bỉm" # Chặn đồ mẹ bé không liên quan
+]
+
+def bo_loc_thong_minh(ten_sp):
+    ten_sp = ten_sp.lower()
+    
+    # BƯỚC 1: KIỂM TRA TỪ CẤM (Blacklist)
+    for tu_cam in TU_KHOA_CAM:
+        if tu_cam in ten_sp:
+            return False # Có từ cấm -> Loại ngay
+            
+    # BƯỚC 2: KIỂM TRA TỪ KHÓA VPP (Whitelist)
+    for tu_khoa in TU_KHOA_VPP:
+        if tu_khoa in ten_sp:
+            return True # Sạch sẽ -> Lấy
+            
+    return False
 
 def tao_link_kiem_tien(link_goc):
-    """Biến link thường thành link 'Mật mã' (Base64) để không bị lỗi 404"""
     if not link_goc: return "#"
-    
     try:
-        # 1. Chuyển link thành dạng bytes
         link_bytes = link_goc.strip().encode("utf-8")
-        # 2. Mã hóa Base64 (Biến nó thành chuỗi loằng ngoằng aHR0cHM...)
-        base64_bytes = base64.b64encode(link_bytes)
-        base64_str = base64_bytes.decode("utf-8")
-        
-        # 3. Ghép vào link nền
+        base64_str = base64.b64encode(link_bytes).decode("utf-8")
         return f"{BASE_AFF_URL}{base64_str}"
     except:
-        return link_goc # Nếu lỗi thì trả về link gốc (dự phòng)
+        return link_goc 
 
 def xuly_gia(gia_raw):
     try:
@@ -103,22 +125,20 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG KHỞI ĐỘNG CHẾ ĐỘ BASE64 (FIX 404)...")
+    print("🚀 ĐANG KHỞI ĐỘNG HỆ THỐNG VỚI BỘ LỌC THÔNG MINH...")
     
     try:
         print("⏳ Đang tải dữ liệu gốc...")
         r = requests.get(LINK_CSV)
         r.encoding = 'utf-8'
-        if r.status_code != 200:
-            print("❌ Lỗi mạng!")
-            return
+        if r.status_code != 200: return
             
         f = io.StringIO(r.text)
         reader = csv.DictReader(f)
         
         san_pham_list = []
         count = 0
-        print("⚙️ Đang mã hóa link kiếm tiền...")
+        print("⚙️ Đang lọc VPP (Đã bật chế độ chặn hàng rác)...")
         
         for row in reader:
             ten = row.get('name', '')
@@ -126,16 +146,9 @@ def chay_ngay_di():
             anh = row.get('image', '')
             gia = row.get('price', '0')
             
-            is_vpp = False
-            for k in TU_KHOA_VPP:
-                if k in ten.lower():
-                    is_vpp = True
-                    break
-            
-            if is_vpp and ten and link_goc:
-                # Tạo link chuẩn Base64
+            # --- SỬ DỤNG BỘ LỌC THÔNG MINH ---
+            if bo_loc_thong_minh(ten) and link_goc:
                 aff_link = tao_link_kiem_tien(link_goc)
-                
                 san_pham_list.append({
                     "name": ten,
                     "price": xuly_gia(gia),
@@ -153,8 +166,13 @@ def chay_ngay_di():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(html_content)
             
-        print(f"✅ ĐÃ MÃ HÓA XONG! {len(san_pham_list)} link.")
-        print("👉 Đẩy lên mạng ngay đi, lần này giống hệt link mẫu rồi!")
+        print(f"✅ ĐÃ LỌC XONG! Lấy được {len(san_pham_list)} sản phẩm chuẩn VPP.")
+        
+        # Tự động đẩy lên mạng
+        os.system("git add .")
+        os.system('git commit -m "Update bo loc thong minh"')
+        os.system("git push")
+        print("🎉 Đã đẩy Web mới lên mạng!")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
