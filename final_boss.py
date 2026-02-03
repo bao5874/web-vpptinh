@@ -4,30 +4,36 @@ import json
 import io
 import os
 import re
-import urllib.parse 
+import base64 # Thư viện "Mật mã hóa"
 
 # --- CẤU HÌNH ---
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
 
-# ID CỦA BẠN (ĐÃ KIỂM TRA: CHUẨN)
+# ID CỦA BẠN (GIỮ NGUYÊN)
 ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
 
-# Link nền tạo Deep Link
-BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?url="
+# Link nền (Lần này dùng url_enc thay vì url)
+BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&url_enc="
 
 TU_KHOA_VPP = ["bút", "giấy", "vở", "sổ", "file", "bìa", "kẹp", "ghim", "băng dính", "thước", "mực", "kéo", "hồ dán", "đế cắm", "khay", "văn phòng", "học sinh"]
 
 def tao_link_kiem_tien(link_goc):
-    """Biến link thường thành link Affiliate (Phiên bản Fix Lỗi 404)"""
+    """Biến link thường thành link 'Mật mã' (Base64) để không bị lỗi 404"""
     if not link_goc: return "#"
     
-    # BƯỚC SỬA LỖI QUAN TRỌNG:
-    # safe="" nghĩa là ép nó mã hóa cả dấu / thành %2F để Accesstrade không bị nhầm
-    link_encoded = urllib.parse.quote(link_goc.strip(), safe="")
-    
-    return f"{BASE_AFF_URL}{link_encoded}"
+    try:
+        # 1. Chuyển link thành dạng bytes
+        link_bytes = link_goc.strip().encode("utf-8")
+        # 2. Mã hóa Base64 (Biến nó thành chuỗi loằng ngoằng aHR0cHM...)
+        base64_bytes = base64.b64encode(link_bytes)
+        base64_str = base64_bytes.decode("utf-8")
+        
+        # 3. Ghép vào link nền
+        return f"{BASE_AFF_URL}{base64_str}"
+    except:
+        return link_goc # Nếu lỗi thì trả về link gốc (dự phòng)
 
 def xuly_gia(gia_raw):
     try:
@@ -97,14 +103,14 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG KHỞI ĐỘNG HỆ THỐNG FIX LỖI 404...")
+    print("🚀 ĐANG KHỞI ĐỘNG CHẾ ĐỘ BASE64 (FIX 404)...")
     
     try:
-        print("⏳ Đang tải dữ liệu gốc từ Accesstrade...")
+        print("⏳ Đang tải dữ liệu gốc...")
         r = requests.get(LINK_CSV)
         r.encoding = 'utf-8'
         if r.status_code != 200:
-            print("❌ Lỗi mạng! Không tải được file.")
+            print("❌ Lỗi mạng!")
             return
             
         f = io.StringIO(r.text)
@@ -112,7 +118,7 @@ def chay_ngay_di():
         
         san_pham_list = []
         count = 0
-        print("⚙️ Đang lọc VPP và gắn mã Affiliate (Chuẩn hóa URL)...")
+        print("⚙️ Đang mã hóa link kiếm tiền...")
         
         for row in reader:
             ten = row.get('name', '')
@@ -127,7 +133,7 @@ def chay_ngay_di():
                     break
             
             if is_vpp and ten and link_goc:
-                # Tạo link chuẩn không bị lỗi 404
+                # Tạo link chuẩn Base64
                 aff_link = tao_link_kiem_tien(link_goc)
                 
                 san_pham_list.append({
@@ -147,8 +153,8 @@ def chay_ngay_di():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(html_content)
             
-        print(f"✅ ĐÃ SỬA XONG! {len(san_pham_list)} link đã được mã hóa lại.")
-        print("👉 Giờ bạn hãy đẩy lên mạng và thử bấm lại xem!")
+        print(f"✅ ĐÃ MÃ HÓA XONG! {len(san_pham_list)} link.")
+        print("👉 Đẩy lên mạng ngay đi, lần này giống hệt link mẫu rồi!")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
