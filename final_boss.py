@@ -9,7 +9,8 @@ import time
 import webbrowser 
 
 # --- CẤU HÌNH ---
-# Dùng link logo online (Icon văn phòng phẩm cực đẹp) - ĐẢM BẢO KHÔNG LỖI
+# Dùng wooden logo SVG (Mã hóa base64)
+WOODEN_LOGO = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9Indvb2RHcmFkIiBjeD0iNDAlIiBjeT0iNDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZDRhNTc0O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iNTAlIiBzdHlsZT0ic3RvcC1jb2xvcjojYTg4MjVhO3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzdhNWU0MjtzdG9wLW9wYWNpdHk6MSIgLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSIyNCIgZmlsbD0idXJsKCN3b29kR3JhZCkiIHN0cm9rZT0iIzVjM2QxYSIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjEwIiB5MT0iMTUiIHgyPSI0MCIgeTI9IjE4IiBzdHJva2U9IiM2YjUzNDAiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjYiLz48bGluZSB4MT0iOCIgeTE9IjI1IiB4Mj0iNDIiIHkyPSIyNyIgc3Ryb2tlPSIjNmI1MzQwIiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC42Ii8+PGxpbmUgeDE9IjEyIiB5MT0iMzUiIHgyPSIzOCIgeTI9IjMzIiBzdHJva2U9IiM2YjUzNDAiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjYiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNSwgMTgpIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMyIgaGVpZ2h0PSIxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgcng9IjEuNSIvPjxjaXJjbGUgY3g9IjEuNSIgY3k9IjEzIiByPSIxIiBmaWxsPSIjZmZmIi8+PC9nPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIzLCAxOCkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI1IiBoZWlnaHQ9IjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIiByeD0iMC41Ii8+PGxpbmUgeDE9IjEiIHkxPSIyIiB4Mj0iNCIgeTI9IjIiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48bGluZSB4MT0iMSIgeTE9IjQiIHgyPSI0IiB5Mj0iNCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiwgMzIpIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAiIGhlaWdodD0iMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEiIHJ4PSIwLjUiLz48bGluZSB4MT0iMiIgeTE9Ii0wLjUiIHgyPSIyIiB5Mj0iMi41IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMC41Ii8+PGxpbmUgeDE9IjUiIHkxPSItMC41IiB4Mj0iNSIgeTI9IjIuNSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjAuNSIvPjxsaW5lIHgxPSI4IiB5MT0iLTAuNSIgeDI9IjgiIHkyPSIyLjUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48L2c+PC9zdmc+"
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
 
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
@@ -74,7 +75,7 @@ def tao_web_html(products):
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>VPP Tịnh - Văn Phòng Phẩm</title>
-        <link rel="icon" href="{LOGO_URL}">
+        <link rel="icon" href="{WOODEN_LOGO}">
         <style>
             /* QUAY VỀ MÀU VÀNG KEM THÂN THIỆN */
             :root {{ --primary: #008080; --bg: #fdfcdc; }}
@@ -102,7 +103,7 @@ def tao_web_html(products):
     </head>
     <body>
         <div class="header">
-            <img src="{LOGO_URL}" alt="Logo" class="logo-img">
+            <img src="{WOODEN_LOGO}" alt="Logo" class="logo-img">
             <h1>VPP TỊNH</h1>
             <p class="slogan">🌿 Bình An Trao Tay - Cập nhật lúc {v} 🌿</p>
         </div>
@@ -141,13 +142,14 @@ def chay_ngay_di():
             ten = row.get('name', '').lower()
             stock = str(row.get('stock', '1')).lower().strip()
             
-            # 0. KIỂM TRA HẾT HÀNG - stock field thường trống, kiểm tra qua tên sản phẩm
+            # 0. KIỂM TRA HẾT HÀNG - LOẠI BỎ AGGRESSIVELY
             # Các từ khóa chỉ sản phẩm không còn bán
             out_of_stock_keywords = [
                 'hết hàng', 'không còn', 'bỏ mẫu', 'liên hệ', 'sold out', 'off stock', 
                 'ngừng bán', 'kết thúc', 'hết lô', 'tạm hết', 'tạm dừng', 'không bán',
                 'ngừng kinh doanh', 'order trước', 'đặt hàng', 'liên hệ shop',
-                'không available', 'unavailable', 'hết', 'out'
+                'không available', 'unavailable', 'hết', 'out', 'contact', 'inquire',
+                'cũ', 'used', 'vintage', 'thanh lý', 'xả kho'
             ]
             
             # Nếu tên sản phẩm chứa từ khóa hết hàng, bỏ qua
@@ -159,6 +161,13 @@ def chay_ngay_di():
             if stock and stock != '1':
                 # Nếu stock = 0 hoặc chứa "out", "hết", "sold"
                 if any(x in stock for x in ['0', 'hết', 'out', 'sold', 'không', '-']):
+                    excluded_count += 1
+                    continue
+            
+            # NGĂN CHẶN các sản phẩm combo/set lạ mà có thể hết hàng bất ngờ
+            if 'combo' in ten or 'set' in ten:
+                # Chỉ chấp nhận set/combo có từ khóa VPP rõ ràng và không quá nhiều item
+                if not any(x in ten for x in ['bút', 'giấy', 'vở']):
                     excluded_count += 1
                     continue
             
@@ -215,7 +224,9 @@ def chay_ngay_di():
         
         print(f"[EXCLUDED] Loai bo {excluded_count} san pham (het hang hoac khong phai VPP)")
 
-        final_list = clean_products[:100]
+        # CHỈ LẤY TOP 15 SẢN PHẨM ĐẦU TIÊN (CHẤT LƯỢNG HƠNLƯỢNG)
+        # Những sản phẩm đầu tiên thường là bestseller và ít bị hết hàng
+        final_list = clean_products[:15]
         print(f"[SUCCESS] Tim thay {len(final_list)} san pham hop le (da loai bo {excluded_count} san pham khong phu hop).")
 
         # LƯU FILE
