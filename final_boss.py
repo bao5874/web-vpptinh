@@ -141,15 +141,26 @@ def chay_ngay_di():
             ten = row.get('name', '').lower()
             stock = str(row.get('stock', '1')).lower().strip()
             
-            # 0. KIỂM TRA HẾT HÀNG - check multiple fields and keywords
-            if any(x in stock for x in ['0', 'hết', 'out', 'không có', 'sold out', 'off stock']):
+            # 0. KIỂM TRA HẾT HÀNG - stock field thường trống, kiểm tra qua tên sản phẩm
+            # Các từ khóa chỉ sản phẩm không còn bán
+            out_of_stock_keywords = [
+                'hết hàng', 'không còn', 'bỏ mẫu', 'liên hệ', 'sold out', 'off stock', 
+                'ngừng bán', 'kết thúc', 'hết lô', 'tạm hết', 'tạm dừng', 'không bán',
+                'ngừng kinh doanh', 'order trước', 'đặt hàng', 'liên hệ shop',
+                'không available', 'unavailable'
+            ]
+            
+            # Nếu tên sản phẩm chứa từ khóa hết hàng, bỏ qua
+            if any(x in ten for x in out_of_stock_keywords):
                 excluded_count += 1
                 continue
             
-            # Also check if product name contains out-of-stock indicators
-            if any(x in ten for x in ['hết hàng', 'không còn', 'bỏ mẫu', 'liên hệ', 'sold out', 'off stock', 'ngừng bán']):
-                excluded_count += 1
-                continue
+            # Cũng kiểm tra stock field nếu có
+            if stock and stock != '1':
+                # Nếu stock = 0 hoặc chứa "out", "hết", "sold"
+                if any(x in stock for x in ['0', 'hết', 'out', 'sold', 'không', '-']):
+                    excluded_count += 1
+                    continue
             
             # 1. BỘ LỌC KÉP - PHẢI CÓ TỪ KHÓA VĂN PHÒNG PHẨM
             if not any(good in ten for good in VPP_WHITELIST): continue
