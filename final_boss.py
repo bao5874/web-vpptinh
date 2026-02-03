@@ -8,15 +8,14 @@ import base64
 import time
 
 # --- CẤU HÌNH ---
-# 1. Dán Link Logo của bạn vào giữa 2 dấu ngoặc kép bên dưới
-LOGO_URL = "https://i.postimg.cc/6qhFryp7/logo.png" 
-# (Nếu chưa có logo, cứ để nguyên link trên, nó là icon cái bút đẹp)
-
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
 ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&utm_source=shopee&utm_campaign=vpp_tinh&url_enc="
+
+# LOGO ONLINE (Link trực tiếp ổn định - Biểu tượng văn phòng phẩm)
+LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
 
 def tao_link_aff(url_goc):
     if not url_goc: return "#"
@@ -26,22 +25,18 @@ def tao_link_aff(url_goc):
     except:
         return url_goc
 
-def xuly_gia_debug(gia_raw, ten_sp):
-    """
-    Hàm xử lý giá có báo cáo lỗi
-    """
+def xuly_gia_chuan(gia_raw):
+    """Xử lý giá tiền: Chuyển 125.000 -> 125000 chuẩn xác"""
     try:
         gia_str = str(gia_raw).strip()
-        # Lấy số đầu tiên tìm thấy
+        # Chỉ lấy số
         numbers = re.findall(r'\d+', gia_str.replace('.', '').replace(',', ''))
         if not numbers: return 0
         
         gia_val = float(numbers[0])
         
-        # Logic sửa giá ảo (quan trọng)
-        # Nếu > 10 triệu -> chia 100
+        # Logic sửa giá ảo (Nếu > 10 triệu -> Chia 100)
         if gia_val > 10000000: gia_val /= 100
-        # Nếu > 2 triệu -> chia 10
         elif gia_val > 2000000: gia_val /= 10
             
         return gia_val
@@ -49,7 +44,8 @@ def xuly_gia_debug(gia_raw, ten_sp):
         return 0
 
 def tao_web_html(products):
-    timestamp = int(time.time()) # Kỹ thuật chống lưu cache
+    # Thêm timestamp để ép trình duyệt không lưu cache cũ
+    v = int(time.time())
     
     html = f"""
     <!DOCTYPE html>
@@ -57,81 +53,109 @@ def tao_web_html(products):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VPP Tịnh - Văn Phòng Phẩm (Cập nhật: {timestamp})</title>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <title>VPP Tịnh - Văn Phòng Phẩm</title>
         <link rel="icon" href="{LOGO_URL}">
         <style>
-            body {{ font-family: sans-serif; background: #f4f4f4; padding: 20px; }}
-            .header {{ text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }}
-            .logo {{ max-height: 100px; display: block; margin: 0 auto 10px; }}
-            .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }}
-            .card {{ background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; }}
-            .card img {{ width: 100%; height: 180px; object-fit: contain; }}
-            .title {{ font-size: 14px; margin: 10px 0; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
-            .price {{ color: red; font-weight: bold; font-size: 16px; }}
-            .btn {{ background: #2a9d8f; color: white; text-align: center; padding: 8px; text-decoration: none; border-radius: 5px; margin-top: auto; display: block; }}
+            :root {{ --primary: #008080; --bg: #f4f6f8; }}
+            body {{ font-family: sans-serif; background: var(--bg); padding: 20px; margin: 0; }}
+            .header {{ text-align: center; background: #fff; padding: 25px; border-radius: 10px; margin-bottom: 30px; border-bottom: 4px solid var(--primary); }}
+            .logo-img {{ width: 80px; height: 80px; display: block; margin: 0 auto 10px; }}
+            h1 {{ color: var(--primary); margin: 0; text-transform: uppercase; letter-spacing: 1px; }}
+            .slogan {{ color: #666; font-style: italic; font-size: 14px; margin-top: 5px; }}
+            
+            .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }}
+            .card {{ background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; }}
+            .card:hover {{ transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }}
+            
+            .img-box {{ width: 100%; height: 190px; padding: 10px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #eee; }}
+            .img-box img {{ max-width: 100%; max-height: 100%; object-fit: contain; }}
+            
+            .info {{ padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }}
+            .title {{ font-size: 14px; color: #333; margin-bottom: 10px; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
+            .price {{ color: #d0021b; font-weight: bold; font-size: 18px; }}
+            
+            .btn {{ background: var(--primary); color: #fff; text-decoration: none; padding: 10px; text-align: center; border-radius: 5px; font-weight: 600; margin-top: 10px; display: block; }}
+            .btn:hover {{ background: #006666; }}
         </style>
     </head>
     <body>
         <div class="header">
-            <img src="{LOGO_URL}" alt="Logo" class="logo">
+            <img src="{LOGO_URL}" alt="Logo" class="logo-img">
             <h1>VPP TỊNH</h1>
-            <p>Danh sách cập nhật lúc: {timestamp}</p>
+            <p class="slogan">🌿 Bình An Trao Tay - Cập nhật lúc {v} 🌿</p>
         </div>
         <div class="grid">
     """
     for p in products:
         html += f"""
             <div class="card">
-                <img src="{p['image']}" loading="lazy">
-                <div class="title">{p['name']}</div>
-                <div class="price">{p['price_display']}</div>
-                <a href="{p['link']}" class="btn" target="_blank">Mua Ngay</a>
+                <div class="img-box"><img src="{p['image']}" loading="lazy"></div>
+                <div class="info">
+                    <div class="title">{p['name']}</div>
+                    <div class="price">{p['price_display']}</div>
+                    <a href="{p['link']}" class="btn" target="_blank">Mua Ngay</a>
+                </div>
             </div>
         """
     html += "</div></body></html>"
     return html
 
 def chay_ngay_di():
-    print("🔍 BẮT ĐẦU QUÉT LỖI...")
+    print("🚀 ĐANG KHỞI ĐỘNG FINAL BOSS 10.0 (SIÊU LỌC)...")
     
     try:
-        print("⏳ Đang tải CSV...")
+        print("⏳ Đang tải dữ liệu...")
         r = requests.get(LINK_CSV, timeout=60)
         r.encoding = 'utf-8'
         reader = csv.DictReader(io.StringIO(r.text))
         
-        good_products = []
-        count_vpp = 0
-        count_rac = 0
-        count_gia_sai = 0
+        clean_products = []
         
-        # TỪ KHÓA AN TOÀN
-        whitelist = ["bút", "giấy a4", "vở", "sổ", "kẹp", "thước", "băng dính", "hồ dán", "mực", "file", "bìa"]
-        blacklist = ["kẻ mắt", "trang điểm", "son", "quần", "áo", "xe", "bánh", "kẹo", "hết hàng"]
+        # 1. WHITELIST (TỪ KHÓA KÉP - CHỈ LẤY NẾU CHÍNH XÁC)
+        # Bỏ các từ đơn như "Kẹp", "Mực" để tránh dính Honda, Đồ ăn
+        WHITE_LIST = [
+            "bút bi", "bút chì", "bút gel", "bút nước", "bút xóa", "bút nhớ", "bút dạ", "bút lông",
+            "giấy a4", "giấy in", "giấy note", "giấy bìa", "giấy than",
+            "vở ô ly", "vở kẻ ngang", "vở học sinh", "sổ tay", "sổ da", "sổ lò xo",
+            "file còng", "file lá", "túi clear bag", "bìa hồ sơ", 
+            "kẹp giấy", "kẹp bướm", "kẹp tài liệu", "ghim bấm", "dập ghim",
+            "băng dính", "băng keo", "hồ dán", "keo dán giấy", "thước kẻ", "gọt chì", "tẩy chì",
+            "máy tính bỏ túi", "hộp bút", "balo học sinh"
+        ]
+
+        # 2. BLACKLIST (DANH SÁCH CẤM - KHÔI PHỤC ĐẦY ĐỦ)
+        BLACK_LIST = [
+            "honda", "yamaha", "suzuki", "xe máy", "ô tô", "phụ tùng", "lốp", "nhớt", "gác chân", "pô xe",
+            "mực khô", "mực rim", "mực tẩm", "râu mực", "ăn vặt", "bánh", "kẹo", "thực phẩm", "đồ ăn", "mắm", "muối",
+            "kẻ mắt", "kẻ mày", "trang điểm", "son", "phấn", "kem", "serum", "dưỡng da",
+            "áo", "quần", "váy", "giày", "dép", "thời trang", "túi xách",
+            "đồ chơi", "siêu nhân", "robot", "lego", "búp bê",
+            "hết hàng", "bỏ mẫu", "liên hệ"
+        ]
+
+        print("⚙️ Đang lọc kỹ từng món (Chỉ lấy Từ Khóa Kép)...")
 
         for row in reader:
             ten = row.get('name', '').lower()
             
-            # 1. LỌC: Phải có từ khóa VPP
-            if not any(w in ten for w in whitelist): 
-                continue 
+            # KIỂM TRA 1: PHẢI CÓ TỪ KHÓA CHUẨN (WHITELIST)
+            if not any(good in ten for good in WHITE_LIST):
+                continue # Không có từ chuẩn -> Bỏ qua
             
-            # 2. CHẶN: Rác
-            if any(bad in ten for bad in blacklist):
-                count_rac += 1
-                continue
+            # KIỂM TRA 2: KHÔNG ĐƯỢC CÓ TỪ CẤM (BLACKLIST)
+            if any(bad in ten for bad in BLACK_LIST):
+                continue # Dính từ cấm -> Bỏ qua ngay
 
-            # 3. XỬ LÝ GIÁ
-            gia_val = xuly_gia_debug(row.get('price'), ten)
-            
-            # Lọc giá: Chỉ lấy từ 2k đến 1 triệu
-            if gia_val < 2000 or gia_val > 1000000:
-                count_gia_sai += 1
-                continue
+            # KIỂM TRA 3: GIÁ TIỀN
+            gia_val = xuly_gia_chuan(row.get('price'))
+            if gia_val < 3000: continue # Quá rẻ (Rác)
+            if gia_val > 1000000: continue # Quá đắt (Giá ảo/Sai lệch)
 
-            # NẾU QUA ĐƯỢC HẾT CÁC CỬA ẢI:
-            count_vpp += 1
-            good_products.append({
+            # ĐẠT CHUẨN -> THÊM VÀO DANH SÁCH
+            clean_products.append({
                 "name": row.get('name'),
                 "price_val": gia_val,
                 "price_display": "{:,.0f}₫".format(gia_val).replace(",", "."),
@@ -139,36 +163,27 @@ def chay_ngay_di():
                 "link": tao_link_aff(row.get('url'))
             })
 
-        # Lấy 60 món đầu tiên tìm thấy
-        final_list = good_products[:60]
+        # Lấy 100 món đầu tiên
+        final_list = clean_products[:100]
         
-        print("-" * 30)
-        print(f"📊 BÁO CÁO KẾT QUẢ QUÉT:")
-        print(f"❌ Số món bị loại vì là Rác/Mỹ phẩm: {count_rac}")
-        print(f"❌ Số món bị loại vì Giá ảo/Quá rẻ: {count_gia_sai}")
-        print(f"✅ SỐ MÓN VPP CHUẨN TÌM THẤY: {count_vpp}")
-        print("-" * 30)
+        print(f"✅ Đã tìm thấy {len(final_list)} món VPP SẠCH SẼ (Không Honda/Không Râu mực).")
 
-        if len(final_list) == 0:
-            print("⚠️ CẢNH BÁO: Không tìm thấy món nào! Có thể file CSV bị lỗi.")
-        else:
-            print(f"💾 Đang lưu {len(final_list)} sản phẩm vào web...")
+        # Lưu file
+        with open(FILE_JSON, "w", encoding="utf-8") as f:
+            json.dump(final_list, f, ensure_ascii=False, indent=4)
+        
+        html_content = tao_web_html(final_list)
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(html_content)
             
-            with open(FILE_JSON, "w", encoding="utf-8") as f:
-                json.dump(final_list, f, ensure_ascii=False, indent=4)
-            
-            html_content = tao_web_html(final_list)
-            with open("index.html", "w", encoding="utf-8") as f:
-                f.write(html_content)
-                
-            print("🚀 ĐANG ĐẨY LÊN GITHUB (BẮT BUỘC)...")
-            os.system("git add .")
-            os.system('git commit -m "Force update with online logo"')
-            os.system("git push")
-            print("✅ XONG! Đợi 2 phút rồi vào web bấm CTRL + F5.")
+        print("☁️ Đang cập nhật lên Github...")
+        os.system("git add .")
+        os.system('git commit -m "Final Boss 10.0 Clean"')
+        os.system("git push")
+        print("🎉 XONG! Vui lòng đợi 2 phút rồi vào web bấm CTRL + F5.")
 
     except Exception as e:
-        print(f"❌ Lỗi nghiêm trọng: {e}")
+        print(f"❌ Lỗi: {e}")
 
 if __name__ == "__main__":
     chay_ngay_di()
