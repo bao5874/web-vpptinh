@@ -4,227 +4,567 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="referrer" content="no-referrer"> 
-        <title>VPP Tịnh - Bình An Trao Tay</title>
-        
-    <style>
-        :root { --primary-color: #d4a373; --bg-color: #fefae0; --text-color: #333; --card-bg: #fff; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; color: var(--text-color); }
-        header { text-align: center; margin-bottom: 40px; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        h1 { color: #8B4513; margin: 0; font-size: 2.5em; text-transform: uppercase; letter-spacing: 2px; }
-        .slogan { font-style: italic; color: #666; margin-top: 5px; font-size: 1.1em; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
-        .product-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; display: flex; flex-direction: column; border: 1px solid #eee; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
-        .product-image { width: 100%; height: 160px; object-fit: contain; padding: 10px; background: #fff; box-sizing: border-box; }
-        .product-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-title { font-size: 1em; margin: 0 0 10px 0; color: #333; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .product-price { font-size: 1.2em; color: #e63946; font-weight: bold; margin-bottom: 15px; }
-        .btn-buy { display: block; width: 100%; padding: 10px; background-color: #2a9d8f; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background 0.2s; }
-        .btn-buy:hover { background-color: #21867a; }
-        .floating-contact { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
-        .contact-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-weight: bold; font-size: 24px; transition: transform 0.2s; }
-        .contact-btn:hover { transform: scale(1.1); }
-        .zalo-btn { background-color: #0068FF; border: 2px solid white; }
-        .phone-btn { background-color: #008000; border: 2px solid white; animation: shake 2s infinite; }
-        @keyframes shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
-        @media (max-width: 600px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .product-image { height: 140px; } h1 { font-size: 1.8em; } }
-    </style>
-    
+        <meta name="referrer" content="no-referrer"> <title>VPP Tịnh - Bình An Trao Tay</title>
+        <style>
+            :root { --primary-color: #d4a373; --bg-color: #fefae0; }
+            body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; }
+            header { text-align: center; margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+            h1 { color: #8B4513; margin: 0; text-transform: uppercase; }
+            .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+            .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; display: flex; flex-direction: column; }
+            .product-card:hover { transform: translateY(-5px); }
+            .product-image { width: 100%; height: 180px; object-fit: contain; padding: 10px; box-sizing: border-box; }
+            .product-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+            .product-title { font-size: 0.95em; color: #333; margin: 0 0 10px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
+            .product-price { font-size: 1.2em; color: #e63946; font-weight: bold; margin-bottom: 10px; }
+            .btn-buy { display: block; width: 100%; padding: 10px 0; background-color: #ee4d2d; color: white; text-align: center; text-decoration: none; border-radius: 4px; font-weight: bold; }
+            .btn-buy:hover { background-color: #d73211; }
+        </style>
     </head>
     <body>
         <header>
             <h1>VPP Tịnh</h1>
-            <p class="slogan">🌿 Bình An Trao Tay 🌿</p>
+            <p>🌿 Chuyên Văn Phòng Phẩm Chất Lượng 🌿</p>
         </header>
-
         <div class="product-grid">
     
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Sản phẩm Shopee" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/sg-11134201-7reo3-m27yg062fb986b" alt="Chân chống nhôm xe đạp kẹp 2 bách tăng giảm tem đỏ" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Sản phẩm Shopee</h3>
-                    <div class="product-price">₫ MAX</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Chân chống nhôm xe đạp kẹp 2 bách tăng giảm tem đỏ</h3>
+                    <div class="product-price">140.800₫</div>
+                    <a href="https://shopee.vn/product/34156662/713357674" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Bìa còng a4 Miyabi đựng tài liệu file còng văn phòng phẩm lưu trữ hồ sơ file càng cua giá rẻ kẹp tài liệu simili" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/3e1f74103fd4cc81a3716f0e1b4917fb" alt="vỉ 6 xe công trình (ảnh thật kèm kick thước)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Bìa còng a4 Miyabi đựng tài liệu file còng văn phòng phẩm lưu trữ hồ sơ file càng cua giá rẻ kẹp tài liệu simili</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">vỉ 6 xe công trình (ảnh thật kèm kick thước)</h3>
+                    <div class="product-price">65.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/2062448047" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Combo 20 túi đựng tài liệu a4 văn phòng phẩm giá sỉ , túi clear bag trong suốt , bìa đựng tài liệu - MIYABI" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/f01da5842c685f445724642ae71bbeac" alt="HỘP 2KG BÁNH SANWICH KẸP SỮA CHUA (37- 39C)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Combo 20 túi đựng tài liệu a4 văn phòng phẩm giá sỉ , túi clear bag trong suốt , bìa đựng tài liệu - MIYABI</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">HỘP 2KG BÁNH SANWICH KẸP SỮA CHUA (37- 39C)</h3>
+                    <div class="product-price">375.000₫</div>
+                    <a href="https://shopee.vn/product/124962480/1954349623" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Combo 100 Túi clearbag đựng tài liệu A4 văn phòng phẩm trong suốt dùng cho học sinh , sinh viên" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/bd0687eb5c85171654bca5d9f324a15b" alt="Giá pas đỡ kẹp đèn pin xoay 360 độ 2 đầu ROCKBROS" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Combo 100 Túi clearbag đựng tài liệu A4 văn phòng phẩm trong suốt dùng cho học sinh , sinh viên</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Giá pas đỡ kẹp đèn pin xoay 360 độ 2 đầu ROCKBROS</h3>
+                    <div class="product-price">79.000₫</div>
+                    <a href="https://shopee.vn/product/34156662/1903957686" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Túi đựng tài liệu a4 5/8/12 ngăn văn phòng phẩm túi đựng tài liệu nhiều ngăn cặp file đựng tài liệu" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjh4ges1luro5f" alt="Trục Giữa Xe Đạp VP BC73 Cốt Vuông Bạc Đạn – Nhiều Kích Thước – Quay Trơn, Bền" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Túi đựng tài liệu a4 5/8/12 ngăn văn phòng phẩm túi đựng tài liệu nhiều ngăn cặp file đựng tài liệu</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Trục Giữa Xe Đạp VP BC73 Cốt Vuông Bạc Đạn – Nhiều Kích Thước – Quay Trơn, Bền</h3>
+                    <div class="product-price">128.400₫</div>
+                    <a href="https://shopee.vn/product/34156662/1355425488" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelFile lá đựng tài liệu a4 30 60 túi đựng tài liệu -bìa kẹp đựng tài liệu văn phòng phẩm - sổ lưu hình siêu âm" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/23ccf6af022a355973b5f47d2c712112" alt="Hộp siêu nhân điện quang lắp ghép thành oto kèm vũ khí siêu nhân cỡ lớn tặng kèm pin (video,ảnh thật kèm kick thước)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelFile lá đựng tài liệu a4 30 60 túi đựng tài liệu -bìa kẹp đựng tài liệu văn phòng phẩm - sổ lưu hình siêu âm</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Hộp siêu nhân điện quang lắp ghép thành oto kèm vũ khí siêu nhân cỡ lớn tặng kèm pin (video,ảnh thật kèm kick thước)</h3>
+                    <div class="product-price">140.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/1975412911" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelFile lá A4 đựng tài liệu nhiều ngăn, Tệp đựng tài liệu 30 lá 60 lá 80 lá chất liệu PP cao cấp" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7r98o-m00eu2m17ych46" alt="Yếm váy bầu công sở màu đen văn phòng thiết kế" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelFile lá A4 đựng tài liệu nhiều ngăn, Tệp đựng tài liệu 30 lá 60 lá 80 lá chất liệu PP cao cấp</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Yếm váy bầu công sở màu đen văn phòng thiết kế</h3>
+                    <div class="product-price">280.000₫</div>
+                    <a href="https://shopee.vn/product/14346466/2830802752" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelCombo 100 Túi đựng tài liệu A4 trong suốt dùng cho học sinh sinh viên - Chất liệu cao cấp, cúc bấm chắc chắn" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/a52b0fd70ac26ab32745cabf3a839b79" alt="Hộp Bàn trang điểm cho bé cỡ lớn có nhạc có đèn tặng kèm pin (ảnh thật kèm kick thước)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelCombo 100 Túi đựng tài liệu A4 trong suốt dùng cho học sinh sinh viên - Chất liệu cao cấp, cúc bấm chắc chắn</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Hộp Bàn trang điểm cho bé cỡ lớn có nhạc có đèn tặng kèm pin (ảnh thật kèm kick thước)</h3>
+                    <div class="product-price">450.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/2107433990" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelCuộn 500 hình dán Sticker dễ thương đẹp, trang trí dán sổ khen thưởng học sinh văn phòng phẩm STK03" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/7317f13d864e2322eba1e3bba0bbf1a2" alt="Bộ full 6 chó cứu hộ kèm xe chuyên dụng của đội Paw patrol Loại nét đẹp cỡ siêu lớn (ảnh thật kèm kick thước)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelCuộn 500 hình dán Sticker dễ thương đẹp, trang trí dán sổ khen thưởng học sinh văn phòng phẩm STK03</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Bộ full 6 chó cứu hộ kèm xe chuyên dụng của đội Paw patrol Loại nét đẹp cỡ siêu lớn (ảnh thật kèm kick thước)</h3>
+                    <div class="product-price">650.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/1908096792" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Bút Xóa Nước F3T Xóa Sạch Không Lem 16ml Mẫu Xanh Nắp Trắng Truyền Thống Combo 1-5 Cái" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/26d0b1347d21116fdcf3bf6381eaee6b" alt="Xe cần cẩu mẫu mới 2019 (Ảnh thật kèm kick thước)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Bút Xóa Nước F3T Xóa Sạch Không Lem 16ml Mẫu Xanh Nắp Trắng Truyền Thống Combo 1-5 Cái</h3>
-                    <div class="product-price">Any 10 enjoy 20.000₫ off</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Xe cần cẩu mẫu mới 2019 (Ảnh thật kèm kick thước)</h3>
+                    <div class="product-price">110.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/2156988775" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="4 hoặc 10 Cái/ bộ Bút Gel Phong Cách Gấu Trúc Văn Phòng Phẩm Sinh Viên" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2wfqzg72ccm90" alt="Kệ đựng mỹ phẩm đa năng max 35cm có khay son và 3 ngăn kéo chống bụi đồ trang điểm,kệ mĩ phẩm" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">4 hoặc 10 Cái/ bộ Bút Gel Phong Cách Gấu Trúc Văn Phòng Phẩm Sinh Viên</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Kệ đựng mỹ phẩm đa năng max 35cm có khay son và 3 ngăn kéo chống bụi đồ trang điểm,kệ mĩ phẩm</h3>
+                    <div class="product-price">165.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/1880012476" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Set 50 Tờ Giấy Ghi Chú Trong Suốt Chống Nước Tự Dính Phong Cách Hàn Quốc" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/44ec766684992abd5023143d87ea05e8" alt="Kẹp dẫn hướng HONDA Dream / Future / Wave  QA(12211KFM900) _( 1057)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Set 50 Tờ Giấy Ghi Chú Trong Suốt Chống Nước Tự Dính Phong Cách Hàn Quốc</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Kẹp dẫn hướng HONDA Dream / Future / Wave  QA(12211KFM900) _( 1057)</h3>
+                    <div class="product-price">13.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/2977756582" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-label100 Tờ giấy ghi chú kẻ ngang nhiều màu sắc" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/c6b689131b5b9e813188d412034c14a9" alt="Kẹp ống B HONDA Winner 150 (RS150 V1 V2)  QA(15772MN1670) _( 1055)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-label100 Tờ giấy ghi chú kẻ ngang nhiều màu sắc</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Kẹp ống B HONDA Winner 150 (RS150 V1 V2)  QA(15772MN1670) _( 1055)</h3>
+                    <div class="product-price">13.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/3883276112" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelDao Rọc Giấy Inox Không Gỉ, Lưỡi Sắc Bén Cắt Dễ Dàng, Thiết Kế Nhỏ Gọn Dễ Mang Theo 88073 - Có Combo 5 Chiếc" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lxt39sj6mkexc8" alt="Kệ đựng mỹ phẩm 25cm màu trắng , tủ đựng mỹ phẩm có khay son 15 ô đựng đồ trang điểm, kệ mĩ phẩm" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelDao Rọc Giấy Inox Không Gỉ, Lưỡi Sắc Bén Cắt Dễ Dàng, Thiết Kế Nhỏ Gọn Dễ Mang Theo 88073 - Có Combo 5 Chiếc</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Kệ đựng mỹ phẩm 25cm màu trắng , tủ đựng mỹ phẩm có khay son 15 ô đựng đồ trang điểm, kệ mĩ phẩm</h3>
+                    <div class="product-price">110.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/1878195298" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="COMBO 10 chiếc Bút lấy dấu ngòi dài 2cm" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/f93620062822c8cd3701fd4f29773ede" alt="Kẹp nắp hộp ắc quy HONDA nhiều dòng xe  QA(90634KPG900) _( 6C 2K)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">COMBO 10 chiếc Bút lấy dấu ngòi dài 2cm</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Kẹp nắp hộp ắc quy HONDA nhiều dòng xe  QA(90634KPG900) _( 6C 2K)</h3>
+                    <div class="product-price">13.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/4583180521" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="Ghi Chú Dán Kéo Ra Trong Suốt Ánh Ngọc Trai | Màu Sắc Dopamine | Phù Hợp Học Sinh & Văn Phòng" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m20ewiwmsvdq6a" alt="Combo 5 Gói Râu Mực Mực Ướp Cay Ăn Liền 12gr" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">Ghi Chú Dán Kéo Ra Trong Suốt Ánh Ngọc Trai | Màu Sắc Dopamine | Phù Hợp Học Sinh & Văn Phòng</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Combo 5 Gói Râu Mực Mực Ướp Cay Ăn Liền 12gr</h3>
+                    <div class="product-price">27.000₫</div>
+                    <a href="https://shopee.vn/product/124962480/4859969333" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelGôm tẩy không bụi mịn Thiên Long Strive E-035 - Chứa ion bạc kháng khuẩn, tẩy sạch êm, thiết kế tối giản" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/7e6c67af6b277e3bb5326984ce3fe73d" alt="Đai ốc kẹp HONDA nhiều dòng xe 5mm  QA(90677KANT00) _( 1430)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelGôm tẩy không bụi mịn Thiên Long Strive E-035 - Chứa ion bạc kháng khuẩn, tẩy sạch êm, thiết kế tối giản</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Đai ốc kẹp HONDA nhiều dòng xe 5mm  QA(90677KANT00) _( 1430)</h3>
+                    <div class="product-price">18.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/3776345754" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelflag-labelDao Rọc Giấy Hình Mèo Màu Hồng Có Móc Khóa Dễ Thương, Mở Hàng Tiện Lợi" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/92809f8442fb936f738bcafe05d54291" alt="Đai ôc kẹp HONDASh Mode cỡ 4mm  QA(90302K29V80) _( 969)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelflag-labelDao Rọc Giấy Hình Mèo Màu Hồng Có Móc Khóa Dễ Thương, Mở Hàng Tiện Lợi</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Đai ôc kẹp HONDASh Mode cỡ 4mm  QA(90302K29V80) _( 969)</h3>
+                    <div class="product-price">13.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/4579134057" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelCây Chỉ Bảng Thông Minh Pastel, Bút Chỉ Dẫn Mini 68cm, Que Ngón Tay Dạy Học Dành Cho Giáo Viên, Học Sinh BeYou" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/4d4026c7b3dedccf189b6d6d2e85bf9a" alt="Đai kẹp HONDA Air Blade 110, Click  QA(16223GBF830)" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelCây Chỉ Bảng Thông Minh Pastel, Bút Chỉ Dẫn Mini 68cm, Que Ngón Tay Dạy Học Dành Cho Giáo Viên, Học Sinh BeYou</h3>
-                    <div class="product-price">₫</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Đai kẹp HONDA Air Blade 110, Click  QA(16223GBF830)</h3>
+                    <div class="product-price">38.016₫</div>
+                    <a href="https://shopee.vn/product/326731431/8241993036" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
             <div class="product-card">
-                <img src="https://via.placeholder.com/150" referrerpolicy="no-referrer" alt="flag-labelflag-labelCombo 10 Bút Bi Gel Mực Nước 0.5mm 3 Màu Xanh, Đỏ, Đen" class="product-image" loading="lazy">
+                <img src="https://cf.shopee.vn/file/cebd328e0d8146aa00b8ef628fbb0c2f" alt="Túi Đeo Chéo, Túi Vải Họa Tiết Bò Sữa ( Tặng Ghim Hoa Cúc ) Phong Cách Hàn Quốc Mincloset Tv16" class="product-image" loading="lazy">
                 <div class="product-info">
-                    <h3 class="product-title">flag-labelflag-labelCombo 10 Bút Bi Gel Mực Nước 0.5mm 3 Màu Xanh, Đỏ, Đen</h3>
-                    <div class="product-price">10k₫ off</div>
-                    <a href="https://shopee.vn" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <h3 class="product-title">Túi Đeo Chéo, Túi Vải Họa Tiết Bò Sữa ( Tặng Ghim Hoa Cúc ) Phong Cách Hàn Quốc Mincloset Tv16</h3>
+                    <div class="product-price">45.000₫</div>
+                    <a href="https://shopee.vn/product/293308941/8729431516" class="btn-buy" target="_blank">Mua Ngay</a>
                 </div>
             </div>
         
-        </div>
-        <div class="floating-contact">
-            <a href="https://zalo.me/0931736266" class="contact-btn zalo-btn" target="_blank">Z</a>
-            <a href="tel:0931736266" class="contact-btn phone-btn">📞</a>
-        </div>
-    </body>
-    </html>
-    
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/56d2f60c35437e0ef26f0b2ba5db0d95" alt="Kẹp B dây phanh sau HONDA Air Blade 125, Pcx  QA(43455KWN900) _( 1587)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Kẹp B dây phanh sau HONDA Air Blade 125, Pcx  QA(43455KWN900) _( 1587)</h3>
+                    <div class="product-price">22.464₫</div>
+                    <a href="https://shopee.vn/product/326731431/8522743507" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m36h0s6gektod4" alt="khay đựng mỹ phẩm lượn sóng hồng phấn tim đen" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">khay đựng mỹ phẩm lượn sóng hồng phấn tim đen</h3>
+                    <div class="product-price">230.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/2346223235" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/da15ca4c6fc00407cb74b18555f29d87" alt="Bộ 5 Xe Sắt Cứu Hỏa, công trình kick thước 9.5x5 cm (ảnh thật) (Khách chat chọn mẫu)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Bộ 5 Xe Sắt Cứu Hỏa, công trình kick thước 9.5x5 cm (ảnh thật) (Khách chat chọn mẫu)</h3>
+                    <div class="product-price">110.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/1726704497" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/357803071d85241dd83e6da180942251" alt="Đai ốc kẹp HONDA nhiều dòng xe 5mm  QA(90677GBG850) _( 1124)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Đai ốc kẹp HONDA nhiều dòng xe 5mm  QA(90677GBG850) _( 1124)</h3>
+                    <div class="product-price">18.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/5379133486" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjzobpugg2dg9a" alt="Chân Chống Xe Đạp Bằng Thép – Kẹp 2 Bách Sườn" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Chân Chống Xe Đạp Bằng Thép – Kẹp 2 Bách Sườn</h3>
+                    <div class="product-price">109.900₫</div>
+                    <a href="https://shopee.vn/product/34156662/1191840939" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/56264486cdbdbe3d42e0129881afefa5" alt="Cặp ti kẹp moay ơ Hub xe đạp ROCKBROS chống trộm tháo nhanh" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Cặp ti kẹp moay ơ Hub xe đạp ROCKBROS chống trộm tháo nhanh</h3>
+                    <div class="product-price">239.600₫</div>
+                    <a href="https://shopee.vn/product/34156662/10519893331" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/065d0b50ba8577b39f31b2872d80dc05" alt="Giấy thấm dầu giảm mụn gói 50 miếng nội địa Trung" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Giấy thấm dầu giảm mụn gói 50 miếng nội địa Trung</h3>
+                    <div class="product-price">5.000₫</div>
+                    <a href="https://shopee.vn/product/13560045/7939742833" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/fb6e87cabe65ee77a00c00d117e5e370" alt="vỉ 6 xe công trình mô hình bánh đà loại chắc chắn nặng tay (ảnh thật kèm kick thước)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">vỉ 6 xe công trình mô hình bánh đà loại chắc chắn nặng tay (ảnh thật kèm kick thước)</h3>
+                    <div class="product-price">140.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/1907985345" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/b486772b0cf93386f871f2accf36ff32" alt="Kệ bếp 29 chi tiết cỡ nhỡ kèm kick thước và ảnh thật" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Kệ bếp 29 chi tiết cỡ nhỡ kèm kick thước và ảnh thật</h3>
+                    <div class="product-price">250.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/1870994328" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj12houa49x32" alt="Set 2 Kẹp Tóc, Kẹp Tóc Hoa Quả Siêu Dễ Thương Mincloset" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Set 2 Kẹp Tóc, Kẹp Tóc Hoa Quả Siêu Dễ Thương Mincloset</h3>
+                    <div class="product-price">11.500₫</div>
+                    <a href="https://shopee.vn/product/293308941/6263777695" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/f1c41f7f2a507f4befd95ad88f3a184d" alt="Tem chữ HONDA màu PB142P kích thước 120mm  QA(87130KRS860ZC) _( 662)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Tem chữ HONDA màu PB142P kích thước 120mm  QA(87130KRS860ZC) _( 662)</h3>
+                    <div class="product-price">22.464₫</div>
+                    <a href="https://shopee.vn/product/326731431/8458992000" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/f1a25e54f762358852495c2cc851a380" alt="Lắp ráp xếp hình Xe Đầu Kéo máy bay Chim Đỏ Thế Hệ 2 5591 Lepin 21017" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Lắp ráp xếp hình Xe Đầu Kéo máy bay Chim Đỏ Thế Hệ 2 5591 Lepin 21017</h3>
+                    <div class="product-price">630.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/2725076096" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/785f084e5d8e09e0ac3fad9deb8e1f0a" alt="Thước thăm dầu HONDA Lead 125  QA(15651K12900) _( 162)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Thước thăm dầu HONDA Lead 125  QA(15651K12900) _( 162)</h3>
+                    <div class="product-price">40.716₫</div>
+                    <a href="https://shopee.vn/product/326731431/9131225540" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/b4269bcd04b075b979e21aadf7f50b31" alt="［Sẵn] Sỉ 1 thùng 12 Hộp Lẩu Cốc Viên Hải Sản Hongkong có viên thả lẩu, chả cá mực trứng hộp 154g" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">［Sẵn] Sỉ 1 thùng 12 Hộp Lẩu Cốc Viên Hải Sản Hongkong có viên thả lẩu, chả cá mực trứng hộp 154g</h3>
+                    <div class="product-price">399.000₫</div>
+                    <a href="https://shopee.vn/product/52686604/4341066236" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/64b6e057aad0c90a6f5837e753e524d1" alt="Cung nhựa cỡ lớn (ảnh thật kèm kick thước)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Cung nhựa cỡ lớn (ảnh thật kèm kick thước)</h3>
+                    <div class="product-price">150.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/2799012207" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/de6677f9f15dcb28746965a7790fd6b6" alt="Thước thăm dầu HONDA Winner 150 / Winner X (RS150 V1 V2 V3)  QA(15651KGH900) _( 557)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Thước thăm dầu HONDA Winner 150 / Winner X (RS150 V1 V2 V3)  QA(15651KGH900) _( 557)</h3>
+                    <div class="product-price">31.104₫</div>
+                    <a href="https://shopee.vn/product/326731431/11906481779" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/3cf3d80d569abf5ff4f051bf1d12a390" alt="Lắp ráp xếp hình Xe đàu kéo vận chuyển xe đua 60151 02025" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Lắp ráp xếp hình Xe đàu kéo vận chuyển xe đua 60151 02025</h3>
+                    <div class="product-price">320.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/1578030222" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/9924462c91e190157ca9541e93c33e2b" alt="Khay son 50 ô đen" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Khay son 50 ô đen</h3>
+                    <div class="product-price">90.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/1879986934" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/0ce6d13c264ef17622881d113248da1d" alt="Khay son 100 ô phân tầng màu hồng" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Khay son 100 ô phân tầng màu hồng</h3>
+                    <div class="product-price">210.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/1877662750" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lhbvkipnpuczf6" alt="Hộp 100 băng gâu 1 kích thước AID PLUS" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Hộp 100 băng gâu 1 kích thước AID PLUS</h3>
+                    <div class="product-price">25.000₫</div>
+                    <a href="https://shopee.vn/product/13560045/6882083307" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/41afbe97f87b775c6bf274069be160ea" alt="Kẹp ống nước HONDA 24mm AB125 / Lead 125 / Pcx 125 / Sh 125 / Pcx 125  QA(90701KWN901)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Kẹp ống nước HONDA 24mm AB125 / Lead 125 / Pcx 125 / Sh 125 / Pcx 125  QA(90701KWN901)</h3>
+                    <div class="product-price">32.832₫</div>
+                    <a href="https://shopee.vn/product/326731431/10822474936" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7ras8-marwsse2xr4c37" alt="Kệ đựng mĩ phẩm 25cm hello kitty sọc , tủ mini đựng mỹ phẩm , khay son , kệ mỹ phẩm" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Kệ đựng mĩ phẩm 25cm hello kitty sọc , tủ mini đựng mỹ phẩm , khay son , kệ mỹ phẩm</h3>
+                    <div class="product-price">120.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/1881222678" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/74ce4118f741cf798f22ff8b04840df4" alt="Đai ốc kẹp HONDA 6mm dùng chung nhiều xe  QA(90344GM9000) _( 938)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Đai ốc kẹp HONDA 6mm dùng chung nhiều xe  QA(90344GM9000) _( 938)</h3>
+                    <div class="product-price">32.832₫</div>
+                    <a href="https://shopee.vn/product/326731431/8614325710" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/76630deccb58553f1b862561dbbc1386" alt="Vít bắt giỏ xe HONDA kích thước 6×32  QA(90114KFLD20) _( 1414)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Vít bắt giỏ xe HONDA kích thước 6×32  QA(90114KFLD20) _( 1414)</h3>
+                    <div class="product-price">18.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/8427806820" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/ea76997f0e12a920996786466981fd7f" alt="Khăn Lau Giày Dép Tiện Lợi - Giấy Lau Giày Sneaker Wipes Gói 30 Cái -MIN57" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Khăn Lau Giày Dép Tiện Lợi - Giấy Lau Giày Sneaker Wipes Gói 30 Cái -MIN57</h3>
+                    <div class="product-price">39.000₫</div>
+                    <a href="https://shopee.vn/product/371008594/10609198305" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/1487899c79916dc3151a5210890641c0" alt="Đai ốc kẹp ống B12 HONDA dùng chung nhiều xe  QA(9500202120) _( 803)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Đai ốc kẹp ống B12 HONDA dùng chung nhiều xe  QA(9500202120) _( 803)</h3>
+                    <div class="product-price">13.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/9441989280" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lgnl7wfvmokz1b" alt="Kệ mỹ phẩm max trắng 35cm 1 ngăn kéo to núm gỗ" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Kệ mỹ phẩm max trắng 35cm 1 ngăn kéo to núm gỗ</h3>
+                    <div class="product-price">230.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/1883201260" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/192cada3ee66e068e3aa244b0e1ace97" alt="Set 5 Kẹp Tóc Hoa Đen Sang Chảnh - Set 5 Kẹp Tóc Tiểu Thư Phong Cách Hàn Quốc MIN04" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Set 5 Kẹp Tóc Hoa Đen Sang Chảnh - Set 5 Kẹp Tóc Tiểu Thư Phong Cách Hàn Quốc MIN04</h3>
+                    <div class="product-price">39.000₫</div>
+                    <a href="https://shopee.vn/product/371008594/4686006376" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/2fc1bec1900e66f121cbc301e680ad56" alt="Hộp 2Kg Bánh Bông Lan Kẹp Kem Các Vị (42-44c)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Hộp 2Kg Bánh Bông Lan Kẹp Kem Các Vị (42-44c)</h3>
+                    <div class="product-price">370.000₫</div>
+                    <a href="https://shopee.vn/product/124962480/3354502432" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m34z6y49h2u3aa" alt="Khay trang điểm đủ màu 25cm , tủ đựng mỹ phẩm , hộp đựng đồ trang điểm , tủ đựng đồ trang điểm , đựng đồ makeup" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Khay trang điểm đủ màu 25cm , tủ đựng mỹ phẩm , hộp đựng đồ trang điểm , tủ đựng đồ trang điểm , đựng đồ makeup</h3>
+                    <div class="product-price">120.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/4452858692" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/41fc0c9610acdd1be8b9ba01d9d75d45" alt="Túi nắp kéo CÓ TAY CẦM kèm hộp sz 17cm ẢNH SHOP TỰ CHỤP" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Túi nắp kéo CÓ TAY CẦM kèm hộp sz 17cm ẢNH SHOP TỰ CHỤP</h3>
+                    <div class="product-price">275.000₫</div>
+                    <a href="https://shopee.vn/product/10443798/6208218744" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/sg-11134201-7rcds-m65gymkndu9g5d" alt="Baga xe đạp kẹp ống yên PROMEND" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Baga xe đạp kẹp ống yên PROMEND</h3>
+                    <div class="product-price">239.600₫</div>
+                    <a href="https://shopee.vn/product/34156662/9487348688" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/88d06f821a538939deee90658bdbe37f" alt="Tem HONDA Future Neo kích thước 110mm  QA(87130KTM970ZA) _( 681)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Tem HONDA Future Neo kích thước 110mm  QA(87130KTM970ZA) _( 681)</h3>
+                    <div class="product-price">18.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/8158982849" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjfq13y3nqbq5e" alt="Ty Kẹp Moay Ơ Xe Đạp Loại Thường – Chắc Chắn, Dễ Lắp" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Ty Kẹp Moay Ơ Xe Đạp Loại Thường – Chắc Chắn, Dễ Lắp</h3>
+                    <div class="product-price">66.600₫</div>
+                    <a href="https://shopee.vn/product/34156662/999646823" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/49cd9f2d730760522ccd8c0488bcd0f5" alt="Bộ Sau Sinh có khoá kéo ti chất kate thái 50-68kg" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Bộ Sau Sinh có khoá kéo ti chất kate thái 50-68kg</h3>
+                    <div class="product-price">180.000₫</div>
+                    <a href="https://shopee.vn/product/14346466/2867004226" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/c99dfeba500e91023ed76b6f4e1b63f1" alt="Kẹp ống HONDA D15.5 dùng chung nhiều xe  QA(90601K27V01) _( 422)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Kẹp ống HONDA D15.5 dùng chung nhiều xe  QA(90601K27V01) _( 422)</h3>
+                    <div class="product-price">13.800₫</div>
+                    <a href="https://shopee.vn/product/326731431/10722474912" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/abf490943d78d8d5d5789eab57d55542" alt="Giá kẹp treo bánh xe đạp lên tường RISK" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Giá kẹp treo bánh xe đạp lên tường RISK</h3>
+                    <div class="product-price">190.200₫</div>
+                    <a href="https://shopee.vn/product/34156662/3161230939" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/beb435b43cd413a910ec77361cb650bd" alt="Lắp ráp robot transformers Grimlock bản xanh lá cây biến hình khủng long kèm vũ khí người máy (kick thước và ảnh thật)" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Lắp ráp robot transformers Grimlock bản xanh lá cây biến hình khủng long kèm vũ khí người máy (kick thước và ảnh thật)</h3>
+                    <div class="product-price">150.000₫</div>
+                    <a href="https://shopee.vn/product/89965307/2009993847" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7ras8-mbggxck85umc3f" alt="Kệ mỹ phẩm max 35cm màu trắng , tủ đựng mỹ phẩm , kệ đựng đồ trang điểm có khay đựng son 8 ô , đựng đồ makeup" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Kệ mỹ phẩm max 35cm màu trắng , tủ đựng mỹ phẩm , kệ đựng đồ trang điểm có khay đựng son 8 ô , đựng đồ makeup</h3>
+                    <div class="product-price">230.000₫</div>
+                    <a href="https://shopee.vn/product/123470472/4614839615" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lyv01fq52tzh5a" alt="Giá kẹp nhôm để gắn gọng rọ xe đạp GUB G-21" class="product-image" loading="lazy">
+                <div class="product-info">
+                    <h3 class="product-title">Giá kẹp nhôm để gắn gọng rọ xe đạp GUB G-21</h3>
+                    <div class="product-price">103.700₫</div>
+                    <a href="https://shopee.vn/product/34156662/3130277011" class="btn-buy" target="_blank">Mua Ngay</a>
+                </div>
+            </div>
+        </div></body></html>
