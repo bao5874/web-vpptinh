@@ -10,42 +10,70 @@ import base64
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
 
-# ID CỦA BẠN
 ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&url_enc="
 
-# 1. DANH SÁCH DUYỆT (Phải có từ này mới lấy)
-TU_KHOA_VPP = [
-    "bút", "giấy a4", "giấy in", "giấy note", "vở", "sổ", "file", "bìa", 
-    "kẹp giấy", "kẹp bướm", "ghim", "băng dính", "thước", "mực bút", "mực in", 
-    "kéo văn phòng", "hồ dán", "keo dán", "đế cắm", "khay đựng", "máy tính bỏ túi",
-    "văn phòng", "học sinh", "balo đi học", "cặp sách", "bút chì", "tẩy", "gọt chì"
+# 1. DUYỆT THEO DANH MỤC (Quan trọng nhất)
+# Chỉ lấy những món thuộc ngành hàng này
+DANH_MUC_CHUAN = [
+    "văn phòng phẩm", "nhà sách", "dụng cụ học sinh", "họa cụ", 
+    "bút", "giấy", "sổ", "bìa", "băng keo", "kéo", "thước", "màu vẽ"
 ]
 
-# 2. DANH SÁCH CẤM (Thấy từ này là vứt ngay) - CHỐNG HÀNG RÁC
+# 2. DUYỆT THEO TÊN (Bộ lọc phụ)
+TU_KHOA_TEN = [
+    "bút", "giấy", "vở", "sổ", "file", "bìa", "kẹp", "ghim", "băng dính", 
+    "thước", "mực", "kéo", "hồ dán", "đế cắm", "khay", "balo", "cặp", "tẩy"
+]
+
+# 3. DANH SÁCH CẤM (Lọc rác & Hàng hết)
 TU_KHOA_CAM = [
-    "vệ sinh", "ăn", "thấm dầu", "nướng", "bạc", # Chặn giấy vệ sinh, giấy ăn
-    "khô", "rim", "tẩm", "nước mắm", "đông lạnh", # Chặn mực khô, đồ ăn
-    "tóc", "ngực", "nách", "mặt", "dưỡng", "serum", # Chặn kẹp tóc, mỹ phẩm
-    "áo", "quần", "váy", "giày", "dép", "thời trang", # Chặn quần áo
-    "bếp", "nồi", "chảo", "dao", "thớt", # Chặn đồ gia dụng
-    "đồ chơi", "trẻ em", "sơ sinh", "bỉm" # Chặn đồ mẹ bé không liên quan
+    "vệ sinh", "ăn", "thấm dầu", "nướng", "bạc", # Rác
+    "tóc", "ngực", "nách", "mặt", "dưỡng", "serum", "mỹ phẩm", # Rác
+    "áo", "quần", "váy", "giày", "dép", "thời trang", # Rác
+    "hết hàng", "bỏ mẫu", "ngừng kinh doanh", "liên hệ", # HÀNG ĐÃ HẾT
+    "voucher", "thẻ nạp", "e-voucher" # Rác số
 ]
 
-def bo_loc_thong_minh(ten_sp):
-    ten_sp = ten_sp.lower()
+def check_hang_chuan(row):
+    """Hàm kiểm tra kỹ lưỡng từng sản phẩm"""
+    ten_sp = row.get('name', '').lower()
+    danh_muc = row.get('category', '').lower() # Lấy cột Category
     
-    # BƯỚC 1: KIỂM TRA TỪ CẤM (Blacklist)
+    # 1. LOẠI BỎ HÀNG HẾT / HÀNG RÁC NGAY LẬP TỨC
     for tu_cam in TU_KHOA_CAM:
         if tu_cam in ten_sp:
-            return False # Có từ cấm -> Loại ngay
+            return False
             
-    # BƯỚC 2: KIỂM TRA TỪ KHÓA VPP (Whitelist)
-    for tu_khoa in TU_KHOA_VPP:
-        if tu_khoa in ten_sp:
-            return True # Sạch sẽ -> Lấy
+    # 2. KIỂM TRA GIÁ (Loại bỏ giá 0đ hoặc giá ảo)
+    try:
+        gia = float(row.get('price', 0))
+        if gia < 1000: # Giá dưới 1k thường là lỗi hoặc rác
+            return False
+    except:
+        return False
+
+    # 3. ƯU TIÊN 1: KIỂM TRA DANH MỤC (Chính xác 99%)
+    # Nếu danh mục có chữ "Văn phòng phẩm" hoặc "Nhà sách" -> LẤY LUÔN
+    for dm in DANH_MUC_CHUAN:
+        if dm in danh_muc:
+            return True
+
+    # 4. ƯU TIÊN 2: NẾU DANH MỤC KHÔNG RÕ, MỚI SOI TÊN
+    # (Nhưng phải kỹ hơn: Tên phải chứa từ khóa VPP VÀ KHÔNG chứa từ cấm)
+    is_vpp_name = False
+    for k in TU_KHOA_TEN:
+        if k in ten_sp:
+            is_vpp_name = True
+            break
             
+    if is_vpp_name:
+        # Check lại lần nữa cho chắc (ví dụ: "Kẹp" tóc -> Loại)
+        if "tóc" in ten_sp or "xinh" in ten_sp or "bé gái" in ten_sp: 
+            return False
+        return True
+
     return False
 
 def tao_link_kiem_tien(link_goc):
@@ -62,8 +90,7 @@ def xuly_gia(gia_raw):
         numbers = re.findall(r'\d+', str(gia_raw).replace('.', '').replace(',', ''))
         if numbers:
             gia = float(numbers[0])
-            if gia > 0:
-                return "{:,.0f}₫".format(gia).replace(",", ".")
+            return "{:,.0f}₫".format(gia).replace(",", ".")
     except:
         pass
     return "Liên hệ"
@@ -109,7 +136,6 @@ def tao_web_html(products):
         </header>
         <div class="product-grid">
     """
-    
     for p in products:
         html += f"""
             <div class="product-card">
@@ -125,10 +151,10 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG KHỞI ĐỘNG HỆ THỐNG VỚI BỘ LỌC THÔNG MINH...")
+    print("🚀 ĐANG CHẠY BỘ LỌC 'SOI CHỨNG MINH THƯ'...")
     
     try:
-        print("⏳ Đang tải dữ liệu gốc...")
+        print("⏳ Đang tải dữ liệu...")
         r = requests.get(LINK_CSV)
         r.encoding = 'utf-8'
         if r.status_code != 200: return
@@ -138,26 +164,35 @@ def chay_ngay_di():
         
         san_pham_list = []
         count = 0
-        print("⚙️ Đang lọc VPP (Đã bật chế độ chặn hàng rác)...")
+        
+        # Thống kê cho bạn xem
+        tong_so = 0
+        bi_loai = 0
+        
+        print("⚙️ Đang lọc kỹ từng món hàng...")
         
         for row in reader:
-            ten = row.get('name', '')
-            link_goc = row.get('url', '') 
-            anh = row.get('image', '')
-            gia = row.get('price', '0')
+            tong_so += 1
             
-            # --- SỬ DỤNG BỘ LỌC THÔNG MINH ---
-            if bo_loc_thong_minh(ten) and link_goc:
-                aff_link = tao_link_kiem_tien(link_goc)
-                san_pham_list.append({
-                    "name": ten,
-                    "price": xuly_gia(gia),
-                    "image": xuly_anh(anh),
-                    "link": aff_link 
-                })
-                count += 1
+            # --- KIỂM TRA KỸ ---
+            if check_hang_chuan(row):
+                # Chỉ lấy nếu còn hàng (thông qua việc có link và giá hợp lệ)
+                link_goc = row.get('url', '')
+                if link_goc:
+                    san_pham_list.append({
+                        "name": row.get('name', ''),
+                        "price": xuly_gia(row.get('price', '0')),
+                        "image": xuly_anh(row.get('image', '')),
+                        "link": tao_link_kiem_tien(link_goc)
+                    })
+                    count += 1
+            else:
+                bi_loai += 1
                 
             if count >= 60: break 
+
+        print(f"📊 Đã quét {tong_so} món. Loại bỏ {bi_loai} món rác/hết hàng.")
+        print(f"✅ Lấy được {len(san_pham_list)} món VPP chuẩn.")
 
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(san_pham_list, f, ensure_ascii=False, indent=4)
@@ -166,11 +201,9 @@ def chay_ngay_di():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(html_content)
             
-        print(f"✅ ĐÃ LỌC XONG! Lấy được {len(san_pham_list)} sản phẩm chuẩn VPP.")
-        
         # Tự động đẩy lên mạng
         os.system("git add .")
-        os.system('git commit -m "Update bo loc thong minh"')
+        os.system('git commit -m "Update bo loc category chuan"')
         os.system("git push")
         print("🎉 Đã đẩy Web mới lên mạng!")
 
