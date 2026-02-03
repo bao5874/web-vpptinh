@@ -21,13 +21,13 @@ VPP_KEYWORDS = [
     "dập ghim", "hồ dán", "keo", "bảng", "phấn", "mực"
 ]
 
-# 2. TỪ KHÓA CẤM (Chặn)
+# 2. TỪ KHÓA CẤM (Chặn rác)
 CANT_TAKE = [
     "hết hàng", "ngừng kinh doanh", "bỏ mẫu", "liên hệ", "tạm hết",
     "mắt", "mày", "môi", "mi", "son", "kem", "phấn", "makeup", "trang điểm", "da", "nám", "mụn", 
     "bánh", "kẹo", "đồ ăn", "thực phẩm", "mắm", "muối", "gia vị",
     "xe", "honda", "yamaha", "lốp", "nhớt",
-    "áo", "quần", "váy", "giày", "dép", "túi xách"
+    "áo", "quần", "váy", "giày", "dép", "túi xách", "thời trang"
 ]
 
 def tao_link_aff(url_goc):
@@ -38,30 +38,41 @@ def tao_link_aff(url_goc):
     except:
         return url_goc
 
-def xuly_gia(gia_raw):
+def xuly_gia_chuan(gia_raw):
+    """
+    Hàm xử lý giá phiên bản 6.0 - SIÊU AN TOÀN
+    """
     try:
-        numbers = re.findall(r'\d+', str(gia_raw).replace('.', '').replace(',', ''))
-        if numbers:
-            gia = float(numbers[0])
-            if gia > 0:
-                return "{:,.0f}₫".format(gia).replace(",", ".")
+        # 1. Chuyển hết về chuỗi
+        gia_str = str(gia_raw).strip()
+        
+        # 2. Nếu giá có dấu chấm (ví dụ 125.000), thay thế nó đi để thành số thuần (125000)
+        # Lưu ý: Python hiểu 125.000 là float 125, nên ta phải xử lý chuỗi trước
+        if "." in gia_str and len(gia_str.split(".")[1]) == 3:
+             gia_str = gia_str.replace(".", "")
+        
+        # 3. Lọc bỏ mọi ký tự không phải số (như chữ đ, vnđ, ,)
+        gia_clean = re.sub(r'[^\d]', '', gia_str)
+        
+        # 4. Chuyển sang số
+        gia_val = float(gia_clean)
+        
+        # 5. Logic sửa sai: Nếu giá > 10 triệu (vô lý với cây bút), chia bớt cho 10
+        # Đây là mẹo trị bệnh "thừa số 0"
+        if gia_val > 10000000: 
+            gia_val = gia_val / 10
+            
+        if gia_val < 1000: return "Liên hệ" # Rẻ quá cũng bỏ
+        
+        return "{:,.0f}₫".format(gia_val).replace(",", ".")
     except:
-        pass
-    return "Liên hệ"
+        return "Liên hệ"
 
 def tao_web_html(products):
-    # Tự động tìm logo
-    logo_src = ""
-    if os.path.exists("logo.png"): logo_src = "logo.png"
-    elif os.path.exists("logo.jpg"): logo_src = "logo.jpg"
-    elif os.path.exists("logo.jpeg"): logo_src = "logo.jpeg"
-
-    # Header: Có ảnh thì hiện ảnh, không thì hiện chữ
-    if logo_src:
-        header_content = f'<img src="{logo_src}" alt="VPP Tịnh" class="logo-img">'
-    else:
-        header_content = '<h1>VPP TỊNH</h1><p class="slogan">🌿 Bình An Trao Tay 🌿</p>'
-
+    # LOGO: Ép buộc hiển thị logo.png
+    # Thêm onerror để nếu lỗi ảnh thì ẩn đi chứ không hiện icon gãy
+    logo_html = '<img src="logo.png" alt="VPP Tịnh" class="logo-img" onerror="this.style.display=\'none\'">'
+    
     html = f"""
     <!DOCTYPE html>
     <html lang="vi">
@@ -70,13 +81,15 @@ def tao_web_html(products):
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="referrer" content="no-referrer"> 
         <title>VPP Tịnh - Bình An Trao Tay</title>
-        <link rel="icon" href="{logo_src if logo_src else 'data:,'}">
+        <link rel="icon" href="logo.png">
         <style>
             :root {{ --primary: #2a9d8f; --bg: #fefae0; --text: #333; }}
             body {{ font-family: sans-serif; background: var(--bg); padding: 20px; margin: 0; }}
             header {{ text-align: center; background: #fff; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }}
-            .logo-img {{ max-height: 120px; width: auto; display: block; margin: 0 auto; }}
+            
+            .logo-img {{ max-height: 120px; width: auto; display: block; margin: 0 auto 10px; }}
             h1 {{ color: #e76f51; margin: 0; text-transform: uppercase; }}
+            
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }}
             .card {{ background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: transform 0.2s; }}
             .card:hover {{ transform: translateY(-5px); }}
@@ -92,7 +105,9 @@ def tao_web_html(products):
     </head>
     <body>
         <header>
-            {header_content}
+            {logo_html}
+            <h1>VPP TỊNH</h1>
+            <p>🌿 Bình An Trao Tay 🌿</p>
         </header>
         <div class="grid">
     """
@@ -106,7 +121,7 @@ def tao_web_html(products):
                     <div class="title">{p['name']}</div>
                     <div>
                         <div class="price">{p['price']}</div>
-                        <div class="sales">{f"Đã bán: {p['sales']}" if p['sales'] > 0 else ""}</div>
+                        <div class="sales">Đã bán: {p['sales']}</div>
                     </div>
                     <a href="{p['link']}" class="btn" target="_blank" rel="nofollow">Mua Ngay</a>
                 </div>
@@ -116,7 +131,7 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG KHỞI ĐỘNG CHẾ ĐỘ CỨU HỘ WEB...")
+    print("🚀 ĐANG KHỞI ĐỘNG BẢN 6.0 (FIX TRIỆT ĐỂ)...")
     
     try:
         print("⏳ Đang tải dữ liệu...")
@@ -127,48 +142,47 @@ def chay_ngay_di():
         reader = csv.DictReader(io.StringIO(r.text))
         all_products = []
         
-        print("⚙️ Đang lọc (Đã nới lỏng điều kiện)...")
+        print("⚙️ Đang lọc (Điều kiện: VPP + Có bán + Giá hợp lý)...")
         
         for row in reader:
             ten = row.get('name', '').lower()
             
-            # 1. LỌC TỪ KHÓA (Vẫn giữ để web sạch)
+            # 1. LỌC TỪ KHÓA
             if not any(w in ten for w in VPP_KEYWORDS): continue
             if any(bad in ten for bad in CANT_TAKE): continue
 
-            # 2. GIÁ: Chỉ bỏ hàng quá rẻ (<2k)
-            try:
-                gia = float(row.get('price', 0))
-            except:
-                gia = 0
-            if gia < 2000: continue
-
-            # 3. SALES: Lấy hết, kể cả bán = 0 (Để web có hàng đã)
+            # 2. LỌC SALES: > 10 (Hạ chuẩn xuống để lấy được nhiều hàng hơn)
             try:
                 sales = int(row.get('sales', 0))
             except:
                 sales = 0
+            
+            if sales < 10: continue 
+
+            # 3. LỌC GIÁ: Bỏ hàng < 2k
+            try:
+                # Lấy giá raw để check điều kiện lọc trước
+                gia_check = float(str(row.get('price', 0)).replace(',', ''))
+                if gia_check < 2000: continue
+            except:
+                continue
 
             all_products.append({
                 "name": row.get('name'),
-                "price": xuly_gia(gia),
+                "price": xuly_gia_chuan(row.get('price')), # Dùng hàm giá mới
                 "sales": sales,
                 "image": row.get('image', '').split(',')[0].strip(' []"'),
                 "link": tao_link_aff(row.get('url'))
             })
 
-        # Vẫn ưu tiên đưa hàng bán chạy lên đầu
         all_products.sort(key=lambda x: x['sales'], reverse=True)
-        
-        # Lấy 60 món
         top_60 = all_products[:60]
 
         if len(top_60) == 0:
-            print("❌ NGUY HIỂM: Vẫn không tìm thấy sản phẩm nào! Hãy kiểm tra lại từ khóa.")
+            print("❌ CẢNH BÁO: Không tìm thấy sản phẩm!")
         else:
-            print(f"✅ Đã tìm thấy {len(top_60)} sản phẩm (Web đã có hàng trở lại).")
+            print(f"✅ Đã lọc được {len(top_60)} sản phẩm CHUẨN.")
 
-        # Ghi file
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(top_60, f, ensure_ascii=False, indent=4)
         
@@ -176,12 +190,19 @@ def chay_ngay_di():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(html_content)
             
-        # Đẩy lên mạng
-        print("☁️ Đang đẩy lên Github...")
+        print("☁️ Đang đẩy lên mạng (BẮT BUỘC ĐẨY LOGO)...")
+        
+        # --- CỤM LỆNH QUAN TRỌNG ĐỂ HIỆN LOGO ---
+        # 1. Thêm tất cả file (bao gồm ảnh mới)
         os.system("git add .") 
-        os.system('git commit -m "Khoi phuc web"')
+        # 2. Ép thêm file logo.png cụ thể (để chắc chắn 100%)
+        if os.path.exists("logo.png"):
+            os.system("git add logo.png")
+            print("📸 Đã tìm thấy logo.png và thêm vào gói hàng.")
+        
+        os.system('git commit -m "Final Fix 6.0"')
         os.system("git push")
-        print("🎉 XONG! Bạn tải lại web (F5) nhé.")
+        print("🎉 XONG! F5 trang web để xem kết quả.")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
