@@ -5,6 +5,7 @@ import io
 import os
 import re
 import base64 
+import glob # Thư viện tìm file
 
 # --- CẤU HÌNH ---
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
@@ -13,19 +14,20 @@ ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&utm_source=shopee&utm_campaign=vpp_tinh&url_enc="
 
-# 1. TỪ KHÓA VPP (Giữ nguyên)
+# TỪ KHÓA VPP (Giữ nguyên)
 VPP_KEYWORDS = [
     "bút", "vở", "sổ", "giấy a4", "giấy in", "kẹp", "thước", "file", 
     "bìa", "băng dính", "ghim", "hộp bút", "balo", "cặp", "máy tính",
     "dập ghim", "hồ dán", "keo", "bảng", "phấn", "mực"
 ]
 
-# 2. TỪ KHÓA CẤM (Vẫn chặn rác, nhưng bỏ chặn "hết hàng" để test xem có hàng không)
+# TỪ KHÓA CẤM (Bổ sung thêm các từ chỉ trạng thái hết hàng)
 CANT_TAKE = [
+    "hết hàng", "ngừng kinh doanh", "bỏ mẫu", "liên hệ", "tạm hết", "đặt trước", "hàng đặt",
     "mắt", "mày", "môi", "mi", "son", "kem", "phấn", "makeup", "trang điểm", "da", "nám", "mụn", 
     "bánh", "kẹo", "đồ ăn", "thực phẩm", "mắm", "muối", "gia vị",
     "xe", "honda", "yamaha", "lốp", "nhớt",
-    "áo", "quần", "váy", "giày", "dép", "túi xách", "thời trang"
+    "áo", "quần", "váy", "giày", "dép", "túi xách"
 ]
 
 def tao_link_aff(url_goc):
@@ -36,53 +38,38 @@ def tao_link_aff(url_goc):
     except:
         return url_goc
 
-def xuly_gia_thong_minh(gia_raw):
-    """
-    Hàm xử lý giá Logic 7.0:
-    Tự động phát hiện giá ảo và sửa lại.
-    """
+def xuly_gia_chuan(gia_raw):
     try:
-        # Xóa hết ký tự không phải số
-        gia_str = str(gia_raw).split('.')[0] # Lấy phần nguyên trước dấu chấm
+        gia_str = str(gia_raw).split('.')[0]
         gia_clean = re.sub(r'[^\d]', '', gia_str)
-        
         if not gia_clean: return "Liên hệ"
         
         gia_val = float(gia_clean)
         
-        # LOGIC SỬA SAI:
-        # Một món VPP bình thường không thể quá 500.000đ (trừ máy tính/balo xịn)
-        # Nếu giá > 1 triệu mà tên sản phẩm là bút/vở -> Chia 10
-        if gia_val > 1000000: 
-            gia_val = gia_val / 10
-            
-        # Nếu vẫn > 1 triệu -> Chia tiếp (trường hợp bị nhân 100)
-        if gia_val > 1000000:
-            gia_val = gia_val / 10
+        # Nếu giá > 500k mà là bút vở -> Chia 10 (Trị bệnh thừa số 0)
+        if gia_val > 500000: gia_val = gia_val / 10
+        if gia_val > 500000: gia_val = gia_val / 10 # Chia tiếp lần nữa nếu vẫn quá lớn
             
         if gia_val < 1000: return "Liên hệ"
-        
         return "{:,.0f}₫".format(gia_val).replace(",", ".")
     except:
         return "Liên hệ"
 
+def tim_logo():
+    # Tìm tất cả file bắt đầu bằng 'logo'
+    files = glob.glob("logo.*")
+    for f in files:
+        if f.lower().endswith(('.png', '.jpg', '.jpeg')):
+            return f
+    return None
+
 def tao_web_html(products):
-    # LOGO: Kiểm tra kỹ xem file nào tồn tại
-    logo_file = "logo.png" # Mặc định
-    if os.path.exists("logo.jpg"): logo_file = "logo.jpg"
+    logo_file = tim_logo()
     
-    # CSS onerror: Nếu ảnh lỗi thì ẩn đi, hiện chữ VPP TỊNH
-    header_html = f'''
-        <div class="logo-container">
-            <img src="{logo_file}" alt="VPP Tịnh" class="logo-img" onerror="this.style.display='none'; document.getElementById('text-logo').style.display='block'">
-            <h1 id="text-logo" style="display:none">VPP TỊNH</h1>
-            <p class="slogan">🌿 Bình An Trao Tay 🌿</p>
-        </div>
-    '''
-    
-    # Nếu không tìm thấy file ảnh ngay trên máy, hiện chữ luôn
-    if not os.path.exists(logo_file):
-         header_html = '<h1>VPP TỊNH</h1><p class="slogan">🌿 Bình An Trao Tay 🌿</p>'
+    if logo_file:
+        header_html = f'<img src="{logo_file}" alt="VPP Tịnh" class="logo-img">'
+    else:
+        header_html = '<h1>VPP TỊNH</h1><p class="slogan">🌿 Bình An Trao Tay 🌿</p>'
 
     html = f"""
     <!DOCTYPE html>
@@ -92,12 +79,12 @@ def tao_web_html(products):
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="referrer" content="no-referrer"> 
         <title>VPP Tịnh - Bình An Trao Tay</title>
-        <link rel="icon" href="{logo_file}">
+        <link rel="icon" href="{logo_file if logo_file else 'data:,'}">
         <style>
             :root {{ --primary: #2a9d8f; --bg: #fdfcdc; --text: #333; }}
             body {{ font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; margin: 0; }}
             header {{ text-align: center; background: #fff; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }}
-            .logo-img {{ max-height: 100px; width: auto; margin: 0 auto; }}
+            .logo-img {{ max-height: 120px; width: auto; margin: 0 auto; display: block; }}
             h1 {{ color: #e76f51; margin: 10px 0 0; text-transform: uppercase; }}
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }}
             .card {{ background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: transform 0.2s; }}
@@ -130,7 +117,7 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG KHỞI ĐỘNG BẢN 7.0 (FIX TRẮNG TRANG + FIX GIÁ)...")
+    print("🚀 ĐANG KHỞI ĐỘNG FINAL BOSS 8.0...")
     try:
         print("⏳ Đang tải dữ liệu...")
         r = requests.get(LINK_CSV, timeout=60)
@@ -138,17 +125,29 @@ def chay_ngay_di():
         reader = csv.DictReader(io.StringIO(r.text))
         
         all_products = []
-        print("⚙️ Đang lọc (Bỏ điều kiện Sales để cứu Web)...")
+        
+        print("⚙️ Đang lọc hàng tồn...")
         
         for row in reader:
             ten = row.get('name', '').lower()
             
-            # LỌC CƠ BẢN
+            # 1. LỌC TỪ KHÓA
             if not any(w in ten for w in VPP_KEYWORDS): continue
             if any(bad in ten for bad in CANT_TAKE): continue
             
-            # XỬ LÝ GIÁ
-            gia_hien_thi = xuly_gia_thong_minh(row.get('price', 0))
+            # 2. LỌC TRẠNG THÁI (Nếu có cột status)
+            status = str(row.get('status', '1')) # Mặc định là 1 (còn hàng)
+            if status == '0' or status.lower() == 'out of stock': continue
+
+            # 3. LỌC HÀNG HẾT KHO (Nếu có cột stock)
+            try:
+                stock = int(row.get('stock', 100)) # Mặc định 100 nếu không có cột stock
+                if stock == 0: continue
+            except:
+                pass
+
+            # 4. XỬ LÝ GIÁ
+            gia_hien_thi = xuly_gia_chuan(row.get('price', 0))
             if gia_hien_thi == "Liên hệ": continue
 
             all_products.append({
@@ -158,11 +157,10 @@ def chay_ngay_di():
                 "link": tao_link_aff(row.get('url'))
             })
 
-        # Lấy tối đa 100 món (Không sắp xếp theo Sales nữa vì có thể cột Sales bị lỗi)
         final_list = all_products[:100]
 
         if not final_list:
-            print("❌ VẪN KHÔNG CÓ HÀNG? Hãy kiểm tra lại file CSV nguồn!")
+            print("❌ VẪN KHÔNG CÓ HÀNG? File CSV có vấn đề.")
         else:
             print(f"✅ Đã tìm thấy {len(final_list)} sản phẩm.")
 
@@ -173,16 +171,20 @@ def chay_ngay_di():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(html_content)
             
-        print("☁️ Đang đẩy lên mạng (BẮT BUỘC ĐẨY LOGO)...")
+        print("☁️ Đang xử lý Upload Logo & Web...")
         
-        # --- CƯỠNG CHẾ ĐẨY LOGO ---
+        # --- CƯỠNG CHẾ UPLOAD LOGO ---
         os.system("git add .") 
-        if os.path.exists("logo.png"): os.system("git add logo.png")
-        if os.path.exists("logo.jpg"): os.system("git add logo.jpg")
-        
-        os.system('git commit -m "Final Fix 7.0"')
+        logo_tim_thay = tim_logo()
+        if logo_tim_thay:
+            print(f"📸 Đã tìm thấy logo: {logo_tim_thay} -> Đang ép đẩy lên mạng!")
+            os.system(f'git add "{logo_tim_thay}"') # Ép git add file này
+        else:
+            print("⚠️ CẢNH BÁO: Không tìm thấy file ảnh nào tên là logo.png hay logo.jpg!")
+
+        os.system('git commit -m "Final Fix 8.0"')
         os.system("git push")
-        print("🎉 XONG! Hãy F5 trang web (có thể cần đợi 1-2 phút).")
+        print("🎉 XONG! Hãy F5 trang web.")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
