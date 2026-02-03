@@ -67,8 +67,13 @@ def generate_html(products):
     </head>
     <body>
         <header>
-            <h1>VPP Tịnh</h1>
-            <p class="slogan">🌿 Bình An Trao Tay 🌿</p>
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+                <img src="static/images/logo.png" alt="VPP Tịnh" style="height:50px;width:auto;">
+                <div>
+                    <h1>VPP Tịnh</h1>
+                    <p class="slogan">🌿 Bình An Trao Tay 🌿</p>
+                </div>
+            </div>
         </header>
 
         <div class="product-grid">
@@ -127,9 +132,21 @@ def main():
     
     # Chỗ 2: Trong thư mục dist (Nếu có)
     if os.path.exists('dist'):
+        # ensure dist exists and write index
         with open('dist/index.html', 'w', encoding='utf-8') as f:
             f.write(html)
-        print("✅ Đã lưu thêm một bản vào thư mục dist/index.html")
+
+        # copy static assets into dist so logo and css are available
+        dist_static = os.path.join('dist', 'static')
+        try:
+            if os.path.exists(dist_static):
+                shutil.rmtree(dist_static)
+            if os.path.exists('static'):
+                shutil.copytree('static', dist_static)
+        except Exception as e:
+            print(f"⚠️ Không thể copy static vào dist/: {e}")
+
+        print("✅ Đã lưu thêm một bản vào thư mục dist/index.html và copy static/")
     
     print(f"🎉 THÀNH CÔNG! Đã đưa {count} sản phẩm lên web.")
     print("👉 Hãy mở file index.html lên xem ngay nhé!")

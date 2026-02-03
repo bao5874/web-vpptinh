@@ -18,26 +18,26 @@ FILE_JSON = "products.json"
 # Link Affiliate của bạn (Đã cắt đuôi mã hóa)
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc="
 
-# 1. BỘ TỪ KHÓA KÉP (SỬA LẠI ĐỂ KHÔNG LẤY KHAY MAKEUP)
+# 1. BỘ TỪ KHÓA KÉP - CHỈ LẤY VĂN PHÒNG PHẨM THỰC SỰ
 VPP_WHITELIST = [
-    "bút bi", "bút chì", "bút gel", "bút nước", "bút dạ", "bút xóa", "bút nhớ", "bút lông", "ngòi bút",
-    "giấy a4", "giấy in", "giấy note", "giấy than", "giấy bìa", "giấy vẽ",
-    "vở học sinh", "vở kẻ ngang", "vở ô ly", "sổ tay", "sổ lò xo", "sổ da",
-    "kẹp giấy", "kẹp bướm", "kẹp tài liệu", "ghim bấm", "dập ghim", "ghim cài",
-    "bìa hồ sơ", "bìa còng", "bìa lá", "file lá", "túi clear bag", "cặp tài liệu",
-    "băng dính", "băng keo", "hồ dán", "keo dán",
-    "thước kẻ", "ê ke", "compa", "hộp bút", "dao rọc giấy",
-    "khay đựng bút", "khay tài liệu", "kệ đựng hồ sơ" # Đã xóa "khay đựng" chung chung
+    "bút bi", "bút chì", "bút gel", "bút nước", "bút dạ", "bút xóa", "bút nhớ", "bút lông", "ngòi bút", "bút dạ quang",
+    "giấy a4", "giấy in", "giấy note", "giấy than", "giấy bìa", "giấy vẽ", "giấy in ảnh", "giấy kraft",
+    "vở học sinh", "vở kẻ ngang", "vở ô ly", "sổ tay", "sổ lò xo", "sổ da", "sổ ghi chép",
+    "kẹp giấy", "kẹp bướm", "kẹp tài liệu", "ghim bấm", "dập ghim", "ghim cài", "kẹp sắt",
+    "bìa hồ sơ", "bìa còng", "bìa lá", "file lá", "túi clear bag", "cặp tài liệu", "file nhựa",
+    "băng dính", "băng keo", "hồ dán", "keo dán", "băng trong suốt", "keo cơ khí",
+    "thước kẻ", "ê ke", "compa", "hộp bút", "dao rọc giấy", "lưỡi dao", "kéo cắt",
+    "khay đựng bút", "khay tài liệu", "kệ đựng hồ sơ", "khay để bàn", "hộp đựng", "tủ tài liệu"
 ]
 
-# 2. BLACKLIST (GIỮ NGUYÊN & BỔ SUNG)
+# 2. BLACKLIST - LỌC BỎ SẢN PHẨM KHÔNG PHẢI VĂN PHÒNG PHẨM
 JUNK_BLACKLIST = [
-    "honda", "yamaha", "suzuki", "xe máy", "ô tô", "phụ tùng", "lốp", "nhớt", "pô", "gác chân",
-    "mực khô", "mực rim", "râu mực", "ăn vặt", "bánh", "kẹo", "thực phẩm", "mắm", "muối",
-    "kẻ mắt", "kẻ mày", "trang điểm", "son", "phấn", "kem", "serum", "dưỡng", "mụn", "makeup", "mỹ phẩm",
-    "áo", "quần", "váy", "giày", "dép", "túi xách", "thời trang",
-    "đồ chơi", "siêu nhân", "lắp ráp", "robot",
-    "hết hàng", "bỏ mẫu", "liên hệ"
+    "honda", "yamaha", "suzuki", "xe máy", "ô tô", "phụ tùng", "lốp", "nhớt", "pô", "gác chân", "bánh xe",
+    "mực khô", "ăn vặt", "bánh", "kẹo", "thực phẩm", "mắm", "muối", "cơm", "mì", "tương", "rượu", "bia",
+    "kẻ mắt", "kẻ mày", "trang điểm", "son môi", "phấn", "kem dưỡng", "serum", "mụn", "makeup", "mỹ phẩm",
+    "áo sơ mi", "áo thun", "áo khoác", "quần jeans", "quần tây", "váy", "giày thể thao", "dép", "túi xách", "thời trang",
+    "đồ chơi", "siêu nhân", "lắp ráp", "robot", "máy chơi game",
+    "hết hàng", "bỏ mẫu", "liên hệ", "out of stock"
 ]
 
 def tao_link_aff(url_goc):
@@ -136,18 +136,29 @@ def chay_ngay_di():
         clean_products = []
         
         print("⚙️ Đang lọc...")
+        excluded_count = 0
         for row in reader:
             ten = row.get('name', '').lower()
+            stock = str(row.get('stock', '1')).lower().strip()
             
-            # 1. BỘ LỌC KÉP
+            # 0. KIỂM TRA HẾT HÀNG
+            if any(x in stock for x in ['0', 'hết', 'out', 'không có']):
+                excluded_count += 1
+                continue
+            
+            # 1. BỘ LỌC KÉP - PHẢI CÓ TỪ KHÓA VĂN PHÒNG PHẨM
             if not any(good in ten for good in VPP_WHITELIST): continue
             
-            # 2. BLACKLIST
-            if any(bad in ten for bad in JUNK_BLACKLIST): continue
+            # 2. BLACKLIST - BỎ SẢN PHẨM KHÔNG PHẢI VĂN PHÒNG PHẨM
+            if any(bad in ten for bad in JUNK_BLACKLIST): 
+                excluded_count += 1
+                continue
 
-            # 3. GIÁ
+            # 3. GIÁ - PHẢI CÓ GIÁ HỢP LỆ
             gia_hien_thi = xuly_gia(row.get('price'))
-            if gia_hien_thi == "Liên hệ": continue
+            if gia_hien_thi == "Liên hệ": 
+                excluded_count += 1
+                continue
 
             clean_products.append({
                 "name": row.get('name'),
@@ -155,9 +166,11 @@ def chay_ngay_di():
                 "image": row.get('image', '').split(',')[0].strip(' []"'),
                 "link": tao_link_aff(row.get('url'))
             })
+        
+        print(f"⚠️ Đã loại bỏ {excluded_count} sản phẩm (hết hàng hoặc không phải VPP)")
 
         final_list = clean_products[:100]
-        print(f"✅ Tìm thấy {len(final_list)} sản phẩm.")
+        print(f"✅ Tìm thấy {len(final_list)} sản phẩm hợp lệ (đã loại bỏ {excluded_count} sản phẩm không phù hợp).")
 
         # LƯU FILE
         with open(FILE_JSON, "w", encoding="utf-8") as f:
