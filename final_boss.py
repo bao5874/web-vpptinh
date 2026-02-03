@@ -8,17 +8,19 @@ import base64
 import time
 
 # --- CẤU HÌNH ---
-# Dùng link logo online để đảm bảo 100% hiện ảnh (Tránh lỗi file local)
+# Link Logo Online (Hình cái bút đẹp)
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
 
+# Link CSV nguồn hàng (Vẫn dùng link cũ vì đây là kho dữ liệu duy nhất)
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
-ACCESSTRADE_ID = "4751584435713464237"
-CAMPAIGN_ID = "6906519896943843292" 
-BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&utm_source=shopee&utm_campaign=vpp_tinh&url_enc="
 
-# 1. BỘ TỪ KHÓA KÉP (WhiteList) - Bắt buộc phải khớp cụm từ này mới lấy
-# Tuyệt đối không thêm từ đơn như "bút", "giấy", "kẹp" vào đây
+# --- CẬP NHẬT LINK MỚI CỦA BẠN TẠI ĐÂY ---
+# Mình đã cắt phần đuôi mã hóa đi để code tự động điền link từng sản phẩm vào
+BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc="
+
+# 1. BỘ TỪ KHÓA KÉP (WhiteList) - CHỈ LẤY NẾU CÓ CỤM TỪ NÀY
+# Bộ lọc này đã chứng minh hiệu quả loại bỏ "Kẹp Honda"
 VPP_WHITELIST = [
     "bút bi", "bút chì", "bút gel", "bút nước", "bút dạ", "bút xóa", "bút nhớ", "bút lông", "ngòi bút",
     "giấy a4", "giấy in", "giấy note", "giấy than", "giấy bìa", "giấy vẽ",
@@ -29,7 +31,7 @@ VPP_WHITELIST = [
     "thước kẻ", "ê ke", "compa", "hộp bút", "khay đựng bút", "dao rọc giấy"
 ]
 
-# 2. BỘ TỪ KHÓA CẤM (BlackList) - Thấy là diệt
+# 2. BỘ TỪ KHÓA CẤM (BlackList) - AN TOÀN TUYỆT ĐỐI
 JUNK_BLACKLIST = [
     "honda", "yamaha", "suzuki", "xe máy", "ô tô", "phụ tùng", "lốp", "nhớt", "pô", "gác chân", "đèn", "còi",
     "mực khô", "mực rim", "mực tẩm", "râu mực", "ăn vặt", "bánh", "kẹo", "thực phẩm", "mắm", "muối",
@@ -42,6 +44,7 @@ JUNK_BLACKLIST = [
 def tao_link_aff(url_goc):
     if not url_goc: return "#"
     try:
+        # Mã hóa link sản phẩm shopee thành base64 để nối vào link của bạn
         encoded = base64.b64encode(url_goc.strip().encode("utf-8")).decode("utf-8")
         return f"{BASE_AFF_URL}{encoded}"
     except:
@@ -49,28 +52,28 @@ def tao_link_aff(url_goc):
 
 def xuly_gia_don_gian(gia_raw):
     """
-    Xử lý giá đơn giản nhất để tránh lỗi "Liên hệ"
+    Xử lý giá đơn giản, hiệu quả
     """
     try:
-        # Chuyển về chuỗi, bỏ hết dấu chấm phẩy
+        # Chuyển về chuỗi, bỏ hết dấu chấm phẩy để lấy số thuần
         gia_str = str(gia_raw).replace('.', '').replace(',', '')
-        # Chỉ lấy số
         numbers = re.findall(r'\d+', gia_str)
         if not numbers: return "Liên hệ"
         
         gia_val = float(numbers[0])
         
-        # Chỉ sửa nếu giá quá vô lý (lớn hơn 5 triệu cho 1 cây bút)
+        # Chỉ sửa nếu giá quá vô lý (lớn hơn 5 triệu)
+        if gia_val > 5000000: gia_val /= 10
         if gia_val > 5000000: gia_val /= 10
             
-        if gia_val < 1000: return "Liên hệ" # Giá < 1k là lỗi
+        if gia_val < 1000: return "Liên hệ" 
         
         return "{:,.0f}₫".format(gia_val).replace(",", ".")
     except:
         return "Liên hệ"
 
 def tao_web_html(products):
-    v = int(time.time()) # Chống cache ảnh
+    v = int(time.time()) # Timestamp để ép trình duyệt tải mới
     
     html = f"""
     <!DOCTYPE html>
@@ -79,6 +82,9 @@ def tao_web_html(products):
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        
         <title>VPP Tịnh - Văn Phòng Phẩm</title>
         <link rel="icon" href="{LOGO_URL}">
         <style>
@@ -128,7 +134,7 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG CHẠY BỘ LỌC 'BẮN TỈA' (V11.0)...")
+    print("🚀 ĐANG CHẠY FINAL BOSS 12.0 (LINK MỚI + SIÊU LỌC)...")
     try:
         r = requests.get(LINK_CSV, timeout=60)
         r.encoding = 'utf-8'
@@ -136,19 +142,19 @@ def chay_ngay_di():
         
         clean_products = []
         
-        print("⚙️ Đang lọc (Chỉ lấy cụm từ khóa chính xác)...")
+        print("⚙️ Đang lọc (Vẫn dùng bộ lọc Bắn Tỉa để chặn Rác)...")
         
         for row in reader:
             ten = row.get('name', '').lower()
             
-            # 1. BẮN TỈA: Phải chứa đúng cụm từ trong WHITELIST (ví dụ "kẹp giấy")
-            # Nếu chỉ có "kẹp" mà không có "giấy" -> Loại ngay
+            # --- BỘ LỌC QUAN TRỌNG NHẤT ---
+            # 1. Phải chứa cụm từ chính xác (Kẹp giấy, Bút bi...)
             if not any(good in ten for good in VPP_WHITELIST): continue
             
-            # 2. CHẶN RÁC: Vẫn giữ blacklist để an toàn tuyệt đối
+            # 2. Không được chứa từ cấm (Honda, Đồ ăn...)
             if any(bad in ten for bad in JUNK_BLACKLIST): continue
 
-            # 3. XỬ LÝ GIÁ: Dùng hàm đơn giản mới
+            # 3. Xử lý giá
             gia_hien_thi = xuly_gia_don_gian(row.get('price'))
             if gia_hien_thi == "Liên hệ": continue
 
@@ -156,7 +162,7 @@ def chay_ngay_di():
                 "name": row.get('name'),
                 "price": gia_hien_thi,
                 "image": row.get('image', '').split(',')[0].strip(' []"'),
-                "link": tao_link_aff(row.get('url'))
+                "link": tao_link_aff(row.get('url')) # Tạo link với mã mới của bạn
             })
 
         # Lấy 100 món
@@ -172,7 +178,7 @@ def chay_ngay_di():
             
         print("☁️ Đang cập nhật lên Github...")
         os.system("git add .")
-        os.system('git commit -m "Update V11 clean filter"')
+        os.system('git commit -m "Update V12 New Link"')
         os.system("git push")
         print("🎉 XONG! Hãy F5 web để kiểm tra.")
 
