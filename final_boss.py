@@ -14,9 +14,26 @@ ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&url_enc="
 
-# 1. TỪ KHÓA DUYỆT (Giữ nguyên các từ khóa chuẩn)
+# 1. CHẶN THEO NGÀNH HÀNG (CATEGORY) - QUAN TRỌNG NHẤT
+CATEGORY_CAM = [
+    "sắc đẹp", "trang điểm", "mỹ phẩm", "chăm sóc da", "sức khỏe", # Chặn mỹ phẩm
+    "xe", "mô tô", "ô tô", "phụ tùng", # Chặn xe
+    "đồ chơi", "mẹ và bé", "thời trang", "giày", "dép", "túi", "ví", "quần", "áo",
+    "điện thoại", "phụ kiện", "ốp lưng", "cáp sạc", "gia dụng", "nhà cửa"
+]
+
+# 2. CHẶN THEO TÊN (BLACKLIST CHI TIẾT)
+NAME_CAM = [
+    "kẻ mắt", "kẻ mày", "chân mày", "chuốt mi", "mascara", "eyeliner", "brow", "shadow", # Mỹ phẩm mắt
+    "son", "lip", "phấn", "kem nền", "che khuyết điểm", "tẩy trang", "bông tẩy", "serum", "mụn",
+    "bánh", "kẹo", "ăn vặt", "đồ ăn", "thực phẩm", "mắm", "muối",
+    "honda", "yamaha", "winner", "exciter", "dream", "wave", # Xe cộ
+    "lego", "robot", "siêu nhân", "lắp ráp"
+]
+
+# 3. CHỈ LẤY NHỮNG TỪ NÀY (WHITELIST)
 TU_KHOA_DUYET = [
-    "bút bi", "bút chì", "bút gel", "bút nước", "bút ký", "bút xóa", "bút nhớ", "bút dạ quang", "bút lông", "ngòi bút",
+    "bút bi", "bút chì", "bút gel", "bút nước", "bút ký", "bút xóa", "bút nhớ", "bút dạ quang", "bút lông bảng", "ngòi bút",
     "giấy a4", "giấy in", "giấy photo", "giấy note", "giấy nhớ", "giấy bìa", "giấy than",
     "vở ô ly", "vở kẻ ngang", "vở học sinh", "vở ghi",
     "sổ tay", "sổ da", "sổ lò xo", "sổ ghi chép",
@@ -27,55 +44,36 @@ TU_KHOA_DUYET = [
     "bảng tên", "dây đeo thẻ", "khay đựng tài liệu", "hộp cắm bút", "balo", "cặp sách"
 ]
 
-# 2. TỪ KHÓA CẤM (BỔ SUNG CỰC MẠNH VỀ MỸ PHẨM & CƠ THỂ)
-TU_KHOA_CAM = [
-    # --- CHẶN MỸ PHẨM (Dựa trên ảnh của bạn) ---
-    "mắt", "mày", "mi", "môi", # Chặn: kẻ mắt, kẻ mày, chuốt mi, son môi
-    "son", "phấn", "makeup", "trang điểm", "thẩm mỹ", "spa",
-    "dưỡng", "serum", "kem", "nạ", "mụn", "thâm", "nám", "sẹo", "tắm", "gội",
-    "nước hoa", "body", "face", "skin", "tóc", "nail", "móng",
-    
-    # --- CHẶN ĐỒ ĂN ---
-    "bánh", "kẹo", "đồ ăn", "thực phẩm", "mắm", "muối", "gia vị", "nấu", "bếp", "nướng", "chiên", "sữa", "trà", "cà phê",
-    
-    # --- CHẶN XE CỘ ---
-    "xe", "honda", "yamaha", "phụ tùng", "lốp", "nhớt", "pô", "đèn", "còi", "xi nhan",
-    
-    # --- CHẶN THỜI TRANG ---
-    "áo", "quần", "váy", "giày", "dép", "túi xách", "thời trang", "trang sức", "bông tai", "vòng cổ",
-    
-    # --- CHẶN LINH TINH KHÁC ---
-    "đồ chơi", "siêu nhân", "lego", "robot", "búp bê", "ốp lưng", "cường lực", "vệ sinh", "tã", "bỉm"
-]
-
 def check_hang_chuan(row):
-    # Chuyển tên về chữ thường để so sánh
     ten_sp = row.get('name', '').lower()
+    danh_muc = row.get('category', '').lower()
     
-    # 1. KIỂM TRA GIÁ (Lọc giá ảo < 3k)
+    # BƯỚC 1: SOI NGÀNH HÀNG (CATEGORY)
+    # Nếu ngành hàng chứa từ cấm (ví dụ: "Sức khỏe & Sắc đẹp") -> LOẠI NGAY
+    for cat in CATEGORY_CAM:
+        if cat in danh_muc:
+            # print(f"❌ Loại vì sai ngành: {ten_sp} ({danh_muc})") # Bật dòng này nếu muốn xem chi tiết
+            return False
+
+    # BƯỚC 2: SOI TÊN SẢN PHẨM (BLACKLIST)
+    # Nếu tên có "kẻ mắt", "kẻ mày"... -> LOẠI NGAY
+    for bad_word in NAME_CAM:
+        if bad_word in ten_sp:
+            return False
+
+    # BƯỚC 3: KIỂM TRA GIÁ
     try:
         gia = float(row.get('price', 0))
         if gia < 3000: return False 
     except:
         return False
 
-    # 2. BLACKLIST (Thấy từ cấm là bỏ ngay)
-    # Đây là chốt chặn quan trọng nhất để loại bỏ "Bút kẻ mắt"
-    for tu_cam in TU_KHOA_CAM:
-        if tu_cam in ten_sp:
-            return False
+    # BƯỚC 4: SOI TỪ KHÓA CHUẨN (WHITELIST)
+    for good_word in TU_KHOA_DUYET:
+        if good_word in ten_sp:
+            return True # Đã qua 3 cửa ải trên mà có từ khóa này -> LẤY
 
-    # 3. WHITELIST (Bắt buộc phải chứa cụm từ chính xác)
-    tim_thay = False
-    for tu_khoa in TU_KHOA_DUYET:
-        if tu_khoa in ten_sp:
-            tim_thay = True
-            break
-            
-    if not tim_thay:
-        return False 
-
-    return True
+    return False
 
 def tao_link_kiem_tien(link_goc):
     if not link_goc: return "#"
@@ -152,7 +150,7 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG CHẠY CHẾ ĐỘ 'DIỆT MỸ PHẨM'...")
+    print("🚀 ĐANG CHẠY BỘ LỌC 'BỨC TƯỜNG LỬA' (Cực Gắt)...")
     
     try:
         print("⏳ Đang tải dữ liệu...")
@@ -167,7 +165,7 @@ def chay_ngay_di():
         count = 0
         tong_so = 0
         
-        print("⚙️ Đang lọc (Sẽ loại bỏ hết các loại 'kẻ mắt', 'kẻ mày')...")
+        print("⚙️ Đang quét và loại bỏ Mỹ Phẩm/Đồ Chơi/Xe Cộ...")
         
         for row in reader:
             tong_so += 1
@@ -181,14 +179,13 @@ def chay_ngay_di():
                         "link": tao_link_kiem_tien(link_goc)
                     })
                     count += 1
+                    # In ra sản phẩm LẤY được để bạn yên tâm
+                    print(f"✅ LẤY: {row.get('name')[:40]}...")
             
-            if count >= 60: break 
-            
-            # Quét tối đa 20.000 dòng
-            if tong_so > 20000: break
+            if count >= 60: break # Lấy đủ 60 món thì dừng
+            if tong_so > 30000: break # Quét tối đa 30k dòng
 
-        print(f"\n📊 Đã quét: {tong_so} sản phẩm.")
-        print(f"✅ Tìm được: {len(san_pham_list)} sản phẩm VPP SẠCH.")
+        print(f"\n📊 Kết quả: Quét {tong_so} dòng -> Lấy được {len(san_pham_list)} món VPP CHUẨN.")
 
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(san_pham_list, f, ensure_ascii=False, indent=4)
@@ -199,9 +196,9 @@ def chay_ngay_di():
             
         print("☁️ Đang đẩy lên mạng...")
         os.system("git add .")
-        os.system('git commit -m "Diet my pham triet de"')
+        os.system('git commit -m "Loc sach se 100%"')
         os.system("git push")
-        print("🎉 XONG! Bạn tải lại web xem sạch chưa nhé!")
+        print("🎉 XONG! Bạn vào web kiểm tra ngay nhé!")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
