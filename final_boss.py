@@ -123,19 +123,19 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG CHẠY FINAL BOSS 14.0 (FIX LOGO & LỌC)...")
+    print("[FINAL BOSS] Dang chay Final Boss 14.0 (Fix Logo & Loc)...")
     try:
-        print("⏳ Đang tải dữ liệu...")
+        print("[LOADING] Dang tai du lieu...")
         r = requests.get(LINK_CSV, timeout=60)
         
         if r.status_code != 200:
-            print("❌ Lỗi tải file CSV!")
+            print("[ERROR] Loi tai file CSV!")
             return
             
         reader = csv.DictReader(io.StringIO(r.text))
         clean_products = []
         
-        print("⚙️ Đang lọc...")
+        print("[FILTER] Dang loc...")
         excluded_count = 0
         for row in reader:
             ten = row.get('name', '').lower()
@@ -149,12 +149,18 @@ def chay_ngay_di():
             # 1. BỘ LỌC KÉP - PHẢI CÓ TỪ KHÓA VĂN PHÒNG PHẨM
             if not any(good in ten for good in VPP_WHITELIST): continue
             
-            # 2. BLACKLIST - BỎ SẢN PHẨM KHÔNG PHẢI VĂN PHÒNG PHẨM
+            # 2. LOẠI BỎ HỘP ĐỰNG KHÔNG PHẢI VĂN PHÒNG PHẨM
+            if "hộp đựng" in ten or "khay đựng" in ten:
+                if not any(x in ten for x in ["bút", "tài liệu", "hồ sơ", "văn phòng"]):
+                    excluded_count += 1
+                    continue
+            
+            # 3. BLACKLIST - BỎ SẢN PHẨM KHÔNG PHẢI VĂN PHÒNG PHẨM
             if any(bad in ten for bad in JUNK_BLACKLIST): 
                 excluded_count += 1
                 continue
 
-            # 3. GIÁ - PHẢI CÓ GIÁ HỢP LỆ
+            # 4. GIÁ - PHẢI CÓ GIÁ HỢP LỆ
             gia_hien_thi = xuly_gia(row.get('price'))
             if gia_hien_thi == "Liên hệ": 
                 excluded_count += 1
@@ -167,10 +173,10 @@ def chay_ngay_di():
                 "link": tao_link_aff(row.get('url'))
             })
         
-        print(f"⚠️ Đã loại bỏ {excluded_count} sản phẩm (hết hàng hoặc không phải VPP)")
+        print(f"[EXCLUDED] Loai bo {excluded_count} san pham (het hang hoac khong phai VPP)")
 
         final_list = clean_products[:100]
-        print(f"✅ Tìm thấy {len(final_list)} sản phẩm hợp lệ (đã loại bỏ {excluded_count} sản phẩm không phù hợp).")
+        print(f"[SUCCESS] Tim thay {len(final_list)} san pham hop le (da loai bo {excluded_count} san pham khong phu hop).")
 
         # LƯU FILE
         with open(FILE_JSON, "w", encoding="utf-8") as f:
@@ -180,29 +186,29 @@ def chay_ngay_di():
             f.write(tao_web_html(final_list))
         
         # TỰ ĐỘNG MỞ TRÌNH DUYỆT ĐỂ BẠN KIỂM TRA TRƯỚC
-        print("👉 Đang mở web kiểm tra...")
+        print("[BROWSER] Dang mo web kiem tra...")
         url_file = "file://" + os.path.realpath("index.html")
         webbrowser.open(url_file)
         
         # XÁC NHẬN ĐẨY LÊN
         print("\n" + "="*50)
-        print("Hãy nhìn trình duyệt vừa bật lên.")
-        print("Logo cây bút có hiện không? Khay makeup đã mất chưa?")
+        print("Hay nhin trinh duyet vua bat len.")
+        print("Logo cay but co hien khong? Khay makeup da mat chua?")
         print("="*50 + "\n")
         
-        chon = input("Nếu Web OK thì bấm phím 'y' rồi Enter để đẩy lên mạng: ")
+        chon = input("Neu Web OK thi bam phim 'y' roi Enter de day len mang: ")
         
         if chon.lower() == 'y':
-            print("☁️ Đang cập nhật lên Github...")
+            print("[PUSH] Dang cap nhat len Github...")
             os.system("git add .")
-            os.system('git commit -m "Final 14 Fix Logo"')
+            os.system('git commit -m "Updated VPP products with improved filtering"')
             os.system("git push")
-            print("✅ XONG! Đợi 3 phút rồi vào vpptinh.com kiểm tra.")
+            print("[DONE] XONG! Doi 3 phut roi vao vpptinh.com kiem tra.")
         else:
-            print("❌ Đã hủy.")
+            print("[CANCEL] Da huy.")
 
     except Exception as e:
-        print(f"❌ Lỗi: {e}")
+        print(f"[ERROR] Loi: {e}")
 
 if __name__ == "__main__":
     chay_ngay_di()
