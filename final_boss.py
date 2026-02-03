@@ -147,7 +147,7 @@ def chay_ngay_di():
                 'hết hàng', 'không còn', 'bỏ mẫu', 'liên hệ', 'sold out', 'off stock', 
                 'ngừng bán', 'kết thúc', 'hết lô', 'tạm hết', 'tạm dừng', 'không bán',
                 'ngừng kinh doanh', 'order trước', 'đặt hàng', 'liên hệ shop',
-                'không available', 'unavailable'
+                'không available', 'unavailable', 'hết', 'out'
             ]
             
             # Nếu tên sản phẩm chứa từ khóa hết hàng, bỏ qua
@@ -162,6 +162,18 @@ def chay_ngay_di():
                     excluded_count += 1
                     continue
             
+            # THÊM: Loại bỏ sản phẩm không phải VPP duy nhất - chỉ giữ VPP thực sự thông dụng
+            # Sản phẩm phải thuộc một trong các nhóm chính VPP
+            is_real_vpp = (
+                any(x in ten for x in ['bút', 'giấy', 'vở', 'sổ', 'kẹp', 'ghim', 'băng', 'keo', 'thước', 'compa', 'kéo']) or
+                any(x in ten for x in ['hộp bút', 'kệ', 'hồ sơ', 'bìa', 'file', 'tài liệu', 'văn phòng'])
+            )
+            
+            # Loại bỏ những sản phẩm không rõ ràng là VPP
+            if not is_real_vpp:
+                excluded_count += 1
+                continue
+            
             # 1. BỘ LỌC KÉP - PHẢI CÓ TỪ KHÓA VĂN PHÒNG PHẨM
             if not any(good in ten for good in VPP_WHITELIST): continue
             
@@ -173,6 +185,18 @@ def chay_ngay_di():
             
             # 3. BLACKLIST - BỎ SẢN PHẨM KHÔNG PHẢI VĂN PHÒNG PHẨM
             if any(bad in ten for bad in JUNK_BLACKLIST): 
+                excluded_count += 1
+                continue
+            
+            # THÊM: Loại bỏ các công cụ/dụng cụ không phải VPP truyền thống
+            # Cắt vải, kéo cắt trang trí, dụng cụ handmade không phải là VPP chính
+            non_vpp_keywords = [
+                'xe đạp', 'xe máy', 'kéo răng cưa', 'cắt viền', 'handmade',
+                'decor', 'trang trí', 'tranh', 'nail', 'beauty', 'cơ khí chuyên dùng',
+                'đục lỗ', 'tag tem', 'túi giấy trang trí', 'montessori'
+            ]
+            
+            if any(x in ten for x in non_vpp_keywords):
                 excluded_count += 1
                 continue
 
