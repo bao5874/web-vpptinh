@@ -141,8 +141,13 @@ def chay_ngay_di():
             ten = row.get('name', '').lower()
             stock = str(row.get('stock', '1')).lower().strip()
             
-            # 0. KIỂM TRA HẾT HÀNG
-            if any(x in stock for x in ['0', 'hết', 'out', 'không có']):
+            # 0. KIỂM TRA HẾT HÀNG - check multiple fields and keywords
+            if any(x in stock for x in ['0', 'hết', 'out', 'không có', 'sold out', 'off stock']):
+                excluded_count += 1
+                continue
+            
+            # Also check if product name contains out-of-stock indicators
+            if any(x in ten for x in ['hết hàng', 'không còn', 'bỏ mẫu', 'liên hệ', 'sold out', 'off stock', 'ngừng bán']):
                 excluded_count += 1
                 continue
             

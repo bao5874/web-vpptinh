@@ -68,7 +68,7 @@ def generate_html(products):
     <body>
         <header>
             <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
-                <img src="static/images/logo.png" alt="VPP Tịnh" style="height:50px;width:auto;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="VPP Tịnh" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNTAnIGhlaWdodD0nNTAnIHZpZXdCb3g9JzAgMCA1MCA1MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cmVjdCB3aWR0aD0nNTAnIGhlaWdodD0nNTAnIGZpbGw9JyNkNGEzNzMnLz48dGV4dCB4PSc1MCUnIHk9JzUwJScgZm9udC1zaXplPScyNCcgZmlsbD0nd2hpdGUnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGR5PScuM2VtJz7inKk8L3RleHQ+PC9zdmc+';\" style="height:50px;width:auto;">
                 <div>
                     <h1>VPP Tịnh</h1>
                     <p class="slogan">🌿 Bình An Trao Tay 🌿</p>
