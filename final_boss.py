@@ -14,65 +14,62 @@ ACCESSTRADE_ID = "4751584435713464237"
 CAMPAIGN_ID = "6906519896943843292" 
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?sub4=web_tu_dong&url_enc="
 
-# 1. DUYỆT THEO DANH MỤC (Quan trọng nhất)
-# Chỉ lấy những món thuộc ngành hàng này
-DANH_MUC_CHUAN = [
-    "văn phòng phẩm", "nhà sách", "dụng cụ học sinh", "họa cụ", 
-    "bút", "giấy", "sổ", "bìa", "băng keo", "kéo", "thước", "màu vẽ"
+# 1. DANH SÁCH DUYỆT (Ưu tiên những từ cụ thể)
+TU_KHOA_DUYET = [
+    "văn phòng phẩm", "nhà sách", "dụng cụ học sinh", "bút", "giấy a4", "giấy in", 
+    "vở", "sổ tay", "file hồ sơ", "bìa còng", "kẹp giấy", "ghim bấm", "băng keo", 
+    "thước kẻ", "mực viết", "kéo giấy", "hồ dán", "keo nước", "đế cắm bút", "khay tài liệu",
+    "balo học sinh", "cặp sách", "gọt chì", "tẩy", "hộp bút", "giấy note"
 ]
 
-# 2. DUYỆT THEO TÊN (Bộ lọc phụ)
-TU_KHOA_TEN = [
-    "bút", "giấy", "vở", "sổ", "file", "bìa", "kẹp", "ghim", "băng dính", 
-    "thước", "mực", "kéo", "hồ dán", "đế cắm", "khay", "balo", "cặp", "tẩy"
-]
-
-# 3. DANH SÁCH CẤM (Lọc rác & Hàng hết)
+# 2. DANH SÁCH CẤM (BLACKLIST) - NHÌN LÀ XÓA NGAY
+# Dựa trên ảnh bạn gửi, mình đã thêm: xe, honda, bánh, đồ chơi, siêu nhân...
 TU_KHOA_CAM = [
-    "vệ sinh", "ăn", "thấm dầu", "nướng", "bạc", # Rác
-    "tóc", "ngực", "nách", "mặt", "dưỡng", "serum", "mỹ phẩm", # Rác
-    "áo", "quần", "váy", "giày", "dép", "thời trang", # Rác
-    "hết hàng", "bỏ mẫu", "ngừng kinh doanh", "liên hệ", # HÀNG ĐÃ HẾT
-    "voucher", "thẻ nạp", "e-voucher" # Rác số
+    # Đồ ăn / Thực phẩm
+    "bánh", "kẹo", "thực phẩm", "ăn vặt", "mắm", "muối", "khô", "cơm", "sấy", "hạt", "trà", "sữa",
+    # Xe cộ / Phụ tùng
+    "xe", "honda", "yamaha", "phụ tùng", "lốp", "nhớt", "gác chân", "pô", "đèn", "còi", "pas", "ốc",
+    # Đồ chơi / Trẻ em
+    "đồ chơi", "siêu nhân", "lắp ghép", "robot", "búp bê", "thú bông", "lego",
+    # Thời trang / Mỹ phẩm
+    "áo", "quần", "váy", "giày", "dép", "túi xách", "son", "phấn", "kem", "dưỡng", "tóc", "ngực",
+    # Đồ gia dụng / Tạp hóa
+    "bếp", "nồi", "chảo", "dao", "thớt", "vệ sinh", "tắm", "gội", "giặt"
 ]
 
 def check_hang_chuan(row):
-    """Hàm kiểm tra kỹ lưỡng từng sản phẩm"""
+    """Hàm kiểm tra kỹ lưỡng: Phải ĐÚNG VPP và KHÔNG PHẢI RÁC"""
     ten_sp = row.get('name', '').lower()
-    danh_muc = row.get('category', '').lower() # Lấy cột Category
+    danh_muc = row.get('category', '').lower() # Cột Danh mục
     
-    # 1. LOẠI BỎ HÀNG HẾT / HÀNG RÁC NGAY LẬP TỨC
+    # 1. BƯỚC LOẠI TRỪ (QUAN TRỌNG NHẤT)
+    # Nếu tên sản phẩm chứa BẤT KỲ từ cấm nào -> XÓA NGAY
     for tu_cam in TU_KHOA_CAM:
         if tu_cam in ten_sp:
             return False
             
-    # 2. KIỂM TRA GIÁ (Loại bỏ giá 0đ hoặc giá ảo)
+    # 2. KIỂM TRA GIÁ & TRẠNG THÁI
+    # Loại bỏ hàng giá = 0 hoặc quá rẻ (thường là lỗi)
     try:
         gia = float(row.get('price', 0))
-        if gia < 1000: # Giá dưới 1k thường là lỗi hoặc rác
-            return False
+        if gia < 2000: return False # Dưới 2k thường là rác
     except:
         return False
 
-    # 3. ƯU TIÊN 1: KIỂM TRA DANH MỤC (Chính xác 99%)
-    # Nếu danh mục có chữ "Văn phòng phẩm" hoặc "Nhà sách" -> LẤY LUÔN
-    for dm in DANH_MUC_CHUAN:
-        if dm in danh_muc:
-            return True
+    # Nếu tên có chữ "hết hàng" -> XÓA
+    if "hết hàng" in ten_sp: return False
 
-    # 4. ƯU TIÊN 2: NẾU DANH MỤC KHÔNG RÕ, MỚI SOI TÊN
-    # (Nhưng phải kỹ hơn: Tên phải chứa từ khóa VPP VÀ KHÔNG chứa từ cấm)
-    is_vpp_name = False
-    for k in TU_KHOA_TEN:
-        if k in ten_sp:
-            is_vpp_name = True
-            break
-            
-    if is_vpp_name:
-        # Check lại lần nữa cho chắc (ví dụ: "Kẹp" tóc -> Loại)
-        if "tóc" in ten_sp or "xinh" in ten_sp or "bé gái" in ten_sp: 
-            return False
+    # 3. BƯỚC CHỌN LỌC (Kết hợp Danh mục & Tên)
+    # Cách 1: Nếu Cột Danh Mục có chữ "văn phòng phẩm" hoặc "nhà sách" -> LẤY
+    if "văn phòng phẩm" in danh_muc or "nhà sách" in danh_muc:
         return True
+        
+    # Cách 2: Nếu tên sản phẩm chứa từ khóa duyệt
+    for tu_khoa in TU_KHOA_DUYET:
+        if tu_khoa in ten_sp:
+            # Check lại lần cuối để tránh "Kẹp tóc" lọt lưới (dù đã lọc ở bước 1)
+            if "tóc" in ten_sp or "xinh" in ten_sp: return False
+            return True
 
     return False
 
@@ -151,7 +148,7 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG CHẠY BỘ LỌC 'SOI CHỨNG MINH THƯ'...")
+    print("🚀 ĐANG CHẠY CHẾ ĐỘ 'KỶ LUẬT THÉP'...")
     
     try:
         print("⏳ Đang tải dữ liệu...")
@@ -164,19 +161,13 @@ def chay_ngay_di():
         
         san_pham_list = []
         count = 0
-        
-        # Thống kê cho bạn xem
         tong_so = 0
-        bi_loai = 0
         
-        print("⚙️ Đang lọc kỹ từng món hàng...")
+        print("⚙️ Đang lọc bỏ Bánh kẹo, Xe cộ, Đồ chơi...")
         
         for row in reader:
             tong_so += 1
-            
-            # --- KIỂM TRA KỸ ---
             if check_hang_chuan(row):
-                # Chỉ lấy nếu còn hàng (thông qua việc có link và giá hợp lệ)
                 link_goc = row.get('url', '')
                 if link_goc:
                     san_pham_list.append({
@@ -186,13 +177,9 @@ def chay_ngay_di():
                         "link": tao_link_kiem_tien(link_goc)
                     })
                     count += 1
-            else:
-                bi_loai += 1
-                
             if count >= 60: break 
 
-        print(f"📊 Đã quét {tong_so} món. Loại bỏ {bi_loai} món rác/hết hàng.")
-        print(f"✅ Lấy được {len(san_pham_list)} món VPP chuẩn.")
+        print(f"📊 Đã quét {tong_so} món. Lấy được {len(san_pham_list)} món VPP SẠCH.")
 
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(san_pham_list, f, ensure_ascii=False, indent=4)
@@ -202,10 +189,11 @@ def chay_ngay_di():
             f.write(html_content)
             
         # Tự động đẩy lên mạng
+        print("☁️ Đang đẩy lên mạng...")
         os.system("git add .")
-        os.system('git commit -m "Update bo loc category chuan"')
+        os.system('git commit -m "Update loc sach 100 phan tram"')
         os.system("git push")
-        print("🎉 Đã đẩy Web mới lên mạng!")
+        print("🎉 XONG! Bạn hãy vào kiểm tra lại web nhé!")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
