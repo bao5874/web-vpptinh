@@ -4,11 +4,28 @@ import json
 import io
 import os
 import re
+import urllib.parse # Thư viện để mã hóa link
 
 # --- CẤU HÌNH ---
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
-FILE_JSON = "products.json"  # Lưu thẳng vào thư mục gốc để đè file cũ
+FILE_JSON = "products.json"
+
+# ID KIẾM TIỀN CỦA BẠN (QUAN TRỌNG NHẤT)
+ACCESSTRADE_ID = "4751584435713464237"
+CAMPAIGN_ID = "6906519896943843292" # Mã chiến dịch Shopee
+
+# Link nền để tạo Deep Link
+BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?url="
+
+# Từ khóa lọc VPP
 TU_KHOA_VPP = ["bút", "giấy", "vở", "sổ", "file", "bìa", "kẹp", "ghim", "băng dính", "thước", "mực", "kéo", "hồ dán", "đế cắm", "khay", "văn phòng", "học sinh"]
+
+def tao_link_kiem_tien(link_goc):
+    """Biến link thường thành link Affiliate"""
+    if not link_goc: return "#"
+    # Mã hóa link gốc (ví dụ: biến dấu / thành %2F) để gắn vào đuôi
+    link_encoded = urllib.parse.quote(link_goc)
+    return f"{BASE_AFF_URL}{link_encoded}"
 
 def xuly_gia(gia_raw):
     try:
@@ -22,19 +39,16 @@ def xuly_gia(gia_raw):
     return "Liên hệ"
 
 def xuly_anh(anh_raw):
-    # 1. Làm sạch link
     if not anh_raw: return "https://via.placeholder.com/150"
     if "," in anh_raw: anh_raw = anh_raw.split(",")[0]
     if "|" in anh_raw: anh_raw = anh_raw.split("|")[0]
     anh_raw = anh_raw.replace('["', '').replace('"]', '').replace('"', '').strip()
-    
-    # 2. Quan trọng: Ép sang HTTPS để không bị trình duyệt chặn
+    # Ép sang HTTPS để không bị chặn
     if anh_raw.startswith("http://"):
         anh_raw = anh_raw.replace("http://", "https://")
     return anh_raw
 
 def tao_web_html(products):
-    # Thêm thẻ meta referrer để Shopee không chặn ảnh
     html = """
     <!DOCTYPE html>
     <html lang="vi">
@@ -73,20 +87,18 @@ def tao_web_html(products):
                 <div class="product-info">
                     <h3 class="product-title">{p['name']}</h3>
                     <div class="product-price">{p['price']}</div>
-                    <a href="{p['link']}" class="btn-buy" target="_blank">Mua Ngay</a>
+                    <a href="{p['link']}" class="btn-buy" target="_blank" rel="nofollow">Mua Ngay</a>
                 </div>
             </div>
         """
-        
     html += "</div></body></html>"
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG KHỞI ĐỘNG HỆ THỐNG 'FINAL BOSS'...")
+    print("🚀 ĐANG KHỞI ĐỘNG HỆ THỐNG KIẾM TIỀN TỰ ĐỘNG...")
     
-    # 1. Tải CSV
-    print("⏳ Đang tải dữ liệu từ Accesstrade...")
     try:
+        print("⏳ Đang tải dữ liệu gốc từ Accesstrade...")
         r = requests.get(LINK_CSV)
         r.encoding = 'utf-8'
         if r.status_code != 200:
@@ -96,47 +108,47 @@ def chay_ngay_di():
         f = io.StringIO(r.text)
         reader = csv.DictReader(f)
         
-        # 2. Lọc và Xử lý
         san_pham_list = []
         count = 0
-        print("⚙️ Đang lọc sản phẩm VPP...")
+        print("⚙️ Đang lọc VPP và gắn mã Affiliate...")
         
         for row in reader:
-            # Lấy đúng tên cột từ file của bạn
             ten = row.get('name', '')
-            link = row.get('url', '') # Link mua hàng
+            link_goc = row.get('url', '') 
             anh = row.get('image', '')
             gia = row.get('price', '0')
             
-            # Kiểm tra từ khóa
             is_vpp = False
             for k in TU_KHOA_VPP:
                 if k in ten.lower():
                     is_vpp = True
                     break
             
-            if is_vpp and ten and link:
+            if is_vpp and ten and link_goc:
+                # --- PHÉP MÀU NẰM Ở ĐÂY ---
+                # Biến link thường thành link có tiền
+                aff_link = tao_link_kiem_tien(link_goc)
+                
                 san_pham_list.append({
                     "name": ten,
                     "price": xuly_gia(gia),
                     "image": xuly_anh(anh),
-                    "link": link
+                    "link": aff_link # Link này đã được gắn mã của bạn
                 })
                 count += 1
                 
-            if count >= 60: break
+            if count >= 60: break # Lấy 60 món demo
 
-        # 3. Lưu JSON (Ghi đè file gốc)
+        # Ghi đè file JSON và HTML
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(san_pham_list, f, ensure_ascii=False, indent=4)
             
-        # 4. Tạo file HTML ngay lập tức
         html_content = tao_web_html(san_pham_list)
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(html_content)
             
-        print(f"✅ XONG! Đã cập nhật {len(san_pham_list)} sản phẩm mới cứng.")
-        print("👉 Bạn hãy mở file index.html lên xem ngay. Lần này chắc chắn được!")
+        print(f"✅ XONG! Đã tạo {len(san_pham_list)} link kiếm tiền thành công.")
+        print("👉 Hãy chạy lệnh git push để cập nhật web ngay!")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
