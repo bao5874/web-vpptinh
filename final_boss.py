@@ -4,27 +4,29 @@ import json
 import io
 import os
 import re
-import urllib.parse # Thư viện để mã hóa link
+import urllib.parse 
 
 # --- CẤU HÌNH ---
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
 
-# ID KIẾM TIỀN CỦA BẠN (QUAN TRỌNG NHẤT)
+# ID CỦA BẠN (ĐÃ KIỂM TRA: CHUẨN)
 ACCESSTRADE_ID = "4751584435713464237"
-CAMPAIGN_ID = "6906519896943843292" # Mã chiến dịch Shopee
+CAMPAIGN_ID = "6906519896943843292" 
 
-# Link nền để tạo Deep Link
+# Link nền tạo Deep Link
 BASE_AFF_URL = f"https://go.isclix.com/deep_link/v6/{CAMPAIGN_ID}/{ACCESSTRADE_ID}?url="
 
-# Từ khóa lọc VPP
 TU_KHOA_VPP = ["bút", "giấy", "vở", "sổ", "file", "bìa", "kẹp", "ghim", "băng dính", "thước", "mực", "kéo", "hồ dán", "đế cắm", "khay", "văn phòng", "học sinh"]
 
 def tao_link_kiem_tien(link_goc):
-    """Biến link thường thành link Affiliate"""
+    """Biến link thường thành link Affiliate (Phiên bản Fix Lỗi 404)"""
     if not link_goc: return "#"
-    # Mã hóa link gốc (ví dụ: biến dấu / thành %2F) để gắn vào đuôi
-    link_encoded = urllib.parse.quote(link_goc)
+    
+    # BƯỚC SỬA LỖI QUAN TRỌNG:
+    # safe="" nghĩa là ép nó mã hóa cả dấu / thành %2F để Accesstrade không bị nhầm
+    link_encoded = urllib.parse.quote(link_goc.strip(), safe="")
+    
     return f"{BASE_AFF_URL}{link_encoded}"
 
 def xuly_gia(gia_raw):
@@ -43,7 +45,6 @@ def xuly_anh(anh_raw):
     if "," in anh_raw: anh_raw = anh_raw.split(",")[0]
     if "|" in anh_raw: anh_raw = anh_raw.split("|")[0]
     anh_raw = anh_raw.replace('["', '').replace('"]', '').replace('"', '').strip()
-    # Ép sang HTTPS để không bị chặn
     if anh_raw.startswith("http://"):
         anh_raw = anh_raw.replace("http://", "https://")
     return anh_raw
@@ -55,7 +56,8 @@ def tao_web_html(products):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="referrer" content="no-referrer"> <title>VPP Tịnh - Bình An Trao Tay</title>
+        <meta name="referrer" content="no-referrer"> 
+        <title>VPP Tịnh - Bình An Trao Tay</title>
         <style>
             :root { --primary-color: #d4a373; --bg-color: #fefae0; }
             body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; }
@@ -95,7 +97,7 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG KHỞI ĐỘNG HỆ THỐNG KIẾM TIỀN TỰ ĐỘNG...")
+    print("🚀 ĐANG KHỞI ĐỘNG HỆ THỐNG FIX LỖI 404...")
     
     try:
         print("⏳ Đang tải dữ liệu gốc từ Accesstrade...")
@@ -110,7 +112,7 @@ def chay_ngay_di():
         
         san_pham_list = []
         count = 0
-        print("⚙️ Đang lọc VPP và gắn mã Affiliate...")
+        print("⚙️ Đang lọc VPP và gắn mã Affiliate (Chuẩn hóa URL)...")
         
         for row in reader:
             ten = row.get('name', '')
@@ -125,21 +127,19 @@ def chay_ngay_di():
                     break
             
             if is_vpp and ten and link_goc:
-                # --- PHÉP MÀU NẰM Ở ĐÂY ---
-                # Biến link thường thành link có tiền
+                # Tạo link chuẩn không bị lỗi 404
                 aff_link = tao_link_kiem_tien(link_goc)
                 
                 san_pham_list.append({
                     "name": ten,
                     "price": xuly_gia(gia),
                     "image": xuly_anh(anh),
-                    "link": aff_link # Link này đã được gắn mã của bạn
+                    "link": aff_link 
                 })
                 count += 1
                 
-            if count >= 60: break # Lấy 60 món demo
+            if count >= 60: break 
 
-        # Ghi đè file JSON và HTML
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(san_pham_list, f, ensure_ascii=False, indent=4)
             
@@ -147,8 +147,8 @@ def chay_ngay_di():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(html_content)
             
-        print(f"✅ XONG! Đã tạo {len(san_pham_list)} link kiếm tiền thành công.")
-        print("👉 Hãy chạy lệnh git push để cập nhật web ngay!")
+        print(f"✅ ĐÃ SỬA XONG! {len(san_pham_list)} link đã được mã hóa lại.")
+        print("👉 Giờ bạn hãy đẩy lên mạng và thử bấm lại xem!")
 
     except Exception as e:
         print(f"❌ Lỗi: {e}")
