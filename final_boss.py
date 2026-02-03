@@ -9,23 +9,17 @@ import time
 import webbrowser 
 
 # --- CẤU HÌNH ---
-# Logo Túi Mua Sắm (Sale)
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
-
-# Link Affiliate của bạn
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
 
-# 1. DANH SÁCH CẤM (BLACKLIST) - Đã NỚI LỎNG
-# Đã XÓA quần áo, mỹ phẩm khỏi danh sách cấm để bán đa ngành
-# Chỉ chặn những thứ khó bán online hoặc rác
+# CHẶN RÁC
 JUNK_BLACKLIST = [
-    "hết hàng", "bỏ mẫu", "ngừng kinh doanh", "tạm hết", "liên hệ", "đặt trước",
-    "honda", "yamaha", "suzuki", "xe máy", "ô tô", "lốp", "nhớt", "pô", "gác chân", # Phụ tùng xe (khó bán)
-    "mực khô", "mực rim", "hàng tươi sống", "đông lạnh", # Thực phẩm khó vận chuyển
-    "voucher", "nạp thẻ", "sim", # Dịch vụ số (hoa hồng thấp)
-    "sex toy", "người lớn" # Nhạy cảm
+    "hết hàng", "bỏ mẫu", "ngừng kinh doanh", "tạm hết", "liên hệ",
+    "honda", "yamaha", "suzuki", "xe máy", "ô tô", "lốp", "nhớt", "pô",
+    "mực khô", "mực rim", "hàng tươi sống", "đông lạnh",
+    "voucher", "nạp thẻ", "sim", "sex toy", "người lớn"
 ]
 
 def tao_link_aff(url_goc):
@@ -36,22 +30,35 @@ def tao_link_aff(url_goc):
     except:
         return url_goc
 
-def xuly_gia(gia_raw):
+def tinh_gia_thuc(gia_goc_raw, discount_raw):
+    """
+    Hàm tính giá sau khi giảm
+    Input: Giá gốc (100000), Discount (0.2 hoặc 20%)
+    Output: Giá thực (80000)
+    """
     try:
-        gia_str = str(gia_raw).replace('.', '').replace(',', '')
+        # 1. Xử lý giá gốc
+        gia_str = str(gia_goc_raw).split('.')[0] # Bỏ số thập phân thừa
         numbers = re.findall(r'\d+', gia_str)
-        if not numbers: return "Liên hệ"
-        gia_val = float(numbers[0])
+        if not numbers: return 0
+        gia_goc = float("".join(numbers))
         
-        # LỌC GIÁ:
-        # Bỏ hàng < 10k (Hoa hồng quá ít, rác)
-        if gia_val < 10000: return "Liên hệ"
-        # Bỏ hàng > 5 triệu (Khách ít mua qua link lạ)
-        if gia_val > 5000000: return "Liên hệ"
+        # 2. Xử lý phần trăm giảm
+        try:
+            d_str = str(discount_raw).replace('%', '')
+            discount_val = float(d_str)
+            # Nếu discount > 1 (ví dụ 20 nghĩa là 20%), ta chia 100
+            if discount_val > 1:
+                discount_val = discount_val / 100
+        except:
+            discount_val = 0
+
+        # 3. Tính giá sau giảm
+        gia_giam = gia_goc * (1 - discount_val)
         
-        return "{:,.0f}₫".format(gia_val).replace(",", ".")
+        return gia_goc, gia_giam, discount_val * 100
     except:
-        return "Liên hệ"
+        return 0, 0, 0
 
 def tao_web_html(products):
     v = int(time.time())
@@ -65,54 +72,64 @@ def tao_web_html(products):
         <title>Tịnh Shop - Săn Deal Giá Sốc</title>
         <link rel="icon" href="{LOGO_URL}">
         <style>
-            :root {{ --primary: #d32f2f; --bg: #ffebee; }} /* Màu ĐỎ cho Sale */
-            body {{ font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }}
+            :root {{ --primary: #d0011b; --bg: #f5f5f5; }}
+            body {{ font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--bg); margin: 0; padding: 20px; }}
             
-            .header {{ text-align: center; background: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; border-bottom: 5px solid var(--primary); }}
-            .logo-img {{ width: 80px; height: 80px; object-fit: contain; display: block; margin: 0 auto 10px; }}
-            h1 {{ color: var(--primary); margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 900; }}
-            .slogan {{ color: #444; font-weight: bold; margin-top: 5px; }}
+            .header {{ text-align: center; background: white; padding: 20px; border-radius: 4px; margin-bottom: 20px; border-bottom: 3px solid var(--primary); }}
+            .logo-img {{ width: 60px; height: 60px; object-fit: contain; display: block; margin: 0 auto 10px; }}
+            h1 {{ color: var(--primary); margin: 0; font-size: 24px; text-transform: uppercase; }}
             
-            .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }}
-            .card {{ background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: transform 0.2s; position: relative; }}
-            .card:hover {{ transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }}
+            .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; }}
+            .card {{ background: white; border-radius: 2px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: transform 0.1s; position: relative; }}
+            .card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid var(--primary); }}
             
-            /* NHÃN GIẢM GIÁ NỔI BẬT */
-            .discount-tag {{ position: absolute; top: 0; right: 0; background: #ffeb3b; color: red; padding: 5px 10px; font-weight: bold; font-size: 13px; border-bottom-left-radius: 10px; box-shadow: -2px 2px 5px rgba(0,0,0,0.1); }}
+            .discount-tag {{ position: absolute; top: 0; right: 0; background: rgba(255,212,36,.9); color: #ec3814; padding: 4px 8px; font-weight: bold; font-size: 12px; }}
             
-            .img-box {{ width: 100%; height: 180px; padding: 5px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #eee; }}
-            .img-box img {{ max-width: 100%; max-height: 100%; object-fit: contain; }}
+            .img-box {{ width: 100%; height: 190px; padding: 0; display: flex; align-items: center; justify-content: center; }}
+            .img-box img {{ max-width: 100%; max-height: 100%; object-fit: cover; }}
             
-            .title {{ font-size: 13px; color: #333; margin: 10px; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; padding: 0 10px; }}
-            .price {{ color: var(--primary); font-weight: bold; font-size: 18px; margin: 0 10px 10px; }}
-            .btn {{ background: var(--primary); color: white; text-decoration: none; padding: 10px; text-align: center; font-weight: bold; display: block; margin: 0 10px 10px; border-radius: 4px; }}
-            .btn:hover {{ background: #b71c1c; }}
+            .info {{ padding: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
+            .title {{ font-size: 12px; color: #333; margin-bottom: 5px; line-height: 1.4em; height: 2.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
+            
+            .price-box {{ margin-bottom: 5px; }}
+            .old-price {{ color: #999; text-decoration: line-through; font-size: 12px; margin-right: 5px; }}
+            .new-price {{ color: var(--primary); font-weight: bold; font-size: 16px; }}
+            
+            .btn {{ background: var(--primary); color: white; text-decoration: none; padding: 8px; text-align: center; font-size: 14px; border-radius: 2px; display: block; }}
+            .btn:hover {{ background: #a50216; }}
         </style>
     </head>
     <body>
         <div class="header">
             <img src="{LOGO_URL}" alt="Logo" class="logo-img">
-            <h1>TỊNH SHOP</h1>
-            <p class="slogan">🔥 TỔNG HỢP DEAL GIẢM GIÁ KHỦNG HÔM NAY 🔥</p>
+            <h1>TỊNH SHOP DEAL HOT</h1>
+            <p>Cập nhật lúc: {v}</p>
         </div>
         <div class="grid">
     """
     for p in products:
-        discount_html = f'<div class="discount-tag">-{int(p["discount"])}%</div>' if p["discount"] > 0 else ""
+        discount_html = f'<div class="discount-tag">-{int(p["percent"])}%</div>' if p["percent"] > 0 else ""
+        old_price_html = f'<span class="old-price">{p["old_price"]}</span>' if p["percent"] > 0 else ""
+        
         html += f"""
             <div class="card">
                 {discount_html}
                 <div class="img-box"><img src="{p['image']}" loading="lazy"></div>
-                <div class="title">{p['name']}</div>
-                <div class="price">{p['price']}</div>
-                <a href="{p['link']}" class="btn" target="_blank">Săn Ngay</a>
+                <div class="info">
+                    <div class="title">{p['name']}</div>
+                    <div class="price-box">
+                        {old_price_html}
+                        <span class="new-price">{p['new_price']}</span>
+                    </div>
+                    <a href="{p['link']}" class="btn" target="_blank">Mua Ngay</a>
+                </div>
             </div>
         """
     html += "</div></body></html>"
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG CHẠY FINAL BOSS 20.0 (CHẾ ĐỘ SĂN SALE TỔNG HỢP)...")
+    print("🚀 ĐANG CHẠY FINAL BOSS 22.0 (TÍNH LẠI GIÁ GIẢM)...")
     try:
         print("⏳ Đang tải dữ liệu...")
         r = requests.get(LINK_CSV, timeout=60)
@@ -123,41 +140,44 @@ def chay_ngay_di():
         
         clean_products = []
         
-        print("⚙️ Đang lọc (Lấy tất cả ngành hàng có giảm giá)...")
+        print("⚙️ Đang tính toán giá thực tế...")
+        
+        count_debug = 0
         for row in reader:
             ten = row.get('name', '').lower()
-            
-            # 1. BỎ BỘ LỌC VPP -> LẤY TẤT CẢ
-            # Chỉ chặn danh sách đen (rác)
             if any(bad in ten for bad in JUNK_BLACKLIST): continue
 
-            # 2. XỬ LÝ GIÁ
-            gia_hien_thi = xuly_gia(row.get('price'))
-            if gia_hien_thi == "Liên hệ": continue
-
-            # 3. LẤY DISCOUNT ĐỂ SẮP XẾP
-            try:
-                giam_gia = float(row.get('discount', 0))
-            except:
-                giam_gia = 0
+            # --- TÍNH TOÁN GIÁ ---
+            gia_goc_raw = row.get('price')
+            discount_raw = row.get('discount', 0)
             
-            # Chỉ lấy món có giảm giá (để đúng chất Săn Sale)
-            # Nếu bạn muốn lấy cả hàng không giảm giá thì xóa dòng dưới đi
-            if giam_gia < 10: continue # Lọc: Chỉ lấy món giảm trên 10%
+            gia_goc, gia_giam, phan_tram = tinh_gia_thuc(gia_goc_raw, discount_raw)
+            
+            # LỌC:
+            # Chỉ lấy món giá thực > 5k và < 10 triệu
+            if gia_giam < 5000 or gia_giam > 10000000: continue
+            # Chỉ lấy món có giảm giá (để hấp dẫn)
+            if phan_tram < 1: continue 
+
+            # Debug xem giá tính đúng chưa
+            if count_debug < 3:
+                print(f"💰 {row.get('name')[:20]}... | Gốc: {gia_goc:,.0f} | Giảm: {phan_tram:.0f}% -> Còn: {gia_giam:,.0f}")
+                count_debug += 1
 
             clean_products.append({
                 "name": row.get('name'),
-                "price": gia_hien_thi,
-                "discount": giam_gia,
+                "old_price": "{:,.0f}₫".format(gia_goc).replace(",", "."),
+                "new_price": "{:,.0f}₫".format(gia_giam).replace(",", "."),
+                "percent": phan_tram,
                 "image": row.get('image', '').split(',')[0].strip(' []"'),
                 "link": tao_link_aff(row.get('url'))
             })
 
-        # SẮP XẾP: GIẢM GIÁ NHIỀU NHẤT LÊN ĐẦU
-        clean_products.sort(key=lambda x: x['discount'], reverse=True)
+        # Sắp xếp: Ưu tiên giảm giá sâu nhất
+        clean_products.sort(key=lambda x: x['percent'], reverse=True)
 
         final_list = clean_products[:100]
-        print(f"✅ Tìm thấy {len(final_list)} DEAL HOT (Đa ngành hàng).")
+        print(f"✅ Tìm thấy {len(final_list)} sản phẩm ĐANG SALE.")
 
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(final_list, f, ensure_ascii=False, indent=4)
@@ -169,17 +189,18 @@ def chay_ngay_di():
         webbrowser.open("file://" + os.path.realpath("index.html"))
         
         print("\n" + "="*50)
-        print("WEB MÀU ĐỎ (SALE) ĐÃ HIỆN RA CHƯA?")
-        print("Bạn sẽ thấy Quần áo, Mỹ phẩm, Đồ gia dụng... giảm giá.")
+        print("HÃY KIỂM TRA GIÁ:")
+        print("Bạn sẽ thấy giá cũ bị gạch ngang (ví dụ: 100.000₫)")
+        print("Và giá mới màu đỏ to hơn (ví dụ: 80.000₫)")
         print("="*50 + "\n")
         
         chon = input("Gõ 'y' và Enter để đẩy lên Github: ")
         if chon.lower() == 'y':
             print("☁️ Đang cập nhật lên Github...")
             os.system("git add .")
-            os.system('git commit -m "Update V20 General Sale"')
+            os.system('git commit -m "V22 Fix Discount Price"')
             os.system("git push")
-            print("✅ XONG! Nhớ F5 trang vpptinh.com nhé.")
+            print("✅ XONG! F5 vpptinh.com nhé.")
         else:
             print("❌ Đã hủy.")
 

@@ -1,92 +1,702 @@
 [
     {
-        "name": "Bút Chì Màu Vẽ Trứng (Tặng 4 Bút Màu)",
-        "price": "7.000₫",
-        "image": "https://cf.shopee.vn/file/7ed4ef2ba9d11d72466bec0917697924",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC84OTk2NTMwNy8xNjgwMjE2Mjky"
+        "name": "Túi xách mini nữ đeo chéo đi chơi đi tiệc trẻ trung siêu hot TD17 (hàng quảng châu)",
+        "price": "70.000₫",
+        "discount": 79.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rg0t8ye3",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzM2OTU3OTAwMw=="
     },
     {
-        "name": "Bộ bút nhớ dạ quang 6 màu xinh xắn tiện dụng, Bút đánh dấu, bút nhớ Vience - MIN45",
-        "price": "45.000₫",
-        "image": "https://cf.shopee.vn/file/ed70a4c256f4a2de51215f641d38103d",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzEwMDg1OTQvODY1NDYzODk4MQ=="
+        "name": "Túi du lịch trong suốt chống thấm nước, Túi đựng mỹ phẩm đa năng tiện dụng WASHBAG TD19",
+        "price": "110.000₫",
+        "discount": 73.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lugedwnu4f8264",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvOTUzNTg3OTYzNQ=="
     },
     {
-        "name": "Set 20 Bút Bi Hình Thú Cute Túi Zip, Combo 20 Bút Bi, Bút Nước Mực Cute Giá Sỉ Nhiều Mẫu Hoạt Hình Cực Hot MIN06",
-        "price": "59.000₫",
-        "image": "https://cf.shopee.vn/file/c4edf9c2f7f46537f0b2492016222c7d",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzEwMDg1OTQvOTQ0MzE1MzIxNA=="
+        "name": "Quần Lót Nữ Họa Tiết Ren Lưới Sexy Siêu Xinh Q06",
+        "price": "40.000₫",
+        "discount": 69.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj1kvmlvz0yd2",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDQ1MzM5ODM2Mg=="
+    },
+    {
+        "name": "Túi Xách Nữ Đeo Chéo Đeo Vai Dáng Tròn Siêu Xinh Đi Chơi Đi Tiệc Sang Chảnh TD11",
+        "price": "89.000₫",
+        "discount": 68.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rg50ya3a",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDU1NDI3MjQ5Nw=="
+    },
+    {
+        "name": "Kính Mát Mắt Mèo Thời Trang Dành Cho Nữ đẹp trẻ trung",
+        "price": "38.000₫",
+        "discount": 63.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj44tfad25h41",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNjA4MzU2OTAwOQ=="
+    },
+    {
+        "name": "Lì xì 3d bao lì xì may mắn tết Bính Ngọ 2026 họa tiết rồng độc lạ",
+        "price": "35.000₫",
+        "discount": 59.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lq1c9v77mdrrab",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjMyNjM1NjMyOTU="
+    },
+    {
+        "name": "Túi xách nữ đeo chéo mini dây pha xích phong cách Hàn Quốc cá tính TD12",
+        "price": "115.000₫",
+        "discount": 57.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rfy042e7",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNjU1NDI3NDU1Ng=="
+    },
+    {
+        "name": "Remote Điều khiển tivi Toshiba- 4 các dòng LED/LCD/Smart TV- Hàng tốt Tặng Pin",
+        "price": "100.000₫",
+        "discount": 57.0,
+        "image": "https://cf.shopee.vn/file/afda557e5baa8e4c0a9b97409921ecf7",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTU4OTEyMzQ4MjU="
+    },
+    {
+        "name": "Áo sweater nữ form rộng dày xám tiêu áo nỉ dài tay mùa đông áo Khoác hàn quốc in hình Hello Kitty NƠ ĐỎ UT",
+        "price": "150.000₫",
+        "discount": 57.0,
+        "image": "https://cf.shopee.vn/file/vn-11134201-7ras8-m22abdhuat2399",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yNjc2NjI2MDg0OA=="
+    },
+    {
+        "name": "Bông Tai Nữ, Khuyên Tai Đính Đá Lấp Lánh Khuyên Tai Nụ Xinh Xắn Sang Trọng Mincloset P49",
+        "price": "46.900₫",
+        "discount": 56.0,
+        "image": "https://cf.shopee.vn/file/afc58b7d08a4942a9f6f31d2b889d424",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTkyMzE0MzYxMTQ="
+    },
+    {
+        "name": "Áo sweater nữ form rộng xám tiêu dễ thương Hello Kitty HÁ MIỆNG áo nỉ dài tay mùa thu đông UT",
+        "price": "150.000₫",
+        "discount": 56.0,
+        "image": "https://cf.shopee.vn/file/vn-11134201-7ras8-m22aaxddxn1a94",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yODI2NjI1MjkwNA=="
+    },
+    {
+        "name": "TINH DẦU NƯỚC HOA MINI 20ML NARSIC.O ĐẰM THẮM",
+        "price": "199.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mguqg5g5mvwob2",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NDUzODgyMC8yNzMzODA5Mjk3"
+    },
+    {
+        "name": "TINH DẦU NƯỚC HOA MINI 20ML COCO. CHO NỮ SIÊU CUỐN HÚT",
+        "price": "199.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mguqiwclx5ot53",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NDUzODgyMC8yNzMzODM5NDcx"
+    },
+    {
+        "name": "[Cực Thơm]TINH DẦU NƯỚC HOA MINI GOOD.GIRL 20ML ĐI HỌC NỮ THƠM LÂU",
+        "price": "199.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mguqihs9dtl8b7",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NDUzODgyMC82MzExMzI0MzMw"
+    },
+    {
+        "name": "TINH DẦU NƯỚC HOA MINI NỮ 20ML ĐI HỌC NHẸ DỊU DỄ CHỊU",
+        "price": "199.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mguqgrjab11r6e",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NDUzODgyMC83MzMyNjQ0MjA3"
+    },
+    {
+        "name": "TINH DẦU NƯỚC HOA MINI NỮ 20ML NGỌT NGÀO",
+        "price": "199.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mguqh9sv59u761",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NDUzODgyMC82MTYwMTAzMzY4"
+    },
+    {
+        "name": "Kẹp Tóc Công Chúa Kiểu Nơ Lớn Nhiều Màu Siêu Xinh - Mincloset",
+        "price": "20.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/5492f6c1d9a7700d1587d2efaa28ade8",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvODgwNjUwMjI3NA=="
+    },
+    {
+        "name": "Tinh dầu nước hoa mini De.lina tiểu thư, nhẹ nhàng thích hợp đi chơi, đi học",
+        "price": "199.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mguqpr6c2e4v63",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NDUzODgyMC8yNDYyMTM4ODczMQ=="
+    },
+    {
+        "name": "Tinh dầu nước hoa mini Nar trắng mùi nhẹ tiểu thư, nàng thơ xài đi làm",
+        "price": "189.000₫",
+        "discount": 55.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mguqpdtrbrpoc4",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NDUzODgyMC8yODU2OTM4MjMzMQ=="
+    },
+    {
+        "name": "Điều khiển điều hòa LG-2 V10 V13 V18 9000 12000 18000BTU 1 2 chiều Inverter - Hàng tốt",
+        "price": "125.000₫",
+        "discount": 54.0,
+        "image": "https://cf.shopee.vn/file/6f915d9e3fe0e986112c95beee18cb79",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzUzOTg3Njg2OA=="
+    },
+    {
+        "name": "[HÀNG VIỆT NAM CHẤT LƯỢNG CAO] Điều khiển giọng nói TV Samsung Qled 2024 ((NÚT VieON)) THEO MÁY [XẢ KHO GIÁ SỐC]",
+        "price": "350.000₫",
+        "discount": 54.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-messpjdgeadd1c",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjkxMDc4MTYzNjk="
     },
     {
         "name": "Sổ tay ghi chép a5 cồng lò xo đẹp mèo nhật bản giấy kẻ ngang cute dễ thương",
         "price": "55.000₫",
+        "discount": 53.0,
         "image": "https://cf.shopee.vn/file/sg-11134201-22110-gnlw2kivpyjvaf",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTI2ODI3ODgzNzM="
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTI2ODI3ODgzNzM="
     },
     {
-        "name": "Miếng lau bảng từ, Lau xóa sách tập tô bằng bút dạ cho bé hình xương nhỏ ngộ nghĩnh",
-        "price": "9.000₫",
-        "image": "https://cf.shopee.vn/file/b399a2c036895a9b6257e216df04ee4a",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTczNzY2NTQ1OTk="
+        "name": "Remote Điều khiển điều hòa Pa_na_so_nic-13 LOẠI 1 & 2 chiều Inverter- Hàng loại tốt mới 100% Tặng Pin",
+        "price": "125.000₫",
+        "discount": 52.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m3pvl3szdkfc46",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzE5NTM0NzUxNQ=="
     },
     {
-        "name": "Bảng nam châm A4 màu dễ thương ghi chú tủ lạnh viết bút lông cute (không dính được tủ lạnh mặt kính)",
+        "name": "Remote Điều khiển quạt Asia- Hàng mới XỊN công ty 100% tặng kèm Pin",
+        "price": "105.000₫",
+        "discount": 52.0,
+        "image": "https://cf.shopee.vn/file/sg-11134201-22110-igg6vaotgsjv49",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjIwMDUwOTQ4MzY="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Midea-5 1& 2 chiều Inverter MSAFA MSAF MSAB MSFR-Hàng mới 100% Tặng Pin",
+        "price": "135.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/561794d6291aeb5ff7683977c6366f74",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzA1MDQ3MzI1Nw=="
+    },
+    {
+        "name": "Túi xách đeo chéo nữ HOT TREND trang trí khóa gương sang chảnh TD15 ( Vừa Điện Thoại )",
+        "price": "100.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lugf010koduab0",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMzQ2MDQ0NzUyNg=="
+    },
+    {
+        "name": "Bộ trò chơi Ô ăn quan viên gỗ - Đi tìm kho báu - 2 mặt chơi 3020",
+        "price": "180.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/701ee08eb3b0e1d739aaec064df2ede3",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNjUwOTg2MDU0MA=="
+    },
+    {
+        "name": "Điều khiển tivi VTB- Hàng mới loại tốt 100% Tặng kèm Pin",
         "price": "90.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134201-23030-jbhavp4bhdov20",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjI0MzAwOTMwOTk="
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/a8fea6e4e99f17342c279ab2978c4895",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjA1NDc0MDE0Mg=="
     },
     {
-        "name": "Hộp đựng bút, Hộp bút in 3D nổi hoạ tiết hoạt hình dễ thương cho bé MIN133",
-        "price": "23.000₫",
-        "image": "https://cf.shopee.vn/file/sg-11134201-7rbm3-lnaupdv1kauib6",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzEwMDg1OTQvMTg2OTQ2NDE4MjY="
+        "name": "Remote Điều khiển tivi Samsung cơ 2020 cho các dòng tivi Samsung từ 2015 đến 2021- Hàng tốt tặng Pin",
+        "price": "120.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-m008pzelu2018c",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzA2Nzc5MjIxOA=="
     },
     {
-        "name": "Bút Dạ Viết Bảng Xóa Được Nhiều Màu Cho Bé Bút Lông Viết Bảng Nhiều Màu Có Đầu Xóa Kích Thước Nhỏ Gọn Tiện Lợi",
-        "price": "10.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lt6r16bntb4p5f",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjQyNzA0NDI2NTk="
+        "name": "Remote Điều khiển điều hòa Galanz các dòng Galanz 1&2 chiều Inverter- Hàng loại tốt mới 100% Tặng kèm Pin",
+        "price": "135.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/9c7e0551009e5a6377e929fcb7e2e768",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTQ2MDQwNzUyOA=="
     },
     {
-        "name": "Set quà tặng học sinh quà tặng sổ tay ghi chép combo quà tặng sinh nhật  phong cách vintage sang trọng và ý nghĩa",
+        "name": "Remote Điều khiển tivi Sharp- 4 cho Smart TV- Hàng loại tốt mới 100% Tặng Pin",
+        "price": "160.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/f8ce27db44c62acf57dea1446c7c41d0",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTE5MDczNTQ2Mjg="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Funiki-4 HÀNG CHÍNH HÃNG theo máy mới 100% Tặng kèm Pin!!!",
+        "price": "180.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/679dc237db02519e7e4f4db1182eb252",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTQ2ODY1NDkwOQ=="
+    },
+    {
+        "name": "Remote Điều khiển đầu thu FPT Play Box 2017- HÀNG CHÍNH HÃNG mới Tặng kèm Pin!!!",
+        "price": "150.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/b266ca12757c06e0911891460607adc7",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODg2OTY3Mzg0Ng=="
+    },
+    {
+        "name": "Remote Điều khiển tivi Mobell-2 LED/LCD/Smart TV- Hàng loại tốt mới Tặng kèm Pin",
+        "price": "150.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/de90bb74ad8395869a5e23873900408d",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjA5MTI1MjE0MDI="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Funiki- 5 LOẠI 1&2 chiều InverteR- Hàng tốt Tặng Pin",
+        "price": "130.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/d3608fad029d248594524eb78e4759ec",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTg3MjcwNzM1OTI="
+    },
+    {
+        "name": "Remote Điều khiển TV- Đầu box Xiaomi tất cả các dòng các loại Hàng chất lượng Tặng Pin",
+        "price": "90.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mfsfj2xanhu3aa",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjI5Mzg0ODc4NTE="
+    },
+    {
+        "name": "Remote Điều khiển TV Casper REMOTE L2 - HÀNG CHÍNH HÃNG Casper mới 100% Tặng kèm Pin",
+        "price": "190.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7qukw-lji7hftjd1xe64",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTI1OTk2NDE3NjE="
+    },
+    {
+        "name": "Kính Cận Kính Mát Gọng Vuông Chữ V Thời Trang HOT TREND nam nữ",
+        "price": "26.500₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj44tfabnl1ff",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTQxOTc4MzY2MTI="
+    },
+    {
+        "name": "Remote Điều khiển giọng nói TV Xiaomi dài 1 nút trắng 1 -MI P1 Q1 TV L32ML43M6-6AEU L55M6-6AEU L75M6- Hàng mới XỊN_MẪU 8",
+        "price": "280.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7qukw-li2g26r8151u79",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTk4ODk5MDQ0MTI="
+    },
+    {
+        "name": "Remote Điều khiển TV - Đầu box Xiaomi tất cả các dòng các loại Xiaomi Mi TV Box Hàng chất lượng Tặng kèm Pin!",
+        "price": "90.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lzsscwuuw6z147",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTg5Nzg0MDE3NTk="
+    },
+    {
+        "name": "Remote điều khiển quạt Hatari đa năng các dòng quạt HATARI cây quạt đứng quạt treo tường- Hàng đẹp mới 100% TẶNG KÈM PIN",
+        "price": "90.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lulhki805a1xe6",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjQ4MjY5MTYxMDQ="
+    },
+    {
+        "name": "Remote Điều khiển tivi Samsung Qled Made in Indonesia Hàng đẹp chất lượng cao Tặng Pin",
+        "price": "135.000₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-m01pyij5tllb2c",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjgzMTA5Mjk5NjY="
+    },
+    {
+        "name": "Áo Thun NgắN Tay MàU SắC Dễ Thương Cho Nữ, cá tính ap (HÀNG SẴN) ỦT",
+        "price": "38.100₫",
+        "discount": 51.0,
+        "image": "https://cf.shopee.vn/file/vn-11134201-820l4-mjs7fpqsda0y31",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS81MzMwNTA3Njk1MA=="
+    },
+    {
+        "name": "Điều khiển quạt Hoa Phượng- Hàng mới XỊN 100% Tặng kèm Pin",
+        "price": "110.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/8b05598dcbce67341c960655449e1e34",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNTM0Mzg5MDI5OQ=="
+    },
+    {
+        "name": "Remote Điều khiển tivi Samsung cơ 2020 cho các dòng tivi Samsung từ 2015 đến 2021- HÀNG CHÍNH HÃNG Made in VietNam",
+        "price": "380.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/c1ca75ec2be28354e8222ce3c4b56c80",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODA1NzA2MDk1OQ=="
+    },
+    {
+        "name": "Điều khiển tivi Pa_na_so_nic giọng nói- NÚT YOTUBE ĐỎ Hàng mới XỊN 100% Tặng Pin",
+        "price": "410.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m3pvvcu9c4osb0",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzg1MjM3NDk1Mg=="
+    },
+    {
+        "name": "Balo Mini Ba lô nữ vải canvas TẶNG MÓC KHÓA Siêu Kute - B04",
+        "price": "250.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/12906018fc3f4f1d1e468923c12463e9",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNjk4MzQ2MTM2NA=="
+    },
+    {
+        "name": "Điều khiển tivi Pa_na_so_nic HÀNG CHÍNH HÃNG theo TV 100% Tặng kèm ân",
+        "price": "180.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/8a4f45aef61d71e0e3c9f620987db061",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTAwNzYxODUzNw=="
+    },
+    {
+        "name": "Remote Điều khiển TV Philips đa năng các dòng tivi Philips LCD/LED/Smart TV- Hàng tốt tương thích 100%Tặng kèm Pin",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-m0099rehwvnx78",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzc5MTIxMDc5NA=="
+    },
+    {
+        "name": "Bộ đồ chơi thả hình con vật và hình khối - Bộ con gì ăn nấy phát triển trí tuệ cho bé - HÀNG MADE IN VIETNAM 3021",
+        "price": "50.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/58d1f49c58cb5dab0da71a504cf4ffec",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNDc2ODQ3MzQ4OA=="
+    },
+    {
+        "name": "ÁO PHÔNG BẦU CHẤT NHẸ MÁT 38-60Kg",
+        "price": "160.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/cac21f472a896058aa4d19607af50d3c",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xNDM0NjQ2Ni8yNDQxMzA1NjE0"
+    },
+    {
+        "name": "Remote Điều khiển tivi Darling RM-L1359 các dòng LED/LCD/Smart TV- Hàng loại tốt Tặng kèm Pin",
+        "price": "110.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/f268471850fed0cb743224777d5faff1",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODU1OTA2MzcxNw=="
+    },
+    {
+        "name": "Remote Điều khiển Tivi Sony RM-L1165 - Hàng tốt mới 100% Tặng kèm Pin",
         "price": "85.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lu4rq1p0en81e8",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjU1NzQxNjYzMjI="
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/31bad4e5fc793c8107230f1850cea645",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjY0NTg0MzU2MQ=="
     },
     {
-        "name": "Bút chì HB lục giác dùng vẽ tranh tập viết cho bé chì đậm an toàn dễ tẩy xóa",
-        "price": "9.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lw8nvqxzlqsbce",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjg4MDIwNjIzMzE="
+        "name": "Túi Vải Canvas Đeo Chéo Đeo Vai Cỡ Lớn Unisex Thời Trang Hàn Quốc Học Sinh Sinh Viên Mincloset Tv19",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luiyejgh651u65",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvODIyOTQ2MjE2Mg=="
     },
     {
-        "name": "01 cây bút chì Elfen nội địa Thái lan nét đậm đều êm",
-        "price": "10.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lyz51zlt9npp03",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8yODc1Nzk5NzgzNA=="
+        "name": "Hộp đựng đồng hồ trang sức đa năng 35cm",
+        "price": "200.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m2vsvxqqlc06ca",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvNjczODMxOTQwMA=="
     },
     {
-        "name": "Hộp 12 Bút Chì Màu Sáp New Elite Gốc Dầu An Toàn Cho Bé Tô Màu Vẽ Tranh",
-        "price": "22.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m25ca65yet2q50",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjQyODc5Mjc0Mjk="
+        "name": "Kệ mỹ phẩm đại 35cm núm tim hồng",
+        "price": "200.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/561e2efb793682f76d3961dd8da359d6",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg3OTk5MzAyNw=="
     },
     {
-        "name": "Phép toán lớn nhỏ tư duy toán học bộ gồm 20 tờ được làm bằng giấy a4 in màu",
-        "price": "55.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-mb7teavl9kg1a6",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjg1Mzc3ODc2OTc="
+        "name": "Điều khiển tivi TCL-1 Hàng mới XỊN Tặng kèm Pin các dòng TV TCL CRT LCD LED Smart TV",
+        "price": "145.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/155987a6fc0b1c2191bb5a59baa9716f",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzY1MDgwMTIxOQ=="
     },
     {
-        "name": "Tập làm quen với toán nhận biết số lượng tập đếm được làm từ chất liệu giấy a4 in màu",
-        "price": "55.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-mb7ourfyqfupcc",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjk3ODc4MDA5NDI="
+        "name": "Khay đựng son và lọ đựng cọ trang điểm 2 trong 1 cực tiện dụng",
+        "price": "90.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m3511h2fw9w97e",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg3ODg0NTMxMQ=="
     },
     {
-        "name": "Luyện viết số từ 1-20 giúp bé nhận biết với chữ số được làm từ chất liệu giấy a4 in màu",
-        "price": "55.000₫",
-        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-mbc4kiggg90zb4",
-        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNDM3MDU1ODU0MjE="
+        "name": "Remote Điều khiển tivi Pa_na_so_nic RM-1020M LED/LCD/Smart TV- HÀNG CHÍNH HÃNG theo TV 100% Tặng Pin",
+        "price": "160.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m3r78tbp0nfs5f",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTEyMDU5NDEzNjc="
+    },
+    {
+        "name": "[HÀNG CHÍNH HÃNG] Điều khiển tivi Samsung TU 2020 dùng cho các dòng tivi Samsung từ 2015 đến 2020",
+        "price": "350.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lzsjcs18sx41e8",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNTE2MzM3ODgyMw=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa LG đa năng tất cả các dòng 1&2 chiều Inverter - Hàng mới 100% Tặng kèm Pin",
+        "price": "160.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/14686500508f113f84cccc3cb2afb387",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTE5MDQyOTQwMzc="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Midea 1& 2 chiều Inverter - HÀNG CHÍNH HÃNG mới 100% Tặng kèm Pin!!!",
+        "price": "350.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lztzjvcrkkst23",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzY5Njc2Nzk0Mg=="
+    },
+    {
+        "name": "Điều khiển điều hòa LG NÚT CAM 1&2 chiều Inverter- Hàng mới XỊN Fullbox LG 100% Tặng Pin + Đế treo",
+        "price": "450.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-820l4-mg08qpjn39xma9",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNTk0NzI0NDU2MA=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Casper- 3 LOẠI 1&2 chiều Inverter- Hàng mới XỊN Casper 100% Tặng Pin",
+        "price": "200.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/4eb0f9147367dbbe866c90106f4107f7",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODE1NDA4NzU1NQ=="
+    },
+    {
+        "name": "Remote Điều khiển máy chiếu Acer- HÀNG CHÍNH HÃNG mới 100% Tặng kèm Pin",
+        "price": "155.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/4ce3ad611ebf3376993369025a38afc4",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTA3MTE4NTUzODc="
+    },
+    {
+        "name": "Áo lót nữ cài trước, quai siêu mảnh hàng đẹp siêu hot A04",
+        "price": "50.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj1kvmloy6q41",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMzc1MjAxODk3Ng=="
+    },
+    {
+        "name": "Túi Xách Nữ Mini Đeo Chéo, Đeo Vai, Phối Dây Pha Xích SANG CHẢNH TD18",
+        "price": "110.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/5f6debd594f88100e0210830069893e8",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDc4MjY4NTAxMA=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Pa_na_so_nic-11 LOẠI 1 & 2 chiều Inverter- Hàng loại tốt mới 100% Tặng Pin",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m3pvzwx782b9ea",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODE2MzM4NTc0OA=="
+    },
+    {
+        "name": "kệ mỹ phẩm ĐẠI 35cm màu hồng phấn mới",
+        "price": "200.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m350fhqvxrmh16",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMjc3OTQyOTI0Nw=="
+    },
+    {
+        "name": "Kính Mát Ulzzang đẹp trẻ trung NAM NỮ SIÊU HOT đi biển",
+        "price": "29.900₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj44tfaegpx69",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvODEzNTgwODgyNQ=="
+    },
+    {
+        "name": "Remote Điều khiển máy chiếu Sony- HÀNG CHÍNH HÃNG mới 100% Tặng kèm Pin",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/32de6009ea75b7ae11c3f42f94995584",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTI2NjY1MzM0Nw=="
+    },
+    {
+        "name": "Điều khiển điều hòa Sanyo-2 các dòng Sanyo SAP-KC 9-12-18000BTU 1 2 chiều Inverter - Hàng tốt",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/7efc531747f331c047a8d8d9a3bca6c6",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjk0Mzg3MTU1MA=="
+    },
+    {
+        "name": "Tranh decor phòng ngủ trang trí phòng khách treo tường 3d dày 8mm có keo sẵn bóc dán 2029",
+        "price": "195.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/8cffc4da1ddfe697de288cd0e25f9100",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNjI0NDE3MjU1Mg=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Samsung- 5  các dòng 1 &2 chiều Inverter 9000 12000 18000BTU- Hàng tốt tặng Pin",
+        "price": "120.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/aed407faaee06451ac7cdf1215a954e8",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTQ1NTQ0OTM1OA=="
+    },
+    {
+        "name": "Điều khiển tivi Asanzo-2 các dòng Asanzo LED/LCD Smart TV- Hàng tốt",
+        "price": "95.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/cedd750d0bfa284c4591fa813d6909e5",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzc1MDgwNDQ5NQ=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Casper-4 LOẠI 1&2 chiều Inverter- Hàng tốt mới 100% Tặng Pin",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/f74eec53cdcfb418e8dede12e7c405d8",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjQ4OTI1NDg0Mg=="
+    },
+    {
+        "name": "Kệ mỹ phẩm đại trắng tim hồng 6 ô son",
+        "price": "200.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m34zu9n2455l77",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg4MTE5OTAyMA=="
+    },
+    {
+        "name": "Áo lót thể thao nữ 2024 (Chuyên tập Gym) A03",
+        "price": "50.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj22oqdjwgic3",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDI1MTkxODA5Ng=="
+    },
+    {
+        "name": "Kệ mỹ phẩm 35cm đại đen núm gỗ nhạt 24 ô son",
+        "price": "200.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m350lytf9aqjd7",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg4MzgzNjY0NA=="
+    },
+    {
+        "name": "Áo Bra Dây Đai Mỏng Gân Tăm Ôm Sát Có Đệm Ngực A11",
+        "price": "50.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj1kvmlkqhea2",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzI1NDEwMjExNg=="
+    },
+    {
+        "name": "Áo 2 dây nữ Áo bra len tăm hở lưng A05",
+        "price": "40.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luj22oqdlb0y00",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDM1MzQxMDQxOA=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Dai_kin đa năng tất cả các dòng 1&2 chiều Inverter- Hàng mới 100% Tặng Pin",
+        "price": "175.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/2c900db8b6a3fd276b79495ec29541ec",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTE1NTQ4OTM1OA=="
+    },
+    {
+        "name": "Túi đeo chéo Túi vải Tote vải Canvas Phong Cách Hàn Quốc TV18",
+        "price": "130.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luizio4f1f6tdb",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzM4Mjc1NTYwMQ=="
+    },
+    {
+        "name": "Túi đeo chéo nữ mini dây da pha xích Ulzzang siêu dễ thương TD14",
+        "price": "110.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rg7u36a1",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzk2MDMxMzM0Mg=="
+    },
+    {
+        "name": "[HÀNG LOẠI XỊN] Điều khiển điều hòa Carrier-1 LOẠI 1 & 2 chiều Inverter-mới 100% Tặng Pin",
+        "price": "200.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/6d0ca80e8849f9dd21033795f9e865db",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzE4NDE1NDMyOQ=="
+    },
+    {
+        "name": "Remote Điều khiển TV Asanzo-8 LCD/LED/Smart TV- Hàng mới XỊN 100% Tặng kèm Pin!!!",
+        "price": "145.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lzskmv84rznxdc",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTI3MTIxMDk2NA=="
+    },
+    {
+        "name": "Điều khiển quạt trần 4 cánh Pa_na_so_nic F56MPG/ F56MZG /F564- Hàng mới chất lượng cao Tặng kèm Pin",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m3prl0kqapbp51",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzE0OTEyNTc1OA=="
+    },
+    {
+        "name": "Túi Cói Merci Someday Đi Biển, Đi Du lịch, Đi chơi Siêu HOT HIT TV20 Mincloset",
+        "price": "90.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-luiyuezkq5ua56",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzM4NDI4MzUwOQ=="
+    },
+    {
+        "name": "Remote Điều khiển quạt Asia- Hàng mới XỊN công ty 100% tặng kèm Pin",
+        "price": "145.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lzsktelwbo2pee",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTc3MjcwODgyNw=="
+    },
+    {
+        "name": "Điều khiển tivi Samsung CONG TỐT Smart TV UA 32 40 43 49 50 55 QA65 4K KU NU RU Smart QLED",
+        "price": "125.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/4df41dbc882506906a563b69cd9c59df",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNDMzOTA4MzY4OQ=="
+    },
+    {
+        "name": "Điều khiển tivi Asanzo-5 các dòng Asanzo LED/LCD Smart TV- Hàng tốt",
+        "price": "98.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/f5de9be3173da63c80efaf4583680261",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzg2MTkxMzY3Ng=="
+    },
+    {
+        "name": "Điều khiển tivi TCL-2 HÀNG CHÍNH HÃNG 100% Tặng kèm pin các dòng CRT LCD LED Smart TV",
+        "price": "220.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/533520185f777563fe418b1102db1238",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjU1MDczNTgxNw=="
+    },
+    {
+        "name": "Khay đựng son 24 ô trắng tim hồng",
+        "price": "60.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m2vt26dpxts661",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg4MzM4OTQ3MQ=="
+    },
+    {
+        "name": "khay chia ngăn kéo tủ đựng mỹ phẩm hoặc đựng phụ kiện tiện dụng.",
+        "price": "80.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7ras8-m2vspcacnzsge1",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvNTM2MjgyNTUyMw=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa Nagakawa- 3 Hàng tốt các dòng NIS-C NS-C NIS-A NS-A 1 2 chiều Inverter",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lzskpltqizbhfc",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTM2NDQ0MDY1Ng=="
+    },
+    {
+        "name": "Cây cán bột bằng gỗ",
+        "price": "30.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/3c579a62f941640f1b124c2932d51b6a",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC82NDM5MjYxODkw"
+    },
+    {
+        "name": "Túi đeo chéo nữ, Túi xách nữ Da Trơn Quảng Châu sang chảnh  Siêu HOT T22",
+        "price": "110.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-lt8z0nb1gp8k2c",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDY4ODcxOTgxOA=="
+    },
+    {
+        "name": "Remote Điều khiển TV Asanzo LCD/LED/Smart TV- Hàng mới XỊN 100% Tặng kèm Pin!!!",
+        "price": "135.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/c580d9b9f82a00de418ee71a93facd8d",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODA2NDQ5ODA4MA=="
+    },
+    {
+        "name": "Remote Điều khiển máy chiếu Maxell- HÀNG CHÍNH HÃNG mới 100% Tặng kèm Pin",
+        "price": "150.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/fb04d273a26821f86cfffb8677fd36dc",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzM5MjAzODA4OQ=="
+    },
+    {
+        "name": "Remote Điều khiển điều hòa máy lạnh Asanzo-1 LOẠI 1&2 chiều Inverter- Hàng tốt mới  100% Tặng Pin",
+        "price": "135.000₫",
+        "discount": 50.0,
+        "image": "https://cf.shopee.vn/file/a46341958fde1afe4851fe41823207d5",
+        "link": "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODY2MTkwNjA4NA=="
     }
 ]
