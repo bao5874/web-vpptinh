@@ -3,27 +3,50 @@ import csv
 import json
 import io
 import os
+import re # Thư viện xử lý chữ
 
 # --- CẤU HÌNH ---
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "data/products.json"  
-# Từ khóa lọc (Giữ nguyên)
+# Từ khóa lọc
 TU_KHOA_VPP = ["bút", "giấy", "vở", "sổ", "file", "bìa", "kẹp", "ghim", "băng dính", "thước", "mực", "kéo", "hồ dán", "đế cắm", "khay", "văn phòng", "học sinh"]
 
 def xuly_gia(gia_raw):
-    """Thêm chữ đ và dấu chấm cho đẹp"""
+    """Lọc lấy số từ giá tiền (kể cả khi nó là 10.000 - 20.000)"""
     try:
-        # Xử lý trường hợp giá là 45000.0 hoặc 45000
-        gia = float(gia_raw)
-        return "{:,.0f}₫".format(gia).replace(",", ".")
+        # Tìm tất cả các con số trong chuỗi giá
+        numbers = re.findall(r'\d+', str(gia_raw).replace('.', '').replace(',', ''))
+        if numbers:
+            # Lấy số đầu tiên (thường là giá thấp nhất)
+            gia = float(numbers[0])
+            if gia > 0:
+                return "{:,.0f}₫".format(gia).replace(",", ".")
     except:
-        return "Liên hệ"
+        pass
+    return "Liên hệ" # Nếu lỗi thì trả về Liên hệ
+
+def xuly_anh(anh_raw):
+    """Cắt lấy 1 link ảnh sạch sẽ"""
+    if not anh_raw:
+        return "https://via.placeholder.com/150"
+    
+    # 1. Nếu ảnh bị dính chùm bằng dấu phẩy (link1, link2) -> Lấy cái đầu
+    if "," in anh_raw:
+        anh_raw = anh_raw.split(",")[0]
+        
+    # 2. Nếu ảnh bị dính chùm bằng dấu gạch đứng (link1|link2)
+    if "|" in anh_raw:
+        anh_raw = anh_raw.split("|")[0]
+        
+    # 3. Nếu ảnh bị bọc trong ngoặc ["link"] (Format JSON)
+    anh_raw = anh_raw.replace('["', '').replace('"]', '').replace('"', '').strip()
+    
+    return anh_raw
 
 def cap_nhat_tu_dong():
     print(f"⏳ Đang tải dữ liệu từ Accesstrade về...")
     
     try:
-        # 1. Tải file
         response = requests.get(LINK_CSV, stream=True)
         response.encoding = 'utf-8' 
         
@@ -31,57 +54,59 @@ def cap_nhat_tu_dong():
             print("❌ Lỗi: Không tải được file.")
             return
 
-        # 2. Đọc dữ liệu
         f = io.StringIO(response.text)
         reader = csv.DictReader(f)
         
-        # --- SỬA LỖI Ở ĐÂY: ÁP DỤNG ĐÚNG TÊN CỘT TỪ LOG CỦA BẠN ---
-        # Dựa trên log: ['sku', 'name', 'url', 'price', 'discount', 'image', 'desc', 'category']
+        # CẤU HÌNH CỘT (Theo đúng file của bạn)
         col_name = 'name'
         col_price = 'price'
         col_img = 'image'
-        col_link = 'url' # Đây chính là chỗ code cũ bị sai
+        col_link = 'url' 
 
         san_pham_list = []
         count = 0
         
-        print("⚙️ Đang lọc sản phẩm văn phòng phẩm...")
+        print("⚙️ Đang lọc và làm sạch dữ liệu...")
         
         for row in reader:
             ten_sp = row.get(col_name, "")
             link_sp = row.get(col_link, "")
-            
-            # Kiểm tra xem có phải VPP không
+            raw_img = row.get(col_img, "")
+            raw_price = row.get(col_price, "0")
+
+            # Kiểm tra VPP
             is_vpp = False
             for tu_khoa in TU_KHOA_VPP:
                 if tu_khoa in ten_sp.lower():
                     is_vpp = True
                     break
             
-            # Chỉ lấy sản phẩm có tên, có giá và là VPP
             if is_vpp and ten_sp and link_sp:
+                # --- SỬA LỖI Ở ĐÂY ---
+                final_img = xuly_anh(raw_img)
+                final_price = xuly_gia(raw_price)
+                
                 san_pham_list.append({
                     "name": ten_sp,
-                    "price": xuly_gia(row.get(col_price, "0")),
-                    "image": row.get(col_img, "https://via.placeholder.com/150"),
+                    "price": final_price,
+                    "image": final_img,
                     "link": link_sp
                 })
                 count += 1
                 
-            if count >= 60: # Lấy 60 món thôi
+            if count >= 60: 
                 break
 
-        # 3. Lưu file
+        # Lưu file
         if not os.path.exists("data"):
             os.makedirs("data")
             
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(san_pham_list, f, ensure_ascii=False, indent=4)
         
-        print(f"✅ Đã tìm thấy {len(san_pham_list)} sản phẩm VPP chuẩn xịn!")
+        print(f"✅ Đã xử lý xong {len(san_pham_list)} sản phẩm (Ảnh & Giá đã sạch)!")
         
-        # 4. Chạy Build
-        print("🔨 Đang tự động xây dựng lại web...")
+        print("🔨 Đang xây dựng lại web...")
         os.system("python build.py")
         
     except Exception as e:
