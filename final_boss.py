@@ -10,33 +10,26 @@ import webbrowser
 
 # --- CẤU HÌNH ---
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 FILE_JSON = "products.json"
 
-# CẬP NHẬT LINK AFFILIATE MỚI CỦA BẠN TẠI ĐÂY
+# CẬP NHẬT LINK TRACKING CỦA BẠN
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=vpp&url_enc="
 
-# 1. BỘ TỪ KHÓA KÉP (VPP_WHITELIST)
-VPP_WHITELIST = [
-    "bút bi", "bút chì", "bút gel", "bút nước", "bút dạ", "bút xóa", "bút nhớ", "bút lông", "ngòi bút",
-    "giấy a4", "giấy in", "giấy note", "giấy than", "giấy bìa", "giấy vẽ",
-    "vở học sinh", "vở kẻ ngang", "vở ô ly", "sổ tay", "sổ lò xo", "sổ da",
-    "kẹp giấy", "kẹp bướm", "kẹp tài liệu", "ghim bấm", "dập ghim", "ghim cài",
-    "bìa hồ sơ", "bìa còng", "bìa lá", "file lá", "túi clear bag", "cặp tài liệu",
-    "băng dính", "băng keo", "hồ dán", "keo dán",
-    "thước kẻ", "ê ke", "compa", "hộp bút", "dao rọc giấy",
-    "khay đựng bút", "khay tài liệu", "kệ đựng hồ sơ"
+# 1. DANH MỤC HỢP LỆ (Dựa trên cột 'category')
+# Chỉ lấy sản phẩm nằm trong các ngành hàng này
+VALID_CATEGORIES = [
+    "văn phòng phẩm", "nhà sách", "dụng cụ học sinh", "thiết bị văn phòng", 
+    "giấy in", "sổ tay", "bút viết", "họa cụ", "stationery", "school", "office"
 ]
 
-# 2. BLACKLIST (CÁC TỪ KHÓA BÁO HIỆU HÀNG RÁC HOẶC HẾT HÀNG)
+# 2. TỪ KHÓA CẤM (Vẫn giữ để chặn rác nếu category bị sai)
 JUNK_BLACKLIST = [
-    "hết hàng", "bỏ mẫu", "ngừng kinh doanh", "tạm hết", "out of stock", "liên hệ",
-    "honda", "yamaha", "suzuki", "xe máy", "ô tô", "phụ tùng", "lốp", "nhớt", "pô", "gác chân",
-    "mực khô", "mực rim", "râu mực", "ăn vặt", "bánh", "kẹo", "thực phẩm", "mắm", "muối",
-    "kẻ mắt", "kẻ mày", "trang điểm", "son", "phấn", "kem", "serum", "dưỡng", "mụn", "makeup", "mỹ phẩm",
-    "áo", "quần", "váy", "giày", "dép", "túi xách", "thời trang",
-    "đồ chơi", "siêu nhân", "lắp ráp", "robot"
+    "hết hàng", "bỏ mẫu", "liên hệ", "tạm hết",
+    "honda", "yamaha", "xe máy", "phụ tùng", "lốp", "nhớt",
+    "mực khô", "ăn vặt", "bánh", "kẹo", "thực phẩm",
+    "kẻ mắt", "trang điểm", "son", "kem", "mỹ phẩm", "makeup",
+    "áo", "quần", "váy", "giày", "dép", "túi xách"
 ]
 
 def tao_link_aff(url_goc):
@@ -54,9 +47,12 @@ def xuly_gia(gia_raw):
         if not numbers: return "Liên hệ"
         gia_val = float(numbers[0])
         
-        # Lọc giá ảo
-        if gia_val > 5000000: gia_val /= 10
-        if gia_val < 1000: return "Liên hệ" 
+        # CHẶN HÀNG RÁC/HẾT HÀNG BẰNG GIÁ
+        # Giá < 3.000đ -> Thường là phụ kiện rác hoặc hàng hết để giá ảo -> LOẠI
+        if gia_val < 3000: return "Liên hệ"
+        
+        # Giá > 2.000.000đ -> VPP hiếm khi đắt thế (trừ máy in) -> LOẠI CHO AN TOÀN
+        if gia_val > 2000000: return "Liên hệ"
         
         return "{:,.0f}₫".format(gia_val).replace(",", ".")
     except:
@@ -74,7 +70,7 @@ def tao_web_html(products):
         <title>VPP Tịnh - Văn Phòng Phẩm</title>
         <link rel="icon" href="{LOGO_URL}">
         <style>
-            :root {{ --primary: #008080; --bg: #fdfcdc; }}
+            :root {{ --primary: #008080; --bg: #e0f2f1; }}
             body {{ font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }}
             .header {{ text-align: center; background: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; border-bottom: 4px solid var(--primary); }}
             .logo-img {{ width: 80px; height: 80px; object-fit: contain; display: block; margin: 0 auto 10px; }}
@@ -88,6 +84,7 @@ def tao_web_html(products):
             .info {{ padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }}
             .title {{ font-size: 14px; color: #333; margin: 0 0 10px 0; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
             .price {{ color: #d0021b; font-weight: bold; font-size: 16px; margin-bottom: 10px; }}
+            .cate {{ font-size: 11px; color: #888; margin-bottom: 5px; background: #eee; padding: 2px 5px; border-radius: 3px; width: fit-content; }}
             .btn {{ background: var(--primary); color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 5px; font-weight: 600; display: block; }}
             .btn:hover {{ background: #006666; }}
         </style>
@@ -105,6 +102,7 @@ def tao_web_html(products):
             <div class="card">
                 <div class="img-box"><img src="{p['image']}" loading="lazy"></div>
                 <div class="info">
+                    <div class="cate">{p['category']}</div>
                     <div class="title">{p['name']}</div>
                     <div class="price">{p['price']}</div>
                     <a href="{p['link']}" class="btn" target="_blank">Mua Ngay</a>
@@ -115,52 +113,55 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🚀 ĐANG CHẠY FINAL BOSS 15.0 (QUÉT SẠCH HÀNG TỒN)...")
+    print("🚀 ĐANG CHẠY FINAL BOSS 17.0 (LỌC THEO DANH MỤC)...")
     try:
         print("⏳ Đang tải dữ liệu...")
         r = requests.get(LINK_CSV, timeout=60)
-        if r.status_code != 200:
-            print("❌ Lỗi tải CSV!")
-            return
-            
-        reader = csv.DictReader(io.StringIO(r.text))
+        
+        # Xử lý dữ liệu CSV để tránh lỗi header
+        lines = r.text.splitlines()
+        # Đảm bảo header sạch sẽ (bỏ ngoặc kép thừa nếu có)
+        header = [h.replace('"', '').strip() for h in lines[0].split(',')]
+        
+        reader = csv.DictReader(lines[1:], fieldnames=header)
         clean_products = []
         
-        print("⚙️ Đang lọc (Kiểm tra kho, trạng thái, giá tiền)...")
+        print("⚙️ Đang lọc theo Cột Category...")
         for row in reader:
             ten = row.get('name', '').lower()
             
-            # 1. BỘ LỌC TỪ KHÓA
-            if not any(good in ten for good in VPP_WHITELIST): continue
+            # Lấy danh mục, xử lý lỗi nếu không có cột category
+            category = row.get('category', '').lower()
+            
+            # 1. BỘ LỌC CHÍNH: CATEGORY (Ngành hàng)
+            # Nếu category chứa "văn phòng phẩm" hoặc "nhà sách" -> OK
+            is_valid_cate = any(c in category for c in VALID_CATEGORIES)
+            
+            # Nếu không thuộc ngành hàng này -> BỎ QUA NGAY
+            if not is_valid_cate:
+                # CƠ HỘI CUỐI: Nếu category rỗng (lỗi file), thì check tên sản phẩm kỹ
+                if category == "" and ("bút" in ten or "giấy" in ten or "sổ" in ten):
+                    pass # Cho qua
+                else:
+                    continue 
+
+            # 2. BỘ LỌC PHỤ: BLACKLIST (Chặn rác lọt lưới)
             if any(bad in ten for bad in JUNK_BLACKLIST): continue
 
-            # --- [MỚI] MÁY QUÉT 3 LỚP ---
-            
-            # LỚP 1: KIỂM TRA TRẠNG THÁI (Nếu có cột status)
-            # Status = 0 hoặc False thường là ngưng bán
-            status = str(row.get('status', '1')).lower()
-            if status == '0' or status == 'false' or status == 'off': continue
-
-            # LỚP 2: KIỂM TRA TỒN KHO (Nếu có cột stock/quantity)
-            try:
-                stock = int(row.get('stock', row.get('quantity', 99)))
-                if stock == 0: continue # Hết hàng trong kho -> BỎ
-            except: pass
-
-            # LỚP 3: KIỂM TRA GIÁ (Chặt chẽ hơn)
+            # 3. GIÁ (Chặn hàng hết/rác giá rẻ)
             gia_hien_thi = xuly_gia(row.get('price'))
-            if gia_hien_thi == "Liên hệ": continue 
-            # ---------------------------
+            if gia_hien_thi == "Liên hệ": continue
 
             clean_products.append({
                 "name": row.get('name'),
                 "price": gia_hien_thi,
+                "category": row.get('category', 'VPP'), # Lưu lại tên danh mục để hiện lên web
                 "image": row.get('image', '').split(',')[0].strip(' []"'),
                 "link": tao_link_aff(row.get('url'))
             })
 
         final_list = clean_products[:100]
-        print(f"✅ Tìm thấy {len(final_list)} sản phẩm SẠCH & CÒN HÀNG.")
+        print(f"✅ Tìm thấy {len(final_list)} sản phẩm CHUẨN NGÀNH HÀNG.")
 
         with open(FILE_JSON, "w", encoding="utf-8") as f:
             json.dump(final_list, f, ensure_ascii=False, indent=4)
@@ -168,23 +169,22 @@ def chay_ngay_di():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(tao_web_html(final_list))
         
-        # TỰ ĐỘNG MỞ WEB KIỂM TRA
         print("👉 Đang mở web kiểm tra...")
         webbrowser.open("file://" + os.path.realpath("index.html"))
         
-        # XÁC NHẬN
         print("\n" + "="*50)
-        print("Hãy kiểm tra kỹ web vừa bật lên.")
-        print("Nếu thấy OK, gõ 'y' và Enter để đẩy lên mạng.")
+        print("BẠN HÃY XEM KỸ WEB VỪA BẬT LÊN.")
+        print("Trên mỗi sản phẩm sẽ có dòng chữ nhỏ ghi Ngành Hàng (Category).")
+        print("Nếu thấy OK, gõ 'y' và Enter.")
         print("="*50 + "\n")
         
         chon = input("Lựa chọn (y/n): ")
         if chon.lower() == 'y':
             print("☁️ Đang cập nhật lên Github...")
             os.system("git add .")
-            os.system('git commit -m "Update V15 Stock Check"')
+            os.system('git commit -m "Update V17 Category Filter"')
             os.system("git push")
-            print("✅ XONG! Đợi 3 phút rồi vào vpptinh.com kiểm tra (Nhớ F5).")
+            print("✅ XONG! Vào vpptinh.com kiểm tra (Nhớ F5).")
         else:
             print("❌ Đã hủy.")
 
