@@ -23,7 +23,25 @@
             .old-price { text-decoration: line-through; color: #999; font-size: 12px; margin-right: 5px; }
             .new-price { color: var(--primary); font-weight: bold; font-size: 16px; }
             .btn { background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; margin-top: 5px; border-radius: 2px; }
+         /* Code CSS cho Banner đầu trang */
+        .header-bg {
+        background-image: url('banner-top.jpg'); /* Nhớ sửa đúng đường dẫn nếu bạn bỏ trong thư mục images */
+        background-size: cover;  /* Co dãn hình cho vừa khít màn hình */
+        background-position: center center; /* Căn giữa hình */
+        background-repeat: no-repeat;
+        width: 100%;
+        min-height: 300px; /* Quan trọng: Phải có chiều cao thì hình mới hiện */
+        display: flex;
+        align-items: center;
+      justify-content: center;
+}
+
+/* Ẩn chữ cũ đi nếu hình đã có chữ sẵn */
+.header-bg h1, .header-bg p {
+    display: none; 
+}
         </style>
+       
         <script type="application/ld+json">
 [
   {
@@ -1830,11 +1848,11 @@
 </script>
     </head>
     <body>
-        <div class="header">
-            <img src="https://cdn-icons-png.flaticon.com/512/3225/3225194.png" alt="Logo" class="logo-img">
-            <h1>TỊNH SHOP DEAL HOT</h1>
-            <p>Phiên bản V22 - Cập nhật lúc: 1770181703</p>
-        </div>
+           <div class="header header-bg">
+            <div>
+              <p>Phiên bản V22 ...</p>
+            </div>
+          </div>
         <div class="grid">
     
             <div class="card">
