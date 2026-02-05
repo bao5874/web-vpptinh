@@ -140,7 +140,7 @@ a { text-decoration: none; }
         padding: 8px 0;
     }
 }
-@media (max-width: 768px) {
+@media (max-width: 630px) {
     .header-bg {
         background-size: contain; /* Thu nhỏ hình lại để thấy toàn bộ */
         min-height: 150px; /* Giảm chiều cao trên điện thoại cho đỡ trống */
