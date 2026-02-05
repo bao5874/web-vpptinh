@@ -27,7 +27,7 @@
 .header-bg {
     width: 100%;
     /* Dòng quan trọng nhất: Giữ đúng tỷ lệ ảnh 1920x450 bất kể màn hình to nhỏ */
-    aspect-ratio: 1300 / 400; 
+    aspect-ratio: 1200 / 400; 
     
     background-image: url('/banner-top.jpg');
     background-size: cover;
@@ -42,10 +42,10 @@
 
 /* Riêng trên điện thoại: Nếu để nguyên thì hình bé tí như cái thước kẻ.
    Nên ta chấp nhận cắt 2 bên logo đi để hình bé Tiểu Tịnh to rõ hơn */
-@media (max-width: 650px) {
+@media (max-width: 600px) {
     .header-bg {
         aspect-ratio: unset; /* Bỏ tỷ lệ cố định */
-        min-height: 250px;   /* Ép chiều cao để nhìn rõ hình */
+        min-height: 200px;   /* Ép chiều cao để nhìn rõ hình */
         background-size: cover; /* Chấp nhận cắt 2 bên */
     }
 }
