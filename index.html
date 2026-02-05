@@ -23,28 +23,30 @@
             .old-price { text-decoration: line-through; color: #999; font-size: 12px; margin-right: 5px; }
             .new-price { color: var(--primary); font-weight: bold; font-size: 16px; }
             .btn { background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; margin-top: 5px; border-radius: 2px; }
- /* Code CSS cho Banner đầu trang */
+/* Code CSS cho Banner hiển thị trọn vẹn (V3) */
 .header-bg {
+    width: 100%;
+    /* Dòng quan trọng nhất: Giữ đúng tỷ lệ ảnh 1920x450 bất kể màn hình to nhỏ */
+    aspect-ratio: 1920 / 450; 
+    
     background-image: url('/banner-top.jpg');
     background-size: cover;
-    background-position: center top; /* Canh theo mép trên để giữ lấy phần đầu */
+    background-position: center center;
     background-repeat: no-repeat;
-    width: 100%;
     
-    /* 👇 QUAN TRỌNG: Sửa số này thành 500px hoặc 600px */
-    min-height: 450px; 
-    
+    /* Bỏ min-height cố định đi, để nó tự co giãn */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Code cho điện thoại (Màn hình nhỏ) */
+/* Riêng trên điện thoại: Nếu để nguyên thì hình bé tí như cái thước kẻ.
+   Nên ta chấp nhận cắt 2 bên logo đi để hình bé Tiểu Tịnh to rõ hơn */
 @media (max-width: 768px) {
     .header-bg {
-        /* Trên điện thoại thì cho thấp lại chút cho đỡ choán màn hình */
-        min-height: 225px; 
-        background-position: center center;
+        aspect-ratio: unset; /* Bỏ tỷ lệ cố định */
+        min-height: 250px;   /* Ép chiều cao để nhìn rõ hình */
+        background-size: cover; /* Chấp nhận cắt 2 bên */
     }
 }
 
