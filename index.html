@@ -25,15 +25,19 @@
             .btn { background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; margin-top: 5px; border-radius: 2px; }
          /* Code CSS cho Banner đầu trang */
         .header-bg {
-        background-image: url('/banner-top.jpg'); /* Nhớ sửa đúng đường dẫn nếu bạn bỏ trong thư mục images */
-        background-size: cover;  /* Co dãn hình cho vừa khít màn hình */
-        background-position: center center; /* Căn giữa hình */
-        background-repeat: no-repeat;
-        width: 100%;
-        min-height: 300px; /* Quan trọng: Phải có chiều cao thì hình mới hiện */
-        display: flex;
-        align-items: center;
-      justify-content: center;
+    /* ... */
+    background-size: cover; /* Hoặc 'contain' nếu bạn sợ mất chi tiết */
+    background-position: center center;
+    
+    /* 👇 CHỐT SỐ NÀY LÀ ĐẸP NHẤT */
+    min-height: 450px; 
+}
+
+/* Trên điện thoại thì cho nhỏ lại nữa */
+@media (max-width: 768px) {
+    .header-bg {
+        min-height: 200px; 
+    }
 }
 
 /* Ẩn chữ cũ đi nếu hình đã có chữ sẵn */
