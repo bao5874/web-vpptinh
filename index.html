@@ -1,718 +1,3159 @@
 
+
     <!DOCTYPE html>
+
     <html lang="vi">
+
     <head>
+
         <meta charset="UTF-8">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VPP Tịnh - Vật Phẩm Phật Giáo & Không Gian Thiền</title>
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2554/2554037.png">
+
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+
+        <title>Tịnh Shop - Săn Deal Giá Sốc</title>
+
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3225/3225194.png">
+
         
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap" rel="stylesheet">
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XMX55X9EJJ"></script>
+
+        <script>
+
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag(){dataLayer.push(arguments);}
+
+          gtag('js', new Date());
+
+          gtag('config', 'G-XMX55X9EJJ');
+
+        </script>
+
+        
+
         <style>
-            :root { --primary: #8d6e63; --accent: #fbc02d; --bg: #fdfbf7; --text: #4e342e; }
-            body { font-family: 'Merriweather', serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-            .header { 
-                text-align: center; padding: 50px 20px; 
-                background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/originals/82/10/ec/8210ec997b69c27762699318d104618e.jpg'); 
-                background-size: cover; background-position: center; border-radius: 8px; margin-bottom: 30px; color: white;
+
+            :root { --primary: #d0011b; --bg: #f5f5f5; --text-gray: #555; }
+
+            body { font-family: sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+
+            .header { text-align: center; background: white; padding: 0; border-bottom: 3px solid var(--primary); margin-bottom: 20px; position: relative; overflow: hidden; }
+
+            .header-bg {
+
+                width: 100%; aspect-ratio: 1360 / 453;
+
+                background-image: url('/banner-top.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;
+
+                display: flex; align-items: center; justify-content: center;
+
             }
-            .header h1 { margin: 0; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; }
-            .header p { font-style: italic; margin-top: 10px; font-size: 1.1rem; }
-            .category-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; position: sticky; top: 10px; z-index: 99; }
-            .cat-btn { 
-                padding: 10px 18px; border: 1px solid var(--primary); background: white; color: var(--primary); cursor: pointer; 
-                border-radius: 20px; font-family: 'Merriweather', serif; font-size: 14px; transition: 0.3s;
-            }
-            .cat-btn.active, .cat-btn:hover { background: var(--primary); color: white; }
-            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
-            .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: 0.3s; display: flex; flex-direction: column; }
-            .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+
+            @media (max-width: 630px) { .header-bg { aspect-ratio: unset; min-height: 150px; } }
+
+            .header-bg h1, .header-bg p { display: none; }
+
+            .category-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; position: sticky; top: 10px; z-index: 100; }
+
+            .cat-btn { padding: 8px 16px; border: 1px solid #ddd; background: white; color: var(--text-gray); cursor: pointer; border-radius: 20px; font-weight: 600; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+            .cat-btn:hover { background: #eee; }
+
+            .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 8px rgba(208, 1, 27, 0.3); }
+
+            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; }
+
+            .card { background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; }
+
+            .card:hover { transform: translateY(-2px); }
+
             .card.hide { display: none; }
-            .img-box { height: 200px; padding: 10px; display: flex; align-items: center; justify-content: center; background: #fff; }
+
+            .discount-tag { position: absolute; top: 0; right: 0; background: #ffd424; color: #d0011b; padding: 4px 8px; font-weight: bold; font-size: 12px; z-index: 1; }
+
+            .img-box { width: 100%; height: 190px; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }
+
             .img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
-            .info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-            .title { font-size: 13px; height: 38px; overflow: hidden; line-height: 1.4; color: #333; margin-bottom: 10px; }
-            .new-price { color: #bf360c; font-weight: bold; font-size: 16px; }
-            .old-price { text-decoration: line-through; color: #999; font-size: 12px; margin-left: 5px; }
-            .btn { background: var(--primary); color: white; text-decoration: none; padding: 10px; display: block; border-radius: 4px; font-size: 12px; text-transform: uppercase; font-weight: bold; margin-top: 10px; }
-            .btn:hover { background: var(--accent); color: #333; }
+
+            .info { padding: 10px; }
+
+            .title { font-size: 12px; color: #333; margin-bottom: 5px; height: 32px; overflow: hidden; line-height: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+            .old-price { text-decoration: line-through; color: #999; font-size: 12px; margin-right: 5px; }
+
+            .new-price { color: var(--primary); font-weight: bold; font-size: 16px; }
+
+            .btn { background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; margin-top: 5px; border-radius: 2px; font-weight: bold; font-size: 13px; }
+
         </style>
+
     </head>
+
     <body>
-        <div class="header">
-            <h1>VPP Tịnh</h1>
-            <p>Gieo duyên lành - Kiến tạo không gian thanh tịnh</p>
-        </div>
+
+        <div class="header header-bg"><div><p>VPP Tịnh Shop</p></div></div>
+
         <div class="category-menu">
+
             <button class="cat-btn active" data-filter="all">Tất cả</button>
-            <button class="cat-btn" data-filter="vpp-tinh">Sổ Kinh & Thư Pháp</button>
-            <button class="cat-btn" data-filter="khong-gian-tho">Đèn & Tượng Thờ</button>
-            <button class="cat-btn" data-filter="phap-phuc">Pháp Phục & Chuỗi</button>
-            <button class="cat-btn" data-filter="huong-thien">Trầm Hương & Thiền</button>
+
+            <button class="cat-btn" data-filter="thoi-trang">Thời trang & Phụ kiện</button>
+
+            <button class="cat-btn" data-filter="dien-tu">Điện tử & Remote</button>
+
+            <button class="cat-btn" data-filter="nha-cua">Nhà cửa & Đời sống</button>
+
+            <button class="cat-btn" data-filter="me-be">Mẹ & Bé / Đồ chơi</button>
+
         </div>
+
         <div class="grid">
+
     
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-73%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lugedwnu4f8264" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi du lịch trong suốt chống thấm nước, Túi đựng mỹ phẩm đa năng tiện dụng WASHBAG TD19</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">29.700₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvOTUzNTg3OTYzNQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-71%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj22oqdh3bmc4" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Kính mát chống tia UV400 đi biển, đi chơi dành cho nam nữ SIÊU HOT</div>
+
+                    <div><span class="old-price">40.000₫</span> <span class="new-price">11.600₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMjA0MjQ4NDUxMDI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-69%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj1kvmlvz0yd2" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Quần Lót Nữ Họa Tiết Ren Lưới Sexy Siêu Xinh Q06</div>
+
+                    <div><span class="old-price">40.000₫</span> <span class="new-price">12.400₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDQ1MzM5ODM2Mg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-63%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj44tfad25h41" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Kính Mát Mắt Mèo Thời Trang Dành Cho Nữ đẹp trẻ trung</div>
+
+                    <div><span class="old-price">38.000₫</span> <span class="new-price">14.060₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNjA4MzU2OTAwOQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-mc9d0cr962qraa" loading="lazy" alt="Gói 300gr Cốt Lẩu Cay Tê Trùng Khánh Tứ Xuyên"></div>
+
+                <div class="discount-tag">-56%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/64dcb862e6fdd92d200efebddcd56c4c" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Gói 300gr Cốt Lẩu Cay Tê Trùng Khánh Tứ Xuyên</div>
-                    <div class="price-box"><span class="new-price">57.000đ</span> <span class="old-price">75.000đ</span></div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjQ5NjI0ODAvMjY4Mzg3NDE5NDE=" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Gương kèm lược gấp gọn siêu dễ thương - Mincloset 💖</div>
+
+                    <div><span class="old-price">30.000₫</span> <span class="new-price">12.900₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzQ3MjQ3MzU3Mw==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-56%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rfy042e7" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi xách nữ đeo chéo mini dây pha xích phong cách Hàn Quốc cá tính TD12</div>
+
+                    <div><span class="old-price">115.000₫</span> <span class="new-price">49.450₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNjU1NDI3NDU1Ng==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-mc9dweeyysvw2c" loading="lazy" alt="Gói 360gr Cốt Lẩu Trùng Khánh 4 Viên"></div>
+
+                <div class="discount-tag">-56%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lq1c9v77mdrrab" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Gói 360gr Cốt Lẩu Trùng Khánh 4 Viên</div>
-                    <div class="price-box"><span class="new-price">77.400đ</span> <span class="old-price">90.000đ</span></div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjQ5NjI0ODAvNDQzNTg3NDUzODk=" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Lì xì 3d bao lì xì may mắn tết Bính Ngọ 2026 họa tiết rồng độc lạ</div>
+
+                    <div><span class="old-price">35.000₫</span> <span class="new-price">15.050₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjMyNjM1NjMyOTU=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-56%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/afc58b7d08a4942a9f6f31d2b889d424" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bông Tai Nữ, Khuyên Tai Đính Đá Lấp Lánh Khuyên Tai Nụ Xinh Xắn Sang Trọng Mincloset P49</div>
+
+                    <div><span class="old-price">46.900₫</span> <span class="new-price">20.636₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTkyMzE0MzYxMTQ=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lv5oik86br3t03" loading="lazy" alt="1 Thùng 6 Cốc Miến Dẹt Khoai Lang Trùng Khánh Tím Siêu Cay (142gr/ cốc)"></div>
+
+                <div class="discount-tag">-55%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/5492f6c1d9a7700d1587d2efaa28ade8" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">1 Thùng 6 Cốc Miến Dẹt Khoai Lang Trùng Khánh Tím Siêu Cay (142gr/ cốc)</div>
-                    <div class="price-box"><span class="new-price">74.800đ</span> <span class="old-price">85.000đ</span></div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjQ5NjI0ODAvMjMyOTAwODEwNzA=" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Kẹp Tóc Công Chúa Kiểu Nơ Lớn Nhiều Màu Siêu Xinh - Mincloset</div>
+
+                    <div><span class="old-price">20.000₫</span> <span class="new-price">9.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvODgwNjUwMjI3NA==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/dc3761568a4348644d8400ca0e610780" loading="lazy" alt="Nhang khoanh tròn đuổi muỗi Thái lan"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-51%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj44tfabnl1ff" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Nhang khoanh tròn đuổi muỗi Thái lan</div>
-                    <div class="price-box"><span class="new-price">22.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8zOTU1MDU4MzIz" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Kính Cận Kính Mát Gọng Vuông Chữ V Thời Trang HOT TREND nam nữ</div>
+
+                    <div><span class="old-price">26.500₫</span> <span class="new-price">12.985₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTQxOTc4MzY2MTI=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/561794d6291aeb5ff7683977c6366f74" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Midea-5 1& 2 chiều Inverter MSAFA MSAF MSAB MSFR-Hàng mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">135.000₫</span> <span class="new-price">67.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzA1MDQ3MzI1Nw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/8b05598dcbce67341c960655449e1e34" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển quạt Hoa Phượng- Hàng mới XỊN 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">55.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNTM0Mzg5MDI5OQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rg0t8ye3" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi xách mini nữ đeo chéo đi chơi đi tiệc trẻ trung siêu hot TD17 (hàng quảng châu)</div>
+
+                    <div><span class="old-price">70.000₫</span> <span class="new-price">35.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzM2OTU3OTAwMw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/c1ca75ec2be28354e8222ce3c4b56c80" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Samsung cơ 2020 cho các dòng tivi Samsung từ 2015 đến 2021- HÀNG CHÍNH HÃNG Made in VietNam</div>
+
+                    <div><span class="old-price">380.000₫</span> <span class="new-price">190.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODA1NzA2MDk1OQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjkvskq075l0b7" loading="lazy" alt="Giá Pas Gắn Đồng Hồ Xe Đạp Tương Thích CATEYE, Cheetah, Rockbros – Chắc Chắn, Dễ Lắp"></div>
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/701ee08eb3b0e1d739aaec064df2ede3" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Giá Pas Gắn Đồng Hồ Xe Đạp Tương Thích CATEYE, Cheetah, Rockbros – Chắc Chắn, Dễ Lắp</div>
-                    <div class="price-box"><span class="new-price">103.700đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi8yMzMyMzYxODA5" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Bộ trò chơi Ô ăn quan viên gỗ - Đi tìm kho báu - 2 mặt chơi 3020</div>
+
+                    <div><span class="old-price">180.000₫</span> <span class="new-price">90.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNjUwOTg2MDU0MA==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/288a17657690569c66844064a4fbe4da" loading="lazy" alt="Trầm hương Thái Lan mix nụ kèm chén đốt"></div>
-                <div class="info">
-                    <div class="title">Trầm hương Thái Lan mix nụ kèm chén đốt</div>
-                    <div class="price-box"><span class="new-price">65.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xMDQzODIxNjU=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="phap-phuc">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/3e98c9dd70912b62ab74c861ae342768" loading="lazy" alt="Vòng Tay Trầm Hương Chuỗi Tràng Hạt 108 đủ size Nam Nữ, Tặng hộp Gấm Cao Cấp MIN10"></div>
-                <div class="info">
-                    <div class="title">Vòng Tay Trầm Hương Chuỗi Tràng Hạt 108 đủ size Nam Nữ, Tặng hộp Gấm Cao Cấp MIN10</div>
-                    <div class="price-box"><span class="new-price">99.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzEwMDg1OTQvODM0MzUwNTA3Mg==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/4a33ed7648ff68189f2119b87d834907" loading="lazy" alt="Miến Dẹt Khoai Lang Trùng Khánh Ăn Lẩu"></div>
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/12906018fc3f4f1d1e468923c12463e9" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Miến Dẹt Khoai Lang Trùng Khánh Ăn Lẩu</div>
-                    <div class="price-box"><span class="new-price">25.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC81MjY4NjYwNC8xMTAxMDM3NzgwNQ==" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Balo Mini Ba lô nữ vải canvas TẶNG MÓC KHÓA Siêu Kute - B04</div>
+
+                    <div><span class="old-price">250.000₫</span> <span class="new-price">125.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNjk4MzQ2MTM2NA==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/58d67629bdb5aca3b9a8263fbf77c770" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Postcard decor dán tường sticker vintage cute decal theme Pinky mẫu 3 1303</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTEyMTA2MzA3MzQ=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-m008pzelu2018c" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Samsung cơ 2020 cho các dòng tivi Samsung từ 2015 đến 2021- Hàng tốt tặng Pin</div>
+
+                    <div><span class="old-price">120.000₫</span> <span class="new-price">60.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzA2Nzc5MjIxOA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="me-be">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/58d1f49c58cb5dab0da71a504cf4ffec" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bộ đồ chơi thả hình con vật và hình khối - Bộ con gì ăn nấy phát triển trí tuệ cho bé - HÀNG MADE IN VIETNAM 3021</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNDc2ODQ3MzQ4OA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/cac21f472a896058aa4d19607af50d3c" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">ÁO PHÔNG BẦU CHẤT NHẸ MÁT 38-60Kg</div>
+
+                    <div><span class="old-price">160.000₫</span> <span class="new-price">80.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xNDM0NjQ2Ni8yNDQxMzA1NjE0" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/f268471850fed0cb743224777d5faff1" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Darling RM-L1359 các dòng LED/LCD/Smart TV- Hàng loại tốt Tặng kèm Pin</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">55.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODU1OTA2MzcxNw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/31bad4e5fc793c8107230f1850cea645" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển Tivi Sony RM-L1165 - Hàng tốt mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">85.000₫</span> <span class="new-price">42.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjY0NTg0MzU2MQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luiyejgh651u65" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi Vải Canvas Đeo Chéo Đeo Vai Cỡ Lớn Unisex Thời Trang Hàn Quốc Học Sinh Sinh Viên Mincloset Tv19</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvODIyOTQ2MjE2Mg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2vsvxqqlc06ca" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Hộp đựng đồng hồ trang sức đa năng 35cm</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvNjczODMxOTQwMA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/561e2efb793682f76d3961dd8da359d6" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Kệ mỹ phẩm đại 35cm núm tim hồng</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg3OTk5MzAyNw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lyq2dg8xyxxp7d" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Postcard decal sticker dán tường tranh decor phòng ngủ style Hàn quốc set 24 hình tấm lớn 1300</div>
+
+                    <div><span class="old-price">125.000₫</span> <span class="new-price">62.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNDg3NzE5NjQ3Mg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/155987a6fc0b1c2191bb5a59baa9716f" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển tivi TCL-1 Hàng mới XỊN Tặng kèm Pin các dòng TV TCL CRT LCD LED Smart TV</div>
+
+                    <div><span class="old-price">145.000₫</span> <span class="new-price">72.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzY1MDgwMTIxOQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m3511h2fw9w97e" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Khay đựng son và lọ đựng cọ trang điểm 2 trong 1 cực tiện dụng</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg3ODg0NTMxMQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/9c7e0551009e5a6377e929fcb7e2e768" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Galanz các dòng Galanz 1&2 chiều Inverter- Hàng loại tốt mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">135.000₫</span> <span class="new-price">67.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTQ2MDQwNzUyOA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzsjcs18sx41e8" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">[HÀNG CHÍNH HÃNG] Điều khiển tivi Samsung TU 2020 dùng cho các dòng tivi Samsung từ 2015 đến 2020</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNTE2MzM3ODgyMw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lztzjvcrkkst23" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Midea 1& 2 chiều Inverter - HÀNG CHÍNH HÃNG mới 100% Tặng kèm Pin!!!</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzY5Njc2Nzk0Mg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/4eb0f9147367dbbe866c90106f4107f7" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Casper- 3 LOẠI 1&2 chiều Inverter- Hàng mới XỊN Casper 100% Tặng Pin</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODE1NDA4NzU1NQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj1kvmloy6q41" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo lót nữ cài trước, quai siêu mảnh hàng đẹp siêu hot A04</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMzc1MjAxODk3Ng==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/5f6debd594f88100e0210830069893e8" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi Xách Nữ Mini Đeo Chéo, Đeo Vai, Phối Dây Pha Xích SANG CHẢNH TD18</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">55.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDc4MjY4NTAxMA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m3pvzwx782b9ea" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Pa_na_so_nic-11 LOẠI 1 & 2 chiều Inverter- Hàng loại tốt mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODE2MzM4NTc0OA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m350fhqvxrmh16" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">kệ mỹ phẩm ĐẠI 35cm màu hồng phấn mới</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMjc3OTQyOTI0Nw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj44tfaegpx69" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Kính Mát Ulzzang đẹp trẻ trung NAM NỮ SIÊU HOT đi biển</div>
+
+                    <div><span class="old-price">29.900₫</span> <span class="new-price">14.950₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvODEzNTgwODgyNQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/7efc531747f331c047a8d8d9a3bca6c6" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển điều hòa Sanyo-2 các dòng Sanyo SAP-KC 9-12-18000BTU 1 2 chiều Inverter - Hàng tốt</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjk0Mzg3MTU1MA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/8cffc4da1ddfe697de288cd0e25f9100" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Tranh decor phòng ngủ trang trí phòng khách treo tường 3d dày 8mm có keo sẵn bóc dán 2029</div>
+
+                    <div><span class="old-price">195.000₫</span> <span class="new-price">97.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvNjI0NDE3MjU1Mg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/aed407faaee06451ac7cdf1215a954e8" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Samsung- 5  các dòng 1 &2 chiều Inverter 9000 12000 18000BTU- Hàng tốt tặng Pin</div>
+
+                    <div><span class="old-price">120.000₫</span> <span class="new-price">60.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTQ1NTQ0OTM1OA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/cedd750d0bfa284c4591fa813d6909e5" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển tivi Asanzo-2 các dòng Asanzo LED/LCD Smart TV- Hàng tốt</div>
+
+                    <div><span class="old-price">95.000₫</span> <span class="new-price">47.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMzc1MDgwNDQ5NQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/fde31f51295ffc57f789cde0d1d34d1f" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Tranh dán tường decor phòng ngủ trang trí phòng khách treo tường 3d dày 8mm có keo sẵn bóc dán DOG - CAT 2031</div>
+
+                    <div><span class="old-price">220.000₫</span> <span class="new-price">110.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTEyMDU4NTEzNzM=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/f74eec53cdcfb418e8dede12e7c405d8" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Casper-4 LOẠI 1&2 chiều Inverter- Hàng tốt mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjQ4OTI1NDg0Mg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m34zu9n2455l77" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Kệ mỹ phẩm đại trắng tim hồng 6 ô son</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg4MTE5OTAyMA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/f8ce27db44c62acf57dea1446c7c41d0" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Sharp- 4 cho Smart TV- Hàng loại tốt mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">160.000₫</span> <span class="new-price">80.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTE5MDczNTQ2Mjg=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj22oqdjwgic3" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo lót thể thao nữ 2024 (Chuyên tập Gym) A03</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDI1MTkxODA5Ng==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m350lytf9aqjd7" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Kệ mỹ phẩm 35cm đại đen núm gỗ nhạt 24 ô son</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg4MzgzNjY0NA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj1kvmlkqhea2" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo Bra Dây Đai Mỏng Gân Tăm Ôm Sát Có Đệm Ngực A11</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzI1NDEwMjExNg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj22oqdlb0y00" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo 2 dây nữ Áo bra len tăm hở lưng A05</div>
+
+                    <div><span class="old-price">40.000₫</span> <span class="new-price">20.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDM1MzQxMDQxOA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/2c900db8b6a3fd276b79495ec29541ec" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Dai_kin đa năng tất cả các dòng 1&2 chiều Inverter- Hàng mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">175.000₫</span> <span class="new-price">87.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTE1NTQ4OTM1OA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luizio4f1f6tdb" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi đeo chéo Túi vải Tote vải Canvas Phong Cách Hàn Quốc TV18</div>
+
+                    <div><span class="old-price">130.000₫</span> <span class="new-price">65.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzM4Mjc1NTYwMQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rg7u36a1" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi đeo chéo nữ mini dây da pha xích Ulzzang siêu dễ thương TD14</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">55.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzk2MDMxMzM0Mg==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/6d0ca80e8849f9dd21033795f9e865db" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">[HÀNG LOẠI XỊN] Điều khiển điều hòa Carrier-1 LOẠI 1 & 2 chiều Inverter-mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzE4NDE1NDMyOQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m3prl0kqapbp51" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển quạt trần 4 cánh Pa_na_so_nic F56MPG/ F56MZG /F564- Hàng mới chất lượng cao Tặng kèm Pin</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzE0OTEyNTc1OA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luiyuezkq5ua56" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi Cói Merci Someday Đi Biển, Đi Du lịch, Đi chơi Siêu HOT HIT TV20 Mincloset</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNzM4NDI4MzUwOQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzsktelwbo2pee" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển quạt Asia- Hàng mới XỊN công ty 100% tặng kèm Pin</div>
+
+                    <div><span class="old-price">145.000₫</span> <span class="new-price">72.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTc3MjcwODgyNw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/4df41dbc882506906a563b69cd9c59df" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển tivi Samsung CONG TỐT Smart TV UA 32 40 43 49 50 55 QA65 4K KU NU RU Smart QLED</div>
+
+                    <div><span class="old-price">125.000₫</span> <span class="new-price">62.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNDMzOTA4MzY4OQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2vt26dpxts661" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Khay đựng son 24 ô trắng tim hồng</div>
+
+                    <div><span class="old-price">60.000₫</span> <span class="new-price">30.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg4MzM4OTQ3MQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2vspcacnzsge1" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">khay chia ngăn kéo tủ đựng mỹ phẩm hoặc đựng phụ kiện tiện dụng.</div>
+
+                    <div><span class="old-price">80.000₫</span> <span class="new-price">40.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvNTM2MjgyNTUyMw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzskpltqizbhfc" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Nagakawa- 3 Hàng tốt các dòng NIS-C NS-C NIS-A NS-A 1 2 chiều Inverter</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTM2NDQ0MDY1Ng==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lt8z0nb1gp8k2c" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi đeo chéo nữ, Túi xách nữ Da Trơn Quảng Châu sang chảnh  Siêu HOT T22</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">55.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNDY4ODcxOTgxOA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/679dc237db02519e7e4f4db1182eb252" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Funiki-4 HÀNG CHÍNH HÃNG theo máy mới 100% Tặng kèm Pin!!!</div>
+
+                    <div><span class="old-price">180.000₫</span> <span class="new-price">90.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTQ2ODY1NDkwOQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/a46341958fde1afe4851fe41823207d5" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa máy lạnh Asanzo-1 LOẠI 1&2 chiều Inverter- Hàng tốt mới  100% Tặng Pin</div>
+
+                    <div><span class="old-price">135.000₫</span> <span class="new-price">67.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODY2MTkwNjA4NA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/76853497e93a5179218f0ce830acff3b" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi samsung QLED giọng nói 2020- Hàng mới XỊN Samsung 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">330.000₫</span> <span class="new-price">165.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODE1OTAyNDYwOA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/28564760fb88c9efab60e48264267244" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển điều hòa Electrolux-1 các dòng Electrolux ESV 9000BTU 12000BTU 18000BTU - Hàng tốt</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjY0Mzg3MjIyMA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj1kvmlqcr651" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo Lót Thể Thao Dáng Trơn Tập Gym, Chạy Bộ, Bản Dây Nhỏ Siêu Hot  A01</div>
+
+                    <div><span class="old-price">55.000₫</span> <span class="new-price">27.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvNTQ1MTQ4MDk3OQ==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/387d76dde226d163e6616bae6beff3c8" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Kệ mỹ phẩm đại 35cm màu trắng 16 ô son núm gỗ đậm</div>
+
+                    <div><span class="old-price">200.000₫</span> <span class="new-price">100.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTg4MzcwMjc1OA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/b266ca12757c06e0911891460607adc7" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển đầu thu FPT Play Box 2017- HÀNG CHÍNH HÃNG mới Tặng kèm Pin!!!</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvODg2OTY3Mzg0Ng==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/f8db6d684a9b0349bdfbc057ff218e74" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển tivi Samsung giọng nói (Có tìm kiếm TIẾNG VIỆT) 2019- Hàng mới nguyên tem Tặng kèm Pin</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNjc2MTA0NTI2NA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/acb553f7a0244984303bcd48c9f8200b" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Sanyo-5 các dòng 9000 12000 18000BTU 1 &2 chiều Inverter- Hàng tốt Tặng Pin</div>
+
+                    <div><span class="old-price">135.000₫</span> <span class="new-price">67.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvOTE2MTAyNjUwMw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/b43e9888323f5aa02bbe7c82d15c71ee" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Sharp CONG giọng nói GB346WJSA - Hàng mới XỊN 100% Tặng Pin</div>
+
+                    <div><span class="old-price">430.000₫</span> <span class="new-price">215.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNzg3OTU2NzAwMw==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mfnf6wmrn47d60" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển máy chiếu BenQ- HÀNG LOẠI ĐẸP mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">125.000₫</span> <span class="new-price">62.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTAyMTEzNjkwNDI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/36b23bdadb23a2ec3afd9a81c07ffda5" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Samsung Smart CONG  HÀNG INDONESIA TẶNG KÈM PIN</div>
+
+                    <div><span class="old-price">250.000₫</span> <span class="new-price">125.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTEyMTMyNjgxMzQ=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/65d1a17abced9bfcc96c84e46dd49b1f" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển quạt Asia- Hàng mới XỊN công ty 100% tặng kèm Pin</div>
+
+                    <div><span class="old-price">145.000₫</span> <span class="new-price">72.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNTY0MzQ1MTQ4Ng==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/ba98f6df4bfb328b4511df2099b266d1" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa máy lạnh Asanzo- 2 LOẠI 1&2 chiều Inverter- Hàng tốt mới  100% Tặng Pin</div>
+
+                    <div><span class="old-price">165.000₫</span> <span class="new-price">82.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTExMDgyOTI0Nzc=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/83c10bf067d84d7aafe8c69591974dd1" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Điều khiển tivi LG AKB75095315- Hàng mới XỊN LG 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">145.000₫</span> <span class="new-price">72.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvNDg0Nzk5NjIyNA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luiyuezkyl8y9d" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Ví nữ cầm tay Mini Đựng Thẻ Dễ Thương dành cho nữ V16 Mincloset</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTM2NDU5ODc4NzA=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luiyejghfz0yb3" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Ví nữ ngắn mini cầm tay hoạ tiết bò sữa dễ thương Mincloset V15</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTM2NDU5NjQxMTY=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luger5rg27te0e" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi xách nữ đeo chéo mini, chất da pha cói hàng quảng châu siêu hot T29</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">55.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTE3NzM1NzY5MDQ=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/e80c3b1d12e33ec2f8fee5ef836d4208" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Sanyo- HÀNG CHÍNH HÃNG 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">380.000₫</span> <span class="new-price">190.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTUyMTUwNDYxNTk=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/c58a883b07be223073ec2c4455f2d693" loading="lazy" alt="Dầu cù là bồ đề hũ 15g"></div>
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-81ztc-mkafqqp4hc76a2" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Dầu cù là bồ đề hũ 15g</div>
-                    <div class="price-box"><span class="new-price">29.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS80NjIyOTM2NTky" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Khăn Tắm, Khăn Gội Đầu, Khăn Lau Mặt Sợi Tre ROYAL TOWEL Cao Cấp Xuất Nhật, Thấm Hút Không Ra Màu</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTE3MTcwOTgvMTU3MTQ5NjQ0MTA=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/7578e54ec7411a297b2401e6db50cd82" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Samsung IR-1316 dùng thay thế tất cả các dòng điều khiển cơ,giọng nói TV Samsung</div>
+
+                    <div><span class="old-price">115.000₫</span> <span class="new-price">57.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTI4NTkxNDkxMTY=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/d317dc6640b90162175f6726c910ec5c" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển máy chiếu ViewSonic- HÀNG CHÍNH HÃNG theo máy mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">180.000₫</span> <span class="new-price">90.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTQ5MTgyMjAxMjM=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lztzmqnbzfpp8b" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Midea- 2 LOẠI 1& 2 chiều Inverter- HÀNG ZIN theo máy mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTU1MjY0MDIyMTM=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/a9ef1cbf98b0cc39170189f62eaf28a6" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote điều khiển điều hoà Gree- Hàng tốt XỊN Gree Tặng kèm Pin!</div>
+
+                    <div><span class="old-price">380.000₫</span> <span class="new-price">190.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTQ4MjY0MDg0NzI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/ec0c7e6463229478d12708ada6789c39" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo thun gấu Pa Lm  unisex nam nữ form rộng, áo ulzzang gấu đứt đầu Palm Angles Unisex; đôi; nhóm</div>
+
+                    <div><span class="old-price">99.900₫</span> <span class="new-price">49.950₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8xNzYzNjA2MjI1Ng==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/08180f7ee862bf0e0e835e3b04e0fe3f" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển giọng nói tivi samsung QLED TV 2020 màu đen mới nhất- HÀNG CHÍNH HÃNG 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTM0ODY2NjI1ODE=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj1akckz3tx1a" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo lót nữ, Áo lót chất ren Cao Cấp Có Đệm Ngực Sang Trọng,Thanh Lịch A13</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTI2OTAxMTc4Mjg=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="me-be">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-ltusoswffwga83" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Poster dán tường decal size lớn decor trang trí quán trà sữa quán cafe cực xinh</div>
+
+                    <div><span class="old-price">30.000₫</span> <span class="new-price">15.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTY4NjI5NTUzNDM=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lynp8yybv5n122" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Tranh dán tường Poster Decal khổ lớn ăn vặt, trà sữa đồ trang trí decor quán độc đáo thu hút khách hàng</div>
+
+                    <div><span class="old-price">30.000₫</span> <span class="new-price">15.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTc1NjcyMTkwODY=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/896d557d295fe38e80c3077d727ad407" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển TV Casper-1 Hàng loại 1 mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">180.000₫</span> <span class="new-price">90.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTgzMTAwMjkzNTQ=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luj1akcl0iede2" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo Lót Nữ Họa Tiết Ren Bralette Cao Cấp Có Đệm Ngực Sang Trọng,Thanh Lịch A14</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTE4OTYzNzg3MzE=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7vyi1ecdyemcc" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bộ bài drinking game cho bạn bè thẻ bài nốc out tổng hợp 50 lá bài cho nhóm bùng nổ cuộc vui</div>
+
+                    <div><span class="old-price">105.000₫</span> <span class="new-price">52.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjEwMDk4MjgyNTg=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/de90bb74ad8395869a5e23873900408d" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Mobell-2 LED/LCD/Smart TV- Hàng loại tốt mới Tặng kèm Pin</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjA5MTI1MjE0MDI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/d35c3ebdd6d08a618385fe38beeba077" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi samsung QLED giọng nói- Hàng loại tốt mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">330.000₫</span> <span class="new-price">165.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTUyOTAwNjkxNzY=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/f71a848ca781c41380a0ecb8301bed63" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Chigo- 2 LOẠI 1&2 chiều Inverter- Hàng XỊN mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTg5MjcwNzg0MjY=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/d3608fad029d248594524eb78e4759ec" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Funiki- 5 LOẠI 1&2 chiều InverteR- Hàng tốt Tặng Pin</div>
+
+                    <div><span class="old-price">130.000₫</span> <span class="new-price">65.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTg3MjcwNzM1OTI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/afda557e5baa8e4c0a9b97409921ecf7" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi Toshiba- 4 các dòng LED/LCD/Smart TV- Hàng tốt Tặng Pin</div>
+
+                    <div><span class="old-price">100.000₫</span> <span class="new-price">50.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTU4OTEyMzQ4MjU=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-ls81h9gpcy3d53" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bộ Bài UNO FLIP - Uno Flip Boardgame</div>
+
+                    <div><span class="old-price">60.000₫</span> <span class="new-price">30.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xODIzMTIxNzgvMjI5NzQ5ODI4NTQ=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/sg-11134201-22120-mdn08169bpkvc2" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Khay Đựng Sơn Gel nail , khay đựng đồ trang điểm tiện dụng , khay chia ngăn kéo</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjM0NzA0NzIvMTk5NjY3OTIzNTY=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lfvzc0gf8voq81" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bộ bài Meme - Bài Board Game hài hước, lầy lội chơi vui quên lối về chơi nhóm giải trí cùng bạn bè</div>
+
+                    <div><span class="old-price">125.000₫</span> <span class="new-price">62.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjAwNzcxMjk4ODg=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lkch593q8bs8eb" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bộ quà tặng 7 món quần áo phụ kiện sơ sinh, quà tặng đầy tháng thôi nôi cho bé trai bé gái</div>
+
+                    <div><span class="old-price">300.000₫</span> <span class="new-price">150.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC82Mjc4MzE4Ni83NTYxMDk3Nzcy" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lo10t2wl2ph6ed" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Áo hoodie nỉ Color nam nữ form rộng, áo nỉ mũ 2 lớp, mùa đông unisex vải nỉ Tàu ép lông nhung dày dặn,đầm tay</div>
+
+                    <div><span class="old-price">190.000₫</span> <span class="new-price">95.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yMTY5NTIwMzcwNA==" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mfsfj2xanhu3aa" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển TV- Đầu box Xiaomi tất cả các dòng các loại Hàng chất lượng Tặng Pin</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjI5Mzg0ODc4NTE=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-llxh6kdp0afzc3" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Giày trượt patin cao cấp chuyên nghiệp slalom powerstar</div>
+
+                    <div><span class="old-price">1.200.000₫</span> <span class="new-price">600.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yNDM4MTIxNTIvMjE2ODQ0MDIyOTU=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lgkl2sq2yw6ia4" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bảng bận rộn Woa Toys Đồ chơi giáo dục thông minh sáng tạo và rèn luyện tư duy cho bé</div>
+
+                    <div><span class="old-price">250.000₫</span> <span class="new-price">125.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTU0OTc0Mzg5NTA=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lkp1yg4k8xw0fd" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">[HÀNG LOẠI XỊN]Remote Điều khiển điều hòa Midea- 7 LOẠI 1& 2 chiều Inverter -mới 100% Tặng kèm Pin!!!</div>
+
+                    <div><span class="old-price">180.000₫</span> <span class="new-price">90.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTkzOTIxNjc4NzA=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lksuc9edob0gbb" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi samsung QLED giọng nói Made in Indonesia- HÀNG CHÍNH HÃNG mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTcyOTg2MDU5NTA=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lomaz7ldbilve8" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi RENOVA LED/LCD/Smart TV HÀNG CHÍNH HÃNG 100% CHẤT LƯỢNG CAO TẶNG PIN💦</div>
+
+                    <div><span class="old-price">300.000₫</span> <span class="new-price">150.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjI0NjE3MjIwMzA=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lgapa9btyn7b29" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Funiki- 7 LOẠI 1 2 chiều Inverter- Hàng tốt các dòng SC SH HSC 09 12 18 24 Tặng Pin</div>
+
+                    <div><span class="old-price">155.000₫</span> <span class="new-price">77.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTcxOTczMjc3MTk=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lji7hftjd1xe64" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển TV Casper REMOTE L2 - HÀNG CHÍNH HÃNG Casper mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">190.000₫</span> <span class="new-price">95.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTI1OTk2NDE3NjE=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="me-be">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lz4tb4e6ftsx75" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Mặt nạ in hình cho bé tô màu ngộ nghĩnh- Hàng Việt Nam (có gửi kèm dây đeo cắt sẵn)</div>
+
+                    <div><span class="old-price">50.000₫</span> <span class="new-price">25.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjE0OTAyMzIzNjI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="nha-cua">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lyncgg1t1ky53b" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Bộ bài drinking game 60 lá bài thử thách nốc cạn ly giúp khuấy động các buổi hội họp, tụ tập vui chơi cùng bạn bè</div>
+
+                    <div><span class="old-price">125.000₫</span> <span class="new-price">62.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTM4OTY4OTgxNDI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lkw6mr7ltosr48" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển đầu TV Box  A-ndroid TV Box X96 X6 Android- Hàng mới XỊN</div>
+
+                    <div><span class="old-price">105.000₫</span> <span class="new-price">52.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjIyNTI2MjczNjY=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-li0era51kse927" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển tivi LG giọng nói 2022 MR22GA các dòng tivi LG 2017-2022-Hàng mới Fullbox LG</div>
+
+                    <div><span class="old-price">450.000₫</span> <span class="new-price">225.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjM2NDU1MTc2MjA=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lynazdw4bu4tea" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Treo nôi kích thích thị giác cho trẻ sơ sinh đồ chơi giáo dục sớm giúp bé phát triển toàn diện</div>
+
+                    <div><span class="old-price">60.000₫</span> <span class="new-price">30.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMTk5NTc3NTQyNTE=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/sg-11134201-22100-395fgb2tg0hv44" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển máy chiếu BenQ- HÀNG LOẠI ĐẸP mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">140.000₫</span> <span class="new-price">70.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTMwOTY4NDg4MDk=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lhsfzkelqg7920" loading="lazy" alt="Lắc chân sao trăng kết hợp chuông bạc giá xưởng"></div>
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-81ztc-mkafr52p44ci60" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Lắc chân sao trăng kết hợp chuông bạc giá xưởng</div>
-                    <div class="price-box"><span class="new-price">385.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC83ODI1NjcwOTgy" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Bộ 3 Khăn Gội 35x70cm Royal Towel Chất Sợi Tre Siêu Mềm Mịn, Thấm Hút Tốt</div>
+
+                    <div><span class="old-price">270.000₫</span> <span class="new-price">135.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTE3MTcwOTgvMjEwODAzMjY5MDE=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/27a11abbf9d0dccb58faa5d7abdc2221" loading="lazy" alt="SET NHANG TRẦM NẾN HƯƠNG HOA THÁI LAN"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-mb5xc64e5zn7af" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">SET NHANG TRẦM NẾN HƯƠNG HOA THÁI LAN</div>
-                    <div class="price-box"><span class="new-price">75.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xNzYxNzYwNTA4" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển tivi samsung QLED Smart TV- HÀNG Made in Indonesia mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjM4NjU5MDc4NzU=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-li2g26r8151u79" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển giọng nói TV Xiaomi dài 1 nút trắng 1 -MI P1 Q1 TV L32ML43M6-6AEU L55M6-6AEU L75M6- Hàng mới XỊN_MẪU 8</div>
+
+                    <div><span class="old-price">280.000₫</span> <span class="new-price">140.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTk4ODk5MDQ0MTI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lug6zxsluz39e0" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Túi Xách Nữ Đeo Chéo, Đi Chơi Đi Tiệc Sang Chảnh Phong Cách Hàn Quốc Mincloset T44</div>
+
+                    <div><span class="old-price">60.000₫</span> <span class="new-price">30.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8yOTMzMDg5NDEvMTg5ODk5NDEwNjI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzsscwuuw6z147" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển TV - Đầu box Xiaomi tất cả các dòng các loại Xiaomi Mi TV Box Hàng chất lượng Tặng kèm Pin!</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMTg5Nzg0MDE3NTk=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/8b9d06de36258c574f6dac6b7291793b" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển điều hòa Casper- 5 LOẠI 1&2 chiều Inverter- Hàng loại tốt mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">145.000₫</span> <span class="new-price">72.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjIzMDA1ODAxMzM=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lmsb3as6mdb3b1" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote điều khiển quạt Senko quạt cây quạt đứng quạt treo tường- Hàng đẹp  mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">105.000₫</span> <span class="new-price">52.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjE4ODUxNzM0NjA=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lq8yn07m44b6fe" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">Remote Điều khiển đầu BOX ANDROID TIVI BOX đa năng Tmall 3Pro M10 M11 M12 M13 M16SCM17- HÀNG CHÍNH HÃNG</div>
+
+                    <div><span class="old-price">110.000₫</span> <span class="new-price">55.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjU1MDcyMjQ2ODE=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-ls9wpt2au0n86e" loading="lazy"></div>
+
+                <div class="info">
+
+                    <div class="title">[XẢ KHO HÀNG KHỦNG] Remote Điều khiển giọng nói TV Samsung Qled 2015-2023 Made in Viet Nam HÀNG CHÍNH HÃNG THEO MÁY</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjUzMTU3MjA0NDI=" class="btn" target="_blank">Mua Ngay</a>
+
+                </div>
+
+            </div>
+
+        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/c17f3043aa2fcf29243a7f71e4faebab" loading="lazy" alt="Dây chuyền mặt phật bà size nhỏ cho bé bạc ta"></div>
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lssr5dmszg7828" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Dây chuyền mặt phật bà size nhỏ cho bé bạc ta</div>
-                    <div class="price-box"><span class="new-price">550.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8zOTcyMDcxMTYy" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Mô hình gojo satoru chú thuật hồi chiến jujutsu kaisen15 cm</div>
+
+                    <div><span class="old-price">179.000₫</span> <span class="new-price">89.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC84OTk2NTMwNy8yNTYxODU1NTMyMA==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/1d922837f2644d8d734bcf1bc158f09e" loading="lazy" alt="COMBO 10 BÓ NHANG THẦN TÀI 79 CÂY"></div>
-                <div class="info">
-                    <div class="title">COMBO 10 BÓ NHANG THẦN TÀI 79 CÂY</div>
-                    <div class="price-box"><span class="new-price">580.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8yMDI3MTkwMTQ3" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/ffe8bea1399ccfce54d8efd36839f6fc" loading="lazy" alt="100 nụ Trầm Hương Mix Nhiều mùi hoa Kèm chén đốt Hàng nội địa Thái Lan"></div>
-                <div class="info">
-                    <div class="title">100 nụ Trầm Hương Mix Nhiều mùi hoa Kèm chén đốt Hàng nội địa Thái Lan</div>
-                    <div class="price-box"><span class="new-price">45.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS83NDE1NDAxMzY=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
+
             <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/8334b5d3919c17dc103876b04502a378" loading="lazy" alt="Lắc chân nữ đơn bạc thật mix chuông dày dặn"></div>
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lt8dtzukvzbtd9" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Lắc chân nữ đơn bạc thật mix chuông dày dặn</div>
-                    <div class="price-box"><span class="new-price">420.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8yNDE2NDk3MjE2" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Mô hình ACE AI Chibi bản Q cao 15cm One piece</div>
+
+                    <div><span class="old-price">189.000₫</span> <span class="new-price">94.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC84OTk2NTMwNy8yNDM3MDYwOTQ4OQ==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/21b6b7311ede86a38c61eacf1ef416a3" loading="lazy" alt="Lắc chân nữ treo bướm và chuông bạc ta lên chân xinh luôn"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-ltss5zfdnklme9" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Lắc chân nữ treo bướm và chuông bạc ta lên chân xinh luôn</div>
-                    <div class="price-box"><span class="new-price">410.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC82NzYwNzAzNjE2" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển quạt Vinawind các dòng quạt cây treo tường- Hàng mới loại tốt 100% CHẤT LƯỢNG CAO TẶNG PIN💦</div>
+
+                    <div><span class="old-price">95.000₫</span> <span class="new-price">47.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjU2NzI2NzI3NjY=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjmnmytr87pd3a" loading="lazy" alt="Giá Carbon 3K Gắn Đồng Hồ Đo Tốc Độ Xe Đạp – Nhẹ, Chắc – Tương Thích Cateye Xoss Cycplus"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134201-7r98o-ltvz6l6bu42961" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Giá Carbon 3K Gắn Đồng Hồ Đo Tốc Độ Xe Đạp – Nhẹ, Chắc – Tương Thích Cateye Xoss Cycplus</div>
-                    <div class="price-box"><span class="new-price">252.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi81NzI2MDU5NjA5" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo Phông 3158 Tay Lỡ Unisex TÀU VŨ TRỤ MẶT TRĂNG Áo Thun Nam Nữ Form Rộng Chất cotton UT</div>
+
+                    <div><span class="old-price">99.000₫</span> <span class="new-price">49.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yNDAyMzAyNTM1Mg==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/e27d41dd3c433ceeaca3ac8687d31b83" loading="lazy" alt="Lắc chân đơn nữ mix chuông và mặt cười bạc ta"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lu5qsbsbg3kh0d" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Lắc chân đơn nữ mix chuông và mặt cười bạc ta</div>
-                    <div class="price-box"><span class="new-price">410.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8yOTIxNjM4NzU1" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Kẹo mù bóc quà bất ngờ Blind Bag cho bé túi mù hình con vật may mắn ngẫu nhiên làm quà tặng cho bé</div>
+
+                    <div><span class="old-price">55.000₫</span> <span class="new-price">27.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xOTkyODI0MTUvMjUxMjQ0MDMwNzM=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-liyooi18sdu495" loading="lazy" alt="SET 8 BÓ NHANG MIX NHIỀU MÙI HOA THÁI LAN"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lubtaa6xlh5rd4" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">SET 8 BÓ NHANG MIX NHIỀU MÙI HOA THÁI LAN</div>
-                    <div class="price-box"><span class="new-price">135.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xNzQwOTM2ODMz" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển điều hòa Midea RG36A1/BGCEF - Hàng mới 100% Tặng kèm Pin!!!</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjU3NzU2NDQ1Mjk=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/736ba5eccdf1bbdf53aca15af754cedb" loading="lazy" alt="LẮC CHÂN VÀ TAY NỮ TREO CHUÔNG BẠC TA"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lulhki805a1xe6" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">LẮC CHÂN VÀ TAY NỮ TREO CHUÔNG BẠC TA</div>
-                    <div class="price-box"><span class="new-price">285.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC80MzMyNzAwOTgy" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote điều khiển quạt Hatari đa năng các dòng quạt HATARI cây quạt đứng quạt treo tường- Hàng đẹp mới 100% TẶNG KÈM PIN</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjQ4MjY5MTYxMDQ=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/00d0659f2655e1e48cec03d75438fc07" loading="lazy" alt="Bộ mờ nám tàn nhang Clobetamil G MẪU HỞ mới"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-luzat8kbu8mda3" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Bộ mờ nám tàn nhang Clobetamil G MẪU HỞ mới</div>
-                    <div class="price-box"><span class="new-price">95.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS85MTY1NzQ5NDU4" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo Thun Ba Lỗ Nữ , Áo Thun Ba Lỗ CCN</div>
+
+                    <div><span class="old-price">40.000₫</span> <span class="new-price">20.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xODM1ODA5Ni8yNDgyODM2NDc3Mw==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/101aa86d119e11246ec30635a284fbb3" loading="lazy" alt="Lắc chân cho nữ bạc giá yêu treo chuông"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lv17a8ndtn6i8f" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Lắc chân cho nữ bạc giá yêu treo chuông</div>
-                    <div class="price-box"><span class="new-price">320.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC80MDE4NDAyOTk5" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển đầu BOX ANDROID TIVI BOX TX3 Mini XS97Q- HÀNG CHÍNH HÃNG mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjQ4MjkxNjIxNzA=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/04fde894d13e17104901150bfd01a58e" loading="lazy" alt="free ship lắc tay xoắn nữ bạc ta mix chuông"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m3ugb6atlfw564" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">free ship lắc tay xoắn nữ bạc ta mix chuông</div>
-                    <div class="price-box"><span class="new-price">550.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8zNzU3MzkyMDA1" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Điều khiển điều hoà Pa_na_so_nic i AUTO-X ECONAVI HÀNG CHÍNH HÃNG Pa_na_so_nic GIẢM SÂU ĐẾN 16 ĐỘ C THANG ĐỘ 0.5</div>
+
+                    <div><span class="old-price">450.000₫</span> <span class="new-price">225.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjUzMzAwOTIwMTQ=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/a3fb13dd6c8181fab7ab23426872a0cc" loading="lazy" alt="FREE SHIP LẮC TAY MÈO KITY BẠC TA MIX CHUÔNG"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134201-7r98o-lvk3q3bhsx59e6" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">FREE SHIP LẮC TAY MÈO KITY BẠC TA MIX CHUÔNG</div>
-                    <div class="price-box"><span class="new-price">550.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC82MTM2NDI4NTE2" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo Thun Đã Có Chồng, Đã Có Vợ Áo Đôi Nam Nữ Unisex, chất cotton thấm hút mồ hôi UT</div>
+
+                    <div><span class="old-price">90.000₫</span> <span class="new-price">45.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yNzE1MDUzMDI2NA==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/5c4b613bf09f2a4d7e06c2f2ac3e4944" loading="lazy" alt="Kem Dưỡng Da mờ Nám Tàn nhang Myda b tuýp 5-15-25 gam nội địa Thái lan"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lvuiz9bmumzf20" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Kem Dưỡng Da mờ Nám Tàn nhang Myda b tuýp 5-15-25 gam nội địa Thái lan</div>
-                    <div class="price-box"><span class="new-price">65.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xMjQ4NzIxNjU5" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển quạt trần Vinawind QT-1500X - HÀNG CHÍNH HÃNG VINAWIND mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">130.000₫</span> <span class="new-price">65.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjk5MDExOTg0MjU=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/55eaca6e5204fc702eb4500caef4213b" loading="lazy" alt="Combo 12 lọ dầu gió lăn chiết xuất lá bồ đề"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lvyhgsqm83iza8" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Combo 12 lọ dầu gió lăn chiết xuất lá bồ đề</div>
-                    <div class="price-box"><span class="new-price">330.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS82MzAzMjk1NTM2" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển TV Casper- 2 Smart TV- Hàng loại tốt Casper mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">120.000₫</span> <span class="new-price">60.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjY1MDE0NzA5MjI=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/sg-11134201-22110-f4pq19hh5wjv48" loading="lazy" alt="Tách lẻ tuýp nám tàn nhang Clobetamil G"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134201-7r98o-lvzt1tmr88q3ac" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Tách lẻ tuýp nám tàn nhang Clobetamil G</div>
-                    <div class="price-box"><span class="new-price">25.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS85NTEyNjExMjI3" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo thun unisex form rộng tay lỡ nam nữ TIM NÚI vải cotton dày dặn, co giãn COUPLE UT</div>
+
+                    <div><span class="old-price">199.000₫</span> <span class="new-price">99.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yODUwMTUzMjUxNQ==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="phap-phuc">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/608e1ef0fdd7fa067a7c3dd33e571286" loading="lazy" alt="Vòng tàu trẻ trung bé và ngưới đeo được bạc ta mix chuông"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lwgpgacfwogp59" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Vòng tàu trẻ trung bé và ngưới đeo được bạc ta mix chuông</div>
-                    <div class="price-box"><span class="new-price">125.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC85MzE3MTYxODAw" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển tivi Sharp DÀI thông minh tìm kiếm giọng nói - Hàng mới XỊN 100% Tặng  PiN</div>
+
+                    <div><span class="old-price">420.000₫</span> <span class="new-price">210.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjQ3ODIxNTcyNjY=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/c218a3e6d16fca43ee8673c7b0092b0d" loading="lazy" alt="Lật đật siêu hot tai silicon, mặt gật gù có tiếng chuông cho bé (Khách chat chọn màu)"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lwgju71iquhl8d" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Lật đật siêu hot tai silicon, mặt gật gù có tiếng chuông cho bé (Khách chat chọn màu)</div>
-                    <div class="price-box"><span class="new-price">50.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC84OTk2NTMwNy8yMjU2MzUzNDk2" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển điều hòa Samsung 1 & 2  chiều ECO XANH- Hàng loại tốt mới 100% Tặng Pin</div>
+
+                    <div><span class="old-price">150.000₫</span> <span class="new-price">75.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjg0MDI2OTE1NjM=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/a5a02173a7fd620aa29c1b925ed6c940" loading="lazy" alt="BỘ XÀ BÔNG CLOBETAMIL G GIẢM MỤN, MỜ THÂM NÁM TÀN NHANG"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lwyg5tksomah4a" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">BỘ XÀ BÔNG CLOBETAMIL G GIẢM MỤN, MỜ THÂM NÁM TÀN NHANG</div>
-                    <div class="price-box"><span class="new-price">75.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xNjI5ODI0NTYw" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển giọng nói tivi Toshiba CT-95024 HÀNG CHÍNH HÃNG theo máy Mới 100% Tặng kèm Pin</div>
+
+                    <div><span class="old-price">500.000₫</span> <span class="new-price">250.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjQyMzI2ODAzNzE=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/64eaef60c8236f143808eef29535bbff" loading="lazy" alt="GIÁ CTV LẮC CHÂN NỮ BẠC TA TREO CHUÔNG MIX LÁ"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lxnqstzrks7tf6" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">GIÁ CTV LẮC CHÂN NỮ BẠC TA TREO CHUÔNG MIX LÁ</div>
-                    <div class="price-box"><span class="new-price">365.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC83NjU3Nzc1MTYz" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển tivi giọng nói Rindo NGẮN HÀNG CHÍNH HÃNG RINDO 100% CHẤT LƯỢNG CAO Chức năng giọng nói chuẩn TẶNG PIN</div>
+
+                    <div><span class="old-price">450.000₫</span> <span class="new-price">225.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjQxMzM0NTEwMTc=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="phap-phuc">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/d2dcc6699f8e383a6100f4a210bd06c7" loading="lazy" alt="Chuông bạc ta có tiếng để mix và vòng bé và nhiều thứ khác"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-messpjdgeadd1c" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Chuông bạc ta có tiếng để mix và vòng bé và nhiều thứ khác</div>
-                    <div class="price-box"><span class="new-price">65.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC84MjU2MzcyNjQ1" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">[HÀNG VIỆT NAM CHẤT LƯỢNG CAO] Điều khiển giọng nói TV Samsung Qled 2024 ((NÚT VieON)) THEO MÁY [XẢ KHO GIÁ SỐC]</div>
+
+                    <div><span class="old-price">350.000₫</span> <span class="new-price">175.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjkxMDc4MTYzNjk=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/sg-11134201-22120-pvxah99z5ilvca" loading="lazy" alt="Dầu cù là lá bồ đề thái lan 50gam 1 Lọ"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzrg8nffddn1bd" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Dầu cù là lá bồ đề thái lan 50gam 1 Lọ</div>
-                    <div class="price-box"><span class="new-price">29.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS82OTQ4NzAwMTY=" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo thun UNISEX OVERSIZE form rộng nam nữ in hình NGÁO NGƠ chất Cotton mềm mịn THẤM HÚT MỒ HÔI</div>
+
+                    <div><span class="old-price">179.000₫</span> <span class="new-price">89.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yOTUxMDE4MzE1MQ==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/3fe3c9af19e8f96f1dcb8aecb524ce0a" loading="lazy" alt="1 BÓ NHANG THƠM MIX ĐỦ HƯƠNG HOA THÁI LAN BÓ 50 CÂY"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134201-7r98o-lzu867j40jhd34" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">1 BÓ NHANG THƠM MIX ĐỦ HƯƠNG HOA THÁI LAN BÓ 50 CÂY</div>
-                    <div class="price-box"><span class="new-price">20.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xNzQxMTkyOTY3" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo Thun Unisex Nam Nữ [Vịt Công Sở] Chất Cotton Mềm, Co Giãn, thấm hút mồ hôi UT</div>
+
+                    <div><span class="old-price">186.500₫</span> <span class="new-price">93.250₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yNzcxMDQwMDQ1Ng==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/44413f4c573add37a3187f472753349c" loading="lazy" alt="Gia Vị Lẩu Cay Tê Trùng Khánh Tứ Xuyên Gói 300g"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134201-7r98o-lzu84qdpsk9t63" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Gia Vị Lẩu Cay Tê Trùng Khánh Tứ Xuyên Gói 300g</div>
-                    <div class="price-box"><span class="new-price">70.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC81MjY4NjYwNC85ODQ5MDgzNjUw" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo Thun Unisex [Ngon Nhào Zô]  cotton co giãn thoáng mát, thấm hút mồ hôi UT TREND</div>
+
+                    <div><span class="old-price">176.000₫</span> <span class="new-price">88.000₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yNTUzNTcyMDQ0NA==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjldmie866td83" loading="lazy" alt="Giá Nhôm Gắn Đồng Hồ Đo Tốc Độ Xe Đạp Kiểu 01 – Chắc Chắn, Nhẹ – Tương Thích Cateye Xoss Cycplus"></div>
+
+            <div class="card" data-category="thoi-trang">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134201-7r98o-lzu80w5y1zrh8b" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Giá Nhôm Gắn Đồng Hồ Đo Tốc Độ Xe Đạp Kiểu 01 – Chắc Chắn, Nhẹ – Tương Thích Cateye Xoss Cycplus</div>
-                    <div class="price-box"><span class="new-price">103.700đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi8yMjI0MzMzOTIy" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Áo Thun XOÀI CHẤM MUỐI ỚT Món Ăn Việt Nam Áo Phông Ẩm Thực Unisex Nam Nữ UT</div>
+
+                    <div><span class="old-price">177.000₫</span> <span class="new-price">88.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80MzgwNjg2OS8yNDg4NTcyMDQ1Mg==" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
+
         
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-ljwwa6jnvlpw38" loading="lazy" alt="Nhang thần tài nhang xoắn tài lộc 79 - 185 cây nội địa Thái lan"></div>
+
+            <div class="card" data-category="dien-tu">
+
+                <div class="discount-tag">-50%</div>
+
+                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-m01pyij5tllb2c" loading="lazy"></div>
+
                 <div class="info">
-                    <div class="title">Nhang thần tài nhang xoắn tài lộc 79 - 185 cây nội địa Thái lan</div>
-                    <div class="price-box"><span class="new-price">49.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS84NDg0MDQ3ODU=" class="btn" target="_blank">Chi tiết</a>
+
+                    <div class="title">Remote Điều khiển tivi Samsung Qled Made in Indonesia Hàng đẹp chất lượng cao Tặng Pin</div>
+
+                    <div><span class="old-price">135.000₫</span> <span class="new-price">67.500₫</span></div>
+
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjU2NTYyNDkvMjgzMTA5Mjk5NjY=" class="btn" target="_blank">Mua Ngay</a>
+
                 </div>
+
             </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/639b9659c27589808a488e104b432c49" loading="lazy" alt="Sale lắc chân nữ treo chuông và lá bạc giá tốt"></div>
-                <div class="info">
-                    <div class="title">Sale lắc chân nữ treo chuông và lá bạc giá tốt</div>
-                    <div class="price-box"><span class="new-price">320.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC82ODI1NjcxNzgy" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzh20vdgrna97e" loading="lazy" alt="Lẩu Tự Sôi Môi Trùng Khánh"></div>
-                <div class="info">
-                    <div class="title">Lẩu Tự Sôi Môi Trùng Khánh</div>
-                    <div class="price-box"><span class="new-price">50.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC81MjY4NjYwNC8xMzgwMzk0ODA3Nw==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/7e01cca22c75a5c260f7b22ad7609426" loading="lazy" alt="Cốt Lẩu Haidilao Trùng Khánh Tứ Xuyên Cay Tê 500g"></div>
-                <div class="info">
-                    <div class="title">Cốt Lẩu Haidilao Trùng Khánh Tứ Xuyên Cay Tê 500g</div>
-                    <div class="price-box"><span class="new-price">125.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC81MjY4NjYwNC8xMDA2NTkxNzUxOA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m1h4vx7x1c2bf9" loading="lazy" alt="Khuôn silicone 3D cây thông Noel chuông giáng sinh bông tuyết quả cầu làm bánh fondant rau câu trang trí"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicone 3D cây thông Noel chuông giáng sinh bông tuyết quả cầu làm bánh fondant rau câu trang trí</div>
-                    <div class="price-box"><span class="new-price">45.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xMTQ3MzU1NjU3NQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7aulobchsmr86" loading="lazy" alt="Khuôn silicon tượng ông di lặc / phật may mắn"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon tượng ông di lặc / phật may mắn</div>
-                    <div class="price-box"><span class="new-price">150.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xMjE1NTczNDY2NQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2ie8aey8gqa18" loading="lazy" alt="khuôn silicon hoa sen hoa sen quan âm khuôn thạch khuôn nến 9cm"></div>
-                <div class="info">
-                    <div class="title">khuôn silicon hoa sen hoa sen quan âm khuôn thạch khuôn nến 9cm</div>
-                    <div class="price-box"><span class="new-price">50.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xNTUyMjQ0NjMyOQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m6y82ugf6xx478" loading="lazy" alt="Khuôn silicon vỉ 3 chuông đôi làm bánh"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon vỉ 3 chuông đôi làm bánh</div>
-                    <div class="price-box"><span class="new-price">35.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xMDc3OTkzODY2Nw==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/eaabfd694f39f882cbb13c818ef130fb" loading="lazy" alt="Kem dưỡng trắng da ban đêm giảm được nám , tàn nhang Qnic care"></div>
-                <div class="info">
-                    <div class="title">Kem dưỡng trắng da ban đêm giảm được nám , tàn nhang Qnic care</div>
-                    <div class="price-box"><span class="new-price">129.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xNDE3MTc1ODU5MQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/26a9d4450599d8c94872466fbc85cb2a" loading="lazy" alt="Cốt Lẩu Trùng Khánh Cay Tê Tứ Xuyên Chia Viên"></div>
-                <div class="info">
-                    <div class="title">Cốt Lẩu Trùng Khánh Cay Tê Tứ Xuyên Chia Viên</div>
-                    <div class="price-box"><span class="new-price">70.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC81MjY4NjYwNC8xODcxMjExOTk2Nw==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-levcw84n22qf83" loading="lazy" alt="Dầu lăn ṫhảo mộc herb oil balm tasing yainoi chiết xuất từ nghệ và gừng và hàng nội địa thái Lan 8ml hiệu LÁ BỒ ĐỀ"></div>
-                <div class="info">
-                    <div class="title">Dầu lăn ṫhảo mộc herb oil balm tasing yainoi chiết xuất từ nghệ và gừng và hàng nội địa thái Lan 8ml hiệu LÁ BỒ ĐỀ</div>
-                    <div class="price-box"><span class="new-price">50.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8yMjEzNTEyNDI2MQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzvglcgcv70tf6" loading="lazy" alt="Kem Dưỡng Trắng Da Mờ Nám Tàn Nhang Meiduzi Ban ngày và Ban Đêm"></div>
-                <div class="info">
-                    <div class="title">Kem Dưỡng Trắng Da Mờ Nám Tàn Nhang Meiduzi Ban ngày và Ban Đêm</div>
-                    <div class="price-box"><span class="new-price">110.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xNzM5Njc0OTg3NA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-lfijdu57lg8lfc" loading="lazy" alt="MelloDerm-HQ 4% chuyên nám tàn nhang đồi mồi chính hãng (Thái Lan)"></div>
-                <div class="info">
-                    <div class="title">MelloDerm-HQ 4% chuyên nám tàn nhang đồi mồi chính hãng (Thái Lan)</div>
-                    <div class="price-box"><span class="new-price">135.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8yMzMzODUwNzk2OA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lmg4vx5zwa1rac" loading="lazy" alt="Cốt Lẩu Trùng Khánh Cay Tê Gói 500g"></div>
-                <div class="info">
-                    <div class="title">Cốt Lẩu Trùng Khánh Cay Tê Gói 500g</div>
-                    <div class="price-box"><span class="new-price">80.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC81MjY4NjYwNC8yMjQ4MjI2Nzc3NA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-llupnqt9u21ra4" loading="lazy" alt="Cốt Lẩu Cay Tê Trùng Khánh 2 Viên 180g Loại Đặc Biệt"></div>
-                <div class="info">
-                    <div class="title">Cốt Lẩu Cay Tê Trùng Khánh 2 Viên 180g Loại Đặc Biệt</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC81MjY4NjYwNC8yMjI1NTI0MjQyOQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/sg-11134201-7rbl2-lq0mkv0ucxfee5" loading="lazy" alt="khánh Quạt Nhung khắc chữ Tết-Phúc-Lộc-Thọ MIN220"></div>
-                <div class="info">
-                    <div class="title">khánh Quạt Nhung khắc chữ Tết-Phúc-Lộc-Thọ MIN220</div>
-                    <div class="price-box"><span class="new-price">35.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzEwMDg1OTQvMjQ4MDYyMTk3NTQ=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7cfvdrge7dkf9" loading="lazy" alt="Hộp 12 cốc nến bơ hoa thái nến hoa nổi ly đựng là thuỷ tinh"></div>
-                <div class="info">
-                    <div class="title">Hộp 12 cốc nến bơ hoa thái nến hoa nổi ly đựng là thuỷ tinh</div>
-                    <div class="price-box"><span class="new-price">79.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xOTU4NDU2NjY1NQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lv685p597hy29c" loading="lazy" alt="Khuôn silicon sen quan âm hoa sen bách diệp 2 mẫu khuôn bánh trôi khuôn rau câu"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon sen quan âm hoa sen bách diệp 2 mẫu khuôn bánh trôi khuôn rau câu</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMzQ2Njk1Mzg3NA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m71nod2xbgbcdf" loading="lazy" alt="Khuôn silicon tượng phật Như Lai A Di Đà khuôn nến trang trí khuôn đổ rau câu"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon tượng phật Như Lai A Di Đà khuôn nến trang trí khuôn đổ rau câu</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMzUzMzMyMDE3OQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7cf2febropkcc" loading="lazy" alt="Khuôn silicon tượng phật 4D tòa sen hoa sen depo"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon tượng phật 4D tòa sen hoa sen depo</div>
-                    <div class="price-box"><span class="new-price">150.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMjg2NjQ2NDE4MA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjla3gycw7424b" loading="lazy" alt="Giá Carbon 3K KOCEVLO Gắn Đồng Hồ Đo Tốc Độ + Giá Đèn Xe Đạp – Nhẹ Chắc – Tương Thích CATEYE Xoss Cycplus"></div>
-                <div class="info">
-                    <div class="title">Giá Carbon 3K KOCEVLO Gắn Đồng Hồ Đo Tốc Độ + Giá Đèn Xe Đạp – Nhẹ Chắc – Tương Thích CATEYE Xoss Cycplus</div>
-                    <div class="price-box"><span class="new-price">412.700đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi8yMDY3NDYyMzE5Ng==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lns2romch0u24a" loading="lazy" alt="Lắc chân lắc tay bi cách mix chuông chuẩn bạc ta"></div>
-                <div class="info">
-                    <div class="title">Lắc chân lắc tay bi cách mix chuông chuẩn bạc ta</div>
-                    <div class="price-box"><span class="new-price">350.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8yNTMwMDMyMTQwMA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7cforir1530cb" loading="lazy" alt="Khuôn silicon thần tài khuôn phật Di Lặc 4D"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon thần tài khuôn phật Di Lặc 4D</div>
-                    <div class="price-box"><span class="new-price">110.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMjYzMjc1NTEyNQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m651e9wjn67q2e" loading="lazy" alt="Khuôn silicon sen bách diệp thái sen quan âm nghìn cánh làm bánh trôi nước agar"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon sen bách diệp thái sen quan âm nghìn cánh làm bánh trôi nước agar</div>
-                    <div class="price-box"><span class="new-price">65.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xOTA1ODMxMzI5Mg==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lkxcb190spfv5e" loading="lazy" alt="Lắc chân nư lắc chân chuông kêu chuẩn bạc ta"></div>
-                <div class="info">
-                    <div class="title">Lắc chân nư lắc chân chuông kêu chuẩn bạc ta</div>
-                    <div class="price-box"><span class="new-price">485.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8xOTk5MjM3Mzk1Nw==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-ltkiurvgchsaa8" loading="lazy" alt="Lắc chân nữ bạc ta lắc chân hạt bạc vỡ mix chuông"></div>
-                <div class="info">
-                    <div class="title">Lắc chân nữ bạc ta lắc chân hạt bạc vỡ mix chuông</div>
-                    <div class="price-box"><span class="new-price">550.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8yNTU3MTkwODU1Nw==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lv3j0ptdvvrua8" loading="lazy" alt="tổng hợp lư hương cốc đựng gạo đũa sứ kéo đĩa dụng cụ trang trí mâm cúng"></div>
-                <div class="info">
-                    <div class="title">tổng hợp lư hương cốc đựng gạo đũa sứ kéo đĩa dụng cụ trang trí mâm cúng</div>
-                    <div class="price-box"><span class="new-price">32.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNDcyOTUxMTQ5OA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7vwzw6gu00777" loading="lazy" alt="Hũ sứ hoa sen đựng muối gạo lư hương  chung đại bi cao cấp trang trí mâm cúng"></div>
-                <div class="info">
-                    <div class="title">Hũ sứ hoa sen đựng muối gạo lư hương  chung đại bi cao cấp trang trí mâm cúng</div>
-                    <div class="price-box"><span class="new-price">80.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNTUzMDI5MDA3MA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lzwzbv9aimxt00" loading="lazy" alt="Hộp 200gr Hạt Dẻ Tẩm Mật Ong Trùng Khánh (hộp 7-8 gói)"></div>
-                <div class="info">
-                    <div class="title">Hộp 200gr Hạt Dẻ Tẩm Mật Ong Trùng Khánh (hộp 7-8 gói)</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMjQ5NjI0ODAvMjgyNTM0NTU1MjA=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2ux2urxewhc7f" loading="lazy" alt="Khuôn silicon hoa sen quan âm 9cm"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon hoa sen quan âm 9cm</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNjI2ODI5NDg1Mw==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m31noayox240dc" loading="lazy" alt="Khuôn silicon hoa sen sét 3 hoa sen quan âm mã HS567"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon hoa sen sét 3 hoa sen quan âm mã HS567</div>
-                    <div class="price-box"><span class="new-price">180.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yODc2ODgxNjc3NA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m44yfn76dfd398" loading="lazy" alt="Lư hương bát hương hoa sen đồ sứ cao cấp decor mâm cúng"></div>
-                <div class="info">
-                    <div class="title">Lư hương bát hương hoa sen đồ sứ cao cấp decor mâm cúng</div>
-                    <div class="price-box"><span class="new-price">100.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yODkyMTQ5NDQzMg==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m8j5o3d1b3iacd" loading="lazy" alt="Khuôn silicon đài sen hoa sen quan âm T"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon đài sen hoa sen quan âm T</div>
-                    <div class="price-box"><span class="new-price">300.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNDU5Mzk4NzUwMQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-mbonzjzivcs2a6" loading="lazy" alt="Lắc tay đơn chuông cho nữ bạc ta dày dặn"></div>
-                <div class="info">
-                    <div class="title">Lắc tay đơn chuông cho nữ bạc ta dày dặn</div>
-                    <div class="price-box"><span class="new-price">500.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC80MzIwNjk2NzA2MQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mh76b1mlkwstd9" loading="lazy" alt="Khuôn silicon hoa sen quan âm 10cm khuôn xôi khuôn trạch rau câu nến handmade"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon hoa sen quan âm 10cm khuôn xôi khuôn trạch rau câu nến handmade</div>
-                    <div class="price-box"><span class="new-price">115.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC81NDY1MTYwNzg1MQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-miq1fsbw64g73f" loading="lazy" alt="sét 70 viên nến xu nến bơ sáp hoa nổi tealight nến xu hoa nổi"></div>
-                <div class="info">
-                    <div class="title">sét 70 viên nến xu nến bơ sáp hoa nổi tealight nến xu hoa nổi</div>
-                    <div class="price-box"><span class="new-price">100.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC81NTk1Mzc5MjAxMQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="phap-phuc">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-81ztc-mkhmcgrd3jsw1e" loading="lazy" alt="Túi Cốp Chio Trám Quai Khoá Tim Quai Chuông Khoá"></div>
-                <div class="info">
-                    <div class="title">Túi Cốp Chio Trám Quai Khoá Tim Quai Chuông Khoá</div>
-                    <div class="price-box"><span class="new-price">309.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMDQ0Mzc5OC80ODgwNjAwNjQzMg==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        </div><script>
-        const btns = document.querySelectorAll('.cat-btn'); const cards = document.querySelectorAll('.card');
-        btns.forEach(btn => btn.addEventListener('click', () => {
-            btns.forEach(b => b.classList.remove('active')); btn.classList.add('active');
-            const f = btn.dataset.filter;
-            cards.forEach(c => c.classList.toggle('hide', f !== 'all' && c.dataset.category !== f));
-        }));
-    </script></body></html>
+
+        </div>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                const filterButtons = document.querySelectorAll('.cat-btn');
+
+                const productCards = document.querySelectorAll('.card');
+
+                filterButtons.forEach(button => {
+
+                    button.addEventListener('click', () => {
+
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                        button.classList.add('active');
+
+                        const filterValue = button.getAttribute('data-filter');
+
+                        productCards.forEach(card => {
+
+                            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+
+                                card.classList.remove('hide');
+
+                            } else {
+
+                                card.classList.add('hide');
+
+                            }
+
+                        });
+
+                    });
+
+                });
+
+            });
+
+        </script>
+
+    </body></html>
+
+    
