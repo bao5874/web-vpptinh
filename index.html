@@ -4,94 +4,47 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <title>VPP Tịnh - Vật Phẩm Phật Giáo & Không Gian Thiền</title>
         <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2554/2554037.png">
-        
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XMX55X9EJJ"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-XMX55X9EJJ');
-        </script>
         
         <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap" rel="stylesheet">
         <style>
             :root { 
-                --primary: #8d6e63; /* Màu Nâu đất */
-                --accent: #fbc02d; /* Màu Vàng kim */
-                --bg: #fdfbf7; /* Màu kem giấy gió */
-                --text: #4e342e;
+                --primary: #8d6e63; --accent: #fbc02d; --bg: #fdfbf7; --text: #4e342e;
             }
             body { font-family: 'Merriweather', serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-            
-            /* Header phong cách Tịnh */
             .header { 
-                text-align: center; padding: 60px 20px; 
-                background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.pinimg.com/originals/82/10/ec/8210ec997b69c27762699318d104618e.jpg'); 
-                background-size: cover; background-position: center;
-                border-radius: 8px; margin-bottom: 30px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                text-align: center; padding: 50px 20px; 
+                background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/originals/82/10/ec/8210ec997b69c27762699318d104618e.jpg'); 
+                background-size: cover; background-position: center; border-radius: 8px; margin-bottom: 30px; color: white;
             }
-            .header h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; text-transform: uppercase; }
-            .header p { font-style: italic; opacity: 0.9; margin-top: 10px; font-size: 1.1rem; }
-
-            /* Menu nút bấm */
-            .category-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; position: sticky; top: 10px; z-index: 99; }
+            .header h1 { margin: 0; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; }
+            .header p { font-style: italic; margin-top: 10px; font-size: 1.1rem; }
+            .category-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; position: sticky; top: 10px; z-index: 99; }
             .cat-btn { 
-                padding: 10px 20px; border: 1px solid var(--primary); background: white; 
-                color: var(--primary); cursor: pointer; border-radius: 25px; 
-                font-family: 'Merriweather', serif; font-size: 14px; transition: 0.3s;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                padding: 10px 18px; border: 1px solid var(--primary); background: white; color: var(--primary); cursor: pointer; 
+                border-radius: 20px; font-family: 'Merriweather', serif; font-size: 14px; transition: 0.3s;
             }
-            .cat-btn:hover, .cat-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(141, 110, 99, 0.4); }
-
-            /* Lưới sản phẩm */
-            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
-            .card { 
-                background: white; border-radius: 8px; overflow: hidden; 
-                box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; 
-                border: 1px solid #eee; display: flex; flex-direction: column;
-            }
-            .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--accent); }
+            .cat-btn.active, .cat-btn:hover { background: var(--primary); color: white; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
+            .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: 0.3s; display: flex; flex-direction: column; }
+            .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
             .card.hide { display: none; }
-            
-            .img-box { width: 100%; height: 200px; padding: 15px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #fff; }
+            .img-box { height: 200px; padding: 10px; display: flex; align-items: center; justify-content: center; background: #fff; }
             .img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
-            
             .info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-            .title { font-size: 14px; margin-bottom: 8px; height: 40px; overflow: hidden; line-height: 1.4; opacity: 0.9; color: #333; }
-            .price-box { margin-bottom: 15px; }
-            .new-price { color: #bf360c; font-weight: bold; font-size: 18px; }
-            .old-price { text-decoration: line-through; color: #aaa; font-size: 13px; margin-left: 5px; }
-            
-            .btn { 
-                background: var(--primary); color: white; text-decoration: none; 
-                padding: 10px 0; display: block; border-radius: 4px; 
-                font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; transition: 0.2s;
-            }
+            .title { font-size: 13px; height: 38px; overflow: hidden; line-height: 1.4; color: #333; margin-bottom: 10px; }
+            .new-price { color: #bf360c; font-weight: bold; font-size: 16px; }
+            .old-price { text-decoration: line-through; color: #999; font-size: 12px; margin-left: 5px; }
+            .btn { background: var(--primary); color: white; text-decoration: none; padding: 10px; display: block; border-radius: 4px; font-size: 12px; text-transform: uppercase; font-weight: bold; margin-top: 10px; }
             .btn:hover { background: var(--accent); color: #333; }
-            
-            /* Responsive Mobile */
-            @media (max-width: 600px) {
-                .header { padding: 40px 10px; }
-                .header h1 { font-size: 1.8rem; }
-                .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-                .card { border-radius: 4px; }
-                .img-box { height: 160px; padding: 5px; }
-                .title { font-size: 12px; height: 34px; }
-                .new-price { font-size: 15px; }
-                .btn { padding: 8px 0; font-size: 11px; }
-            }
         </style>
     </head>
     <body>
         <div class="header">
-            <h1>VPP TỊNH</h1>
+            <h1>VPP Tịnh</h1>
             <p>Gieo duyên lành - Kiến tạo không gian thanh tịnh</p>
         </div>
-        
         <div class="category-menu">
             <button class="cat-btn active" data-filter="all">Tất cả</button>
             <button class="cat-btn" data-filter="vpp-tinh">Sổ Kinh & Thư Pháp</button>
@@ -99,348 +52,39 @@
             <button class="cat-btn" data-filter="phap-phuc">Pháp Phục & Chuỗi</button>
             <button class="cat-btn" data-filter="huong-thien">Trầm Hương & Thiền</button>
         </div>
-
         <div class="grid">
     
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-miixg5irjyf657" loading="lazy" alt="500Gram BỘT GẠO LỨT HUYẾT RỒNG THƠM NGON SHOP MẸ TÔM (CÓ XUẤT HÓA ĐƠN CÔNG TY)"></div>
+            <div class="card" data-category="khong-gian-tho">
+                <div class="img-box"><img src="https://dummyimage.com/200x200/e0c097/fff&text=Tuong+Phat" loading="lazy" alt="Tượng Phật Bà Quan Âm Gốm Tử Sa Cao Cấp"></div>
                 <div class="info">
-                    <div class="title">500Gram BỘT GẠO LỨT HUYẾT RỒNG THƠM NGON SHOP MẸ TÔM (CÓ XUẤT HÓA ĐƠN CÔNG TY)</div>
-                    <div class="price-box"><span class="new-price">60.500đ</span> <span class="old-price">110.000đ</span></div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC83NDE1MTM4Mi80NDE3NzM5ODQ5NA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjjtmr5vxvd322" loading="lazy" alt="500GRAM BỘT GẠO LỨT MIX MÈ ĐEN shop Mẹ Tôm (BỘT MÈ ĐEN GẠO LỨT HUYẾT RỒNG) CÓ XUẤT HÓA ĐƠN CÔNG TY"></div>
-                <div class="info">
-                    <div class="title">500GRAM BỘT GẠO LỨT MIX MÈ ĐEN shop Mẹ Tôm (BỘT MÈ ĐEN GẠO LỨT HUYẾT RỒNG) CÓ XUẤT HÓA ĐƠN CÔNG TY</div>
-                    <div class="price-box"><span class="new-price">94.640đ</span> <span class="old-price">169.000đ</span></div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC83NDE1MTM4Mi81MjE1NDc5MTc2OQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134201-23030-j7imeo4i84nv78" loading="lazy" alt="500Gr GẠO LỨT HUYẾT RỒNG RANG SẴN HOẶC HẠT SỐNG CHUẨN ĐĂKLĂK (CÓ XUẤT HÓA ĐƠN CÔNG TY)"></div>
-                <div class="info">
-                    <div class="title">500Gr GẠO LỨT HUYẾT RỒNG RANG SẴN HOẶC HẠT SỐNG CHUẨN ĐĂKLĂK (CÓ XUẤT HÓA ĐƠN CÔNG TY)</div>
-                    <div class="price-box"><span class="new-price">30.000đ</span> <span class="old-price">50.000đ</span></div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC83NDE1MTM4Mi81NDE0OTA3MDM4" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjkvskq075l0b7" loading="lazy" alt="Giá Pas Gắn Đồng Hồ Xe Đạp Tương Thích CATEYE, Cheetah, Rockbros – Chắc Chắn, Dễ Lắp"></div>
-                <div class="info">
-                    <div class="title">Giá Pas Gắn Đồng Hồ Xe Đạp Tương Thích CATEYE, Cheetah, Rockbros – Chắc Chắn, Dễ Lắp</div>
-                    <div class="price-box"><span class="new-price">103.700đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi8yMzMyMzYxODA5" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/288a17657690569c66844064a4fbe4da" loading="lazy" alt="Trầm hương Thái Lan mix nụ kèm chén đốt"></div>
-                <div class="info">
-                    <div class="title">Trầm hương Thái Lan mix nụ kèm chén đốt</div>
-                    <div class="price-box"><span class="new-price">65.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8xMDQzODIxNjU=" class="btn" target="_blank">Chi tiết</a>
+                    <div class="title">Tượng Phật Bà Quan Âm Gốm Tử Sa Cao Cấp</div>
+                    <div class="price-box"><span class="new-price">550.000đ</span> </div>
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cDovL3Nob3BlZS52bi9zcDE=" class="btn" target="_blank">Chi tiết</a>
                 </div>
             </div>
         
             <div class="card" data-category="phap-phuc">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/3e98c9dd70912b62ab74c861ae342768" loading="lazy" alt="Vòng Tay Trầm Hương Chuỗi Tràng Hạt 108 đủ size Nam Nữ, Tặng hộp Gấm Cao Cấp MIN10"></div>
+                <div class="img-box"><img src="https://dummyimage.com/200x200/8d6e63/fff&text=Tram+Huong" loading="lazy" alt="Chuỗi hạt gỗ trầm hương 108 hạt"></div>
                 <div class="info">
-                    <div class="title">Vòng Tay Trầm Hương Chuỗi Tràng Hạt 108 đủ size Nam Nữ, Tặng hộp Gấm Cao Cấp MIN10</div>
+                    <div class="title">Chuỗi hạt gỗ trầm hương 108 hạt</div>
+                    <div class="price-box"><span class="new-price">250.000đ</span> </div>
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cDovL3Nob3BlZS52bi9zcDQ=" class="btn" target="_blank">Chi tiết</a>
+                </div>
+            </div>
+        
+            <div class="card" data-category="vpp-tinh">
+                <div class="img-box"><img src="https://dummyimage.com/200x200/fff/000&text=Vo+Kinh" loading="lazy" alt="Combo 10 cuốn vở chép kinh Địa Tạng in mờ"></div>
+                <div class="info">
+                    <div class="title">Combo 10 cuốn vở chép kinh Địa Tạng in mờ</div>
                     <div class="price-box"><span class="new-price">99.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzEwMDg1OTQvODM0MzUwNTA3Mg==" class="btn" target="_blank">Chi tiết</a>
+                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cDovL3Nob3BlZS52bi9zcDU=" class="btn" target="_blank">Chi tiết</a>
                 </div>
             </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/c58a883b07be223073ec2c4455f2d693" loading="lazy" alt="Dầu cù là bồ đề hũ 15g"></div>
-                <div class="info">
-                    <div class="title">Dầu cù là bồ đề hũ 15g</div>
-                    <div class="price-box"><span class="new-price">29.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS80NjIyOTM2NTky" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/c17f3043aa2fcf29243a7f71e4faebab" loading="lazy" alt="Dây chuyền mặt phật bà size nhỏ cho bé bạc ta"></div>
-                <div class="info">
-                    <div class="title">Dây chuyền mặt phật bà size nhỏ cho bé bạc ta</div>
-                    <div class="price-box"><span class="new-price">550.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNzg5MzcyOC8zOTcyMDcxMTYy" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="huong-thien">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/ffe8bea1399ccfce54d8efd36839f6fc" loading="lazy" alt="100 nụ Trầm Hương Mix Nhiều mùi hoa Kèm chén đốt Hàng nội địa Thái Lan"></div>
-                <div class="info">
-                    <div class="title">100 nụ Trầm Hương Mix Nhiều mùi hoa Kèm chén đốt Hàng nội địa Thái Lan</div>
-                    <div class="price-box"><span class="new-price">45.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS83NDE1NDAxMzY=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjmnmytr87pd3a" loading="lazy" alt="Giá Carbon 3K Gắn Đồng Hồ Đo Tốc Độ Xe Đạp – Nhẹ, Chắc – Tương Thích Cateye Xoss Cycplus"></div>
-                <div class="info">
-                    <div class="title">Giá Carbon 3K Gắn Đồng Hồ Đo Tốc Độ Xe Đạp – Nhẹ, Chắc – Tương Thích Cateye Xoss Cycplus</div>
-                    <div class="price-box"><span class="new-price">252.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi81NzI2MDU5NjA5" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/55eaca6e5204fc702eb4500caef4213b" loading="lazy" alt="Combo 12 lọ dầu gió lăn chiết xuất lá bồ đề"></div>
-                <div class="info">
-                    <div class="title">Combo 12 lọ dầu gió lăn chiết xuất lá bồ đề</div>
-                    <div class="price-box"><span class="new-price">330.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS82MzAzMjk1NTM2" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/sg-11134201-22120-pvxah99z5ilvca" loading="lazy" alt="Dầu cù là lá bồ đề thái lan 50gam 1 Lọ"></div>
-                <div class="info">
-                    <div class="title">Dầu cù là lá bồ đề thái lan 50gam 1 Lọ</div>
-                    <div class="price-box"><span class="new-price">29.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS82OTQ4NzAwMTY=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjldmie866td83" loading="lazy" alt="Giá Nhôm Gắn Đồng Hồ Đo Tốc Độ Xe Đạp Kiểu 01 – Chắc Chắn, Nhẹ – Tương Thích Cateye Xoss Cycplus"></div>
-                <div class="info">
-                    <div class="title">Giá Nhôm Gắn Đồng Hồ Đo Tốc Độ Xe Đạp Kiểu 01 – Chắc Chắn, Nhẹ – Tương Thích Cateye Xoss Cycplus</div>
-                    <div class="price-box"><span class="new-price">103.700đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi8yMjI0MzMzOTIy" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7aulobchsmr86" loading="lazy" alt="Khuôn silicon tượng ông di lặc / phật may mắn"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon tượng ông di lặc / phật may mắn</div>
-                    <div class="price-box"><span class="new-price">150.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xMjE1NTczNDY2NQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2ie8aey8gqa18" loading="lazy" alt="khuôn silicon hoa sen hoa sen quan âm khuôn thạch khuôn nến 9cm"></div>
-                <div class="info">
-                    <div class="title">khuôn silicon hoa sen hoa sen quan âm khuôn thạch khuôn nến 9cm</div>
-                    <div class="price-box"><span class="new-price">50.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xNTUyMjQ0NjMyOQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7qukw-levcw84n22qf83" loading="lazy" alt="Dầu lăn ṫhảo mộc herb oil balm tasing yainoi chiết xuất từ nghệ và gừng và hàng nội địa thái Lan 8ml hiệu LÁ BỒ ĐỀ"></div>
-                <div class="info">
-                    <div class="title">Dầu lăn ṫhảo mộc herb oil balm tasing yainoi chiết xuất từ nghệ và gừng và hàng nội địa thái Lan 8ml hiệu LÁ BỒ ĐỀ</div>
-                    <div class="price-box"><span class="new-price">50.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8xMzU2MDA0NS8yMjEzNTEyNDI2MQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7cfvdrge7dkf9" loading="lazy" alt="Hộp 12 cốc nến bơ hoa thái nến hoa nổi ly đựng là thuỷ tinh"></div>
-                <div class="info">
-                    <div class="title">Hộp 12 cốc nến bơ hoa thái nến hoa nổi ly đựng là thuỷ tinh</div>
-                    <div class="price-box"><span class="new-price">79.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8xOTU4NDU2NjY1NQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lv685p597hy29c" loading="lazy" alt="Khuôn silicon sen quan âm hoa sen bách diệp 2 mẫu khuôn bánh trôi khuôn rau câu"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon sen quan âm hoa sen bách diệp 2 mẫu khuôn bánh trôi khuôn rau câu</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMzQ2Njk1Mzg3NA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m71nod2xbgbcdf" loading="lazy" alt="Khuôn silicon tượng phật Như Lai A Di Đà khuôn nến trang trí khuôn đổ rau câu"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon tượng phật Như Lai A Di Đà khuôn nến trang trí khuôn đổ rau câu</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMzUzMzMyMDE3OQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7cf2febropkcc" loading="lazy" alt="Khuôn silicon tượng phật 4D tòa sen hoa sen depo"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon tượng phật 4D tòa sen hoa sen depo</div>
-                    <div class="price-box"><span class="new-price">150.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMjg2NjQ2NDE4MA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mjla3gycw7424b" loading="lazy" alt="Giá Carbon 3K KOCEVLO Gắn Đồng Hồ Đo Tốc Độ + Giá Đèn Xe Đạp – Nhẹ Chắc – Tương Thích CATEYE Xoss Cycplus"></div>
-                <div class="info">
-                    <div class="title">Giá Carbon 3K KOCEVLO Gắn Đồng Hồ Đo Tốc Độ + Giá Đèn Xe Đạp – Nhẹ Chắc – Tương Thích CATEYE Xoss Cycplus</div>
-                    <div class="price-box"><span class="new-price">412.700đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zNDE1NjY2Mi8yMDY3NDYyMzE5Ng==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7cforir1530cb" loading="lazy" alt="Khuôn silicon thần tài khuôn phật Di Lặc 4D"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon thần tài khuôn phật Di Lặc 4D</div>
-                    <div class="price-box"><span class="new-price">110.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yMjYzMjc1NTEyNQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7r98o-lv3j0ptdvvrua8" loading="lazy" alt="tổng hợp lư hương cốc đựng gạo đũa sứ kéo đĩa dụng cụ trang trí mâm cúng"></div>
-                <div class="info">
-                    <div class="title">tổng hợp lư hương cốc đựng gạo đũa sứ kéo đĩa dụng cụ trang trí mâm cúng</div>
-                    <div class="price-box"><span class="new-price">32.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNDcyOTUxMTQ5OA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7vwzw6gu00777" loading="lazy" alt="Hũ sứ hoa sen đựng muối gạo lư hương  chung đại bi cao cấp trang trí mâm cúng"></div>
-                <div class="info">
-                    <div class="title">Hũ sứ hoa sen đựng muối gạo lư hương  chung đại bi cao cấp trang trí mâm cúng</div>
-                    <div class="price-box"><span class="new-price">80.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNTUzMDI5MDA3MA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2ux2urxewhc7f" loading="lazy" alt="Khuôn silicon hoa sen quan âm 9cm"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon hoa sen quan âm 9cm</div>
-                    <div class="price-box"><span class="new-price">60.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNjI2ODI5NDg1Mw==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2xosmrg0dkq17" loading="lazy" alt="Nắp trước tay lái (Bàn Thờ) HONDA Wave Rsx 110 Fi Đĩa 2017-2018 Đỏ R34C (53240K90V00ZD)_(AA 56)"></div>
-                <div class="info">
-                    <div class="title">Nắp trước tay lái (Bàn Thờ) HONDA Wave Rsx 110 Fi Đĩa 2017-2018 Đỏ R34C (53240K90V00ZD)_(AA 56)</div>
-                    <div class="price-box"><span class="new-price">207.036đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zMjY3MzE0MzEvMjg3MTg0OTI2NTY=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2xnp8n39cz4a6" loading="lazy" alt="Nắp trước tay lái (Bàn Thờ) (Trên) HONDA Vision 2016-2017 Đen (53200K44V40ZG)_(AA 61)"></div>
-                <div class="info">
-                    <div class="title">Nắp trước tay lái (Bàn Thờ) (Trên) HONDA Vision 2016-2017 Đen (53200K44V40ZG)_(AA 61)</div>
-                    <div class="price-box"><span class="new-price">194.400đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zMjY3MzE0MzEvMjcxMTg0ODQyMTA=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m2xnq8jirg8g78" loading="lazy" alt="Nắp trước tay lái (Bàn Thờ) HONDA Wave Blade 2019 Đen Mờ Đĩa (53205K57A00ZE)_(AA 60)"></div>
-                <div class="info">
-                    <div class="title">Nắp trước tay lái (Bàn Thờ) HONDA Wave Blade 2019 Đen Mờ Đĩa (53205K57A00ZE)_(AA 60)</div>
-                    <div class="price-box"><span class="new-price">217.350đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zMjY3MzE0MzEvMjc4Njg0OTIyMDc=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m7boiobcd8ab33" loading="lazy" alt="Bàn Thờ HONDA Lead 110 2009-2011 Bạc Nh411M (53210GGE900ZD)_(AA 26)"></div>
-                <div class="info">
-                    <div class="title">Bàn Thờ HONDA Lead 110 2009-2011 Bạc Nh411M (53210GGE900ZD)_(AA 26)</div>
-                    <div class="price-box"><span class="new-price">384.750đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zMjY3MzE0MzEvMjU4Mzg2NjI1NzY=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m31noayox240dc" loading="lazy" alt="Khuôn silicon hoa sen sét 3 hoa sen quan âm mã HS567"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon hoa sen sét 3 hoa sen quan âm mã HS567</div>
-                    <div class="price-box"><span class="new-price">180.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yODc2ODgxNjc3NA==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m3q99sgtyh8525" loading="lazy" alt="Nắp trước tay lái (Bàn Thờ) HONDA Vision K2C 2023 Đỏ R368C (53205K2CV90ZA)_(AA 69)"></div>
-                <div class="info">
-                    <div class="title">Nắp trước tay lái (Bàn Thờ) HONDA Vision K2C 2023 Đỏ R368C (53205K2CV90ZA)_(AA 69)</div>
-                    <div class="price-box"><span class="new-price">194.400đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC8zMjY3MzE0MzEvMjc4MjA1NjcxMDM=" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ras8-m44yfn76dfd398" loading="lazy" alt="Lư hương bát hương hoa sen đồ sứ cao cấp decor mâm cúng"></div>
-                <div class="info">
-                    <div class="title">Lư hương bát hương hoa sen đồ sứ cao cấp decor mâm cúng</div>
-                    <div class="price-box"><span class="new-price">100.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yODkyMTQ5NDQzMg==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-7ra0g-m8j5o3d1b3iacd" loading="lazy" alt="Khuôn silicon đài sen hoa sen quan âm T"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon đài sen hoa sen quan âm T</div>
-                    <div class="price-box"><span class="new-price">300.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC8yNDU5Mzk4NzUwMQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khong-gian-tho">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-mh76b1mlkwstd9" loading="lazy" alt="Khuôn silicon hoa sen quan âm 10cm khuôn xôi khuôn trạch rau câu nến handmade"></div>
-                <div class="info">
-                    <div class="title">Khuôn silicon hoa sen quan âm 10cm khuôn xôi khuôn trạch rau câu nến handmade</div>
-                    <div class="price-box"><span class="new-price">115.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC81NDY1MTYwNzg1MQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        
-            <div class="card" data-category="khac">
-                <div class="img-box"><img src="https://cf.shopee.vn/file/vn-11134207-820l4-miq1fsbw64g73f" loading="lazy" alt="sét 70 viên nến xu nến bơ sáp hoa nổi tealight nến xu hoa nổi"></div>
-                <div class="info">
-                    <div class="title">sét 70 viên nến xu nến bơ sáp hoa nổi tealight nến xu hoa nổi</div>
-                    <div class="price-box"><span class="new-price">100.000đ</span> </div>
-                    <a href="https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc=aHR0cHM6Ly9zaG9wZWUudm4vcHJvZHVjdC80NTI2Nzg3MC81NTk1Mzc5MjAxMQ==" class="btn" target="_blank">Chi tiết</a>
-                </div>
-            </div>
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const filterButtons = document.querySelectorAll('.cat-btn');
-                const productCards = document.querySelectorAll('.card');
-
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        // Xóa active cũ
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        // Thêm active mới
-                        button.classList.add('active');
-                        
-                        const filterValue = button.getAttribute('data-filter');
-                        
-                        productCards.forEach(card => {
-                            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                                card.classList.remove('hide');
-                            } else {
-                                card.classList.add('hide');
-                            }
-                        });
-                    });
-                });
-            });
-        </script>
-    </body></html>
-    
+        </div><script>
+        const btns = document.querySelectorAll('.cat-btn'); const cards = document.querySelectorAll('.card');
+        btns.forEach(btn => btn.addEventListener('click', () => {
+            btns.forEach(b => b.classList.remove('active')); btn.classList.add('active');
+            const f = btn.dataset.filter;
+            cards.forEach(c => c.classList.toggle('hide', f !== 'all' && c.dataset.category !== f));
+        }));
+    </script></body></html>
