@@ -8,64 +8,39 @@ import webbrowser
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-# --- CẤU HÌNH HỆ THỐNG VPP TỊNH ---
-GA_ID = "G-XXXXXXXXXX"  # <--- THAY MÃ GA CỦA BẠN
+# --- CẤU HÌNH ---
+GA_ID = "G-XXXXXXXXXX" 
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/2554/2554037.png"
 LINK_CSV = "http://datafeed.accesstrade.me/shopee.vn.csv"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=vpptinh&utm_source=shopee&url_enc="
 
-# --- BỘ LỌC THÔNG MINH (SMART FILTER) ---
+# --- 1. LỌC DANH MỤC (CATEGORY FILTER) ---
+# Nếu danh mục sản phẩm chứa bất kỳ từ nào dưới đây -> LOẠI NGAY
+BAD_CATEGORIES = [
+    "đồ chơi", "toy", "game", "trẻ em", "mẹ & bé", "mẹ và bé",
+    "xe", "oto", "moto", "phụ tùng", "bảo hiểm",
+    "điện thoại", "máy tính", "camera", "thiết bị số", "công nghệ",
+    "thời trang", "quần áo", "giày dép", "túi ví", "đồng hồ", "trang sức", # Trừ chuỗi hạt sẽ lọc ở tên sau
+    "mỹ phẩm", "làm đẹp", "sức khỏe", # Trừ tinh dầu/trầm
+    "bách hóa", "ăn vặt", "thực phẩm", "điện gia dụng"
+]
 
-# 1. TỪ KHÓA CẤM (BLACKLIST) - CHỨA LÀ CHẶN (PARTIAL MATCH)
-# Dùng cho các từ rác đặc trưng, xuất hiện ở đâu cũng là rác.
+# --- 2. LỌC TỪ KHÓA (NAME FILTER) ---
 BLACKLIST_PHRASE = [
-    # Anime / Game / Đồ chơi
-    "mô hình", "figure", "anime", "manga", "cosplay", "game", "đồ chơi", 
-    "one piece", "đảo hải tặc", "luffy", "zoro", "sanji", "nami", "chopper", "ace", "sabo", 
-    "g5", "haki", "gear 5", "wano", "pop mart", "blind box",
-    "dragon ball", "songoku", "goku", "vegeta", "buu", "7 viên ngọc rồng",
-    "naruto", "sasuke", "kakashi", "conan", "doraemon", "nobita", 
-    "jujutsu", "kaisen", "gojo", "kimetsu", "thanh gươm", "nezuko",
-    "genshin", "impact", "honkai", "liên minh", "lol", "yasuo",
-    "gundam", "robot", "siêu nhân", "ultraman", "marvel", "avenger", "iron man",
-    "chibi", "pvc", "resin", "standee", "poster", "nhựa",
-    
-    # Xe máy (Honda, Yamaha...)
-    "honda", "yamaha", "suzuki", "sym", "piaggio", "sh", "vision", "wave", "dream", 
-    "sirius", "exciter", "winner", "airblade", "lead", "vario", "blade", "rsx",
-    "xe máy", "ô tô", "mô tô", "phụ tùng", "linh kiện", "đồ chơi xe",
-    "tay lái", "ốp đầu", "dàn áo", "tem xe", "nhớt", "lốp", "pô", "gương", "kính chiếu hậu", "phanh", "thắng",
-    "bàn thờ xe", 
-    
-    # Rác khác
-    "sex", "người lớn", "bao cao su", "gợi cảm", "hở hang", "đồ lót", "nội y",
-    "điện thoại", "laptop", "tai nghe", "cường lực", "ốp lưng", "cáp sạc", "wifi", "sim",
-    "voucher", "thẻ cào"
+    "mô hình", "figure", "anime", "manga", "cosplay", "one piece", "luffy", "goku", "naruto",
+    "honda", "yamaha", "suzuki", "vision", "wave", "bàn thờ xe",
+    "sex", "bao cao su", "gợi cảm"
 ]
 
-# 2. TỪ KHÓA CẤM (BLACKLIST) - CHÍNH XÁC TỪ (WHOLE WORD MATCH)
-# Chỉ chặn nếu nó đứng một mình. Ví dụ: Chặn "cá" (đồ ăn), nhưng KHÔNG chặn "cách" (cách tân).
-BLACKLIST_EXACT_WORD = [
-    "thịt", "cá", "mắm", "khô", "chả", "giò", "nem", # Đồ ăn
-    "ga", "gas", # Bếp ga (tránh chặn 'ga' lăng)
-    "zin" # Đồ zin xe máy
-]
-
-# 3. TỪ KHÓA BẮT BUỘC (WHITELIST)
-WHITELIST = [
-    "tượng phật", "phật bà", "phật quan âm", "quan thế âm", "tượng thích ca", "tượng di đà", 
-    "tượng địa tạng", "tượng dược sư", "tượng tam thánh", "tượng di lặc", "tượng bổn sư", 
-    "tượng chú tiểu", "tượng đạt ma", "tượng gốm tử sa", "tượng đồng", "tượng lưu ly",
-    "bàn thờ phật", "bàn thờ gia tiên", "bàn thờ thần tài", "bàn thờ ông địa", "bàn thờ treo", 
-    "tủ thờ", "trang thờ", "ngai thờ", "khám thờ",
-    "đèn thờ", "đèn hoa sen", "đèn lưu ly", "đèn hào quang", "đèn dầu cát tường", "đèn cầy", "nến bơ",
-    "lư xông trầm", "lư hương", "bát hương", "đỉnh đồng", "chân nến", "tấm chống ám khói",
-    "pháp phục", "áo lam", "áo tràng", "áo đi chùa", "quần áo phật tử", "nón lá",
-    "chuỗi hạt", "tràng hạt", "vòng tay gỗ", "vòng 108 hạt", "chuỗi bồ đề", "vòng trầm hương",
-    "mõ tụng kinh", "chuông gia trì", "khánh",
-    "trầm hương", "nụ trầm", "nhang sạch", "bột trầm", "thác khói",
-    "sổ chép kinh", "vở chép kinh", "kinh phật", "sách phật", "tranh phật", "thư pháp",
-    "máy niệm phật", "đài nghe pháp", "loa pháp thoại"
+WHITELIST_KEYWORDS = [
+    "tượng phật", "phật bà", "quan âm", "thích ca", "di đà", "địa tạng", "dược sư", "tam thánh", "di lặc", "chú tiểu",
+    "bàn thờ", "tủ thờ", "trang thờ", # Đã an toàn vì đã lọc danh mục Xe cộ ở trên
+    "đèn thờ", "đèn hoa sen", "đèn lưu ly", "đèn hào quang", "đèn dầu", "nến bơ",
+    "lư xông", "lư hương", "bát hương", "đỉnh đồng",
+    "pháp phục", "áo lam", "áo đi chùa", "quần áo phật tử", 
+    "chuỗi hạt", "vòng tay gỗ", "tràng hạt", "108 hạt", "bồ đề", "trầm hương",
+    "mõ", "chuông", "khánh", "kinh phật", "sổ chép kinh", "tranh phật", "thư pháp",
+    "máy niệm phật", "đài nghe pháp", "nhang", "nụ trầm", "thác khói"
 ]
 
 def tao_link_aff(url_goc):
@@ -90,25 +65,32 @@ def tinh_gia_thuc(p_raw, d_raw):
         return gia_goc, gia_giam, discount_val * 100
     except: return 0, 0, 0
 
-def check_smart_filter(name):
-    name_lower = name.lower()
+def check_product_hybrid(row):
+    """Kiểm tra kết hợp cả Danh mục và Tên"""
+    name = row.get('name', '').lower()
+    category = row.get('category', '').lower()
     
-    # 1. Kiểm tra Phrase (Chứa là chặn)
-    for bad in BLACKLIST_PHRASE:
-        if bad in name_lower: return False
-        
-    # 2. Kiểm tra Exact Word (Regex - Tách từ thông minh)
-    # Ví dụ: Tìm chữ "cá" đứng riêng lẻ (\b là biên của từ)
-    for bad_word in BLACKLIST_EXACT_WORD:
-        # Regex: \bword\b -> Tìm từ word nằm giữa khoảng trắng hoặc dấu câu
-        if re.search(r'\b' + re.escape(bad_word) + r'\b', name_lower):
+    # BƯỚC 1: LỌC THEO DANH MỤC (QUAN TRỌNG NHẤT)
+    # Nếu danh mục là "Xe cộ", "Đồ chơi" -> Loại ngay, không cần xem tên
+    for bad_cat in BAD_CATEGORIES:
+        if bad_cat in category:
+            # print(f"   🚫 Loại theo danh mục [{category}]: {name}")
             return False
-            
-    # 3. Kiểm tra Whitelist
-    for good in WHITELIST:
-        if good in name_lower: return True
+
+    # BƯỚC 2: LỌC THEO TÊN (BLACKLIST)
+    # Chặn sót (ví dụ shop đăng sai danh mục)
+    for bad in BLACKLIST_PHRASE:
+        if bad in name: return False
         
-    return False
+    # BƯỚC 3: LỌC THEO TÊN (WHITELIST)
+    # Phải chứa từ khóa Phật giáo
+    is_valid = False
+    for good in WHITELIST_KEYWORDS:
+        if good in name:
+            is_valid = True
+            break
+            
+    return is_valid
 
 def phan_loai_danh_muc(ten):
     ten = ten.lower()
@@ -201,11 +183,10 @@ def tao_web_html(products):
     return html
 
 def chay_ngay_di():
-    print("🙏 VPP TỊNH V6.0 - INTELLIGENCE MODE STARTS...")
+    print("🙏 VPP TỊNH FINAL - HYBRID FILTER MODE...")
     
-    # Cấu hình thử lại kết nối (Retry Strategy)
     session = requests.Session()
-    retry = Retry(connect=3, backoff_factor=1) # Thử 3 lần, mỗi lần cách nhau 1s, 2s, 4s
+    retry = Retry(connect=3, backoff_factor=1)
     adapter = HTTPAdapter(max_retries=retry)
     session.mount('http://', adapter)
     session.mount('https://', adapter)
@@ -213,32 +194,27 @@ def chay_ngay_di():
     products = []
     
     try:
-        print("🌐 Đang kết nối AccessTrade (Chế độ Stream)...")
-        # stream=True giúp tải từng dòng, không ngốn RAM, không timeout
+        print("🌐 Đang kết nối AccessTrade (Stream)...")
         with session.get(LINK_CSV, stream=True, timeout=30) as r:
             r.raise_for_status()
-            # Giải mã dòng dữ liệu (Accesstrade trả về bytes)
             lines = (line.decode('utf-8') for line in r.iter_lines())
             
-            # Đọc CSV
+            # Đọc CSV - Tự động nhận diện header "category"
             reader = csv.DictReader(lines)
             
             count_checked = 0
             count_passed = 0
             
-            print("🔍 Đang lọc dữ liệu...")
+            print("🔍 Đang lọc dữ liệu (KẾT HỢP DANH MỤC + TỪ KHÓA)...")
             for row in reader:
                 count_checked += 1
-                if count_checked % 5000 == 0:
-                    print(f"   ...Đã quét {count_checked} sản phẩm...")
-                    
-                ten = row.get('name', '')
+                if count_checked % 5000 == 0: print(f"   ...Đã quét {count_checked} sản phẩm...")
                 
-                # 1. BỘ LỌC THÔNG MINH
-                if not check_smart_filter(ten):
+                # --- GỌI HÀM LỌC KÉP ---
+                if not check_product_hybrid(row):
                     continue
                 
-                # 2. LỌC GIÁ
+                # LỌC GIÁ
                 p_raw = row.get('price', row.get('price_v2', '0'))
                 d_raw = row.get('discount', row.get('discount_rate', '0'))
                 gia_goc, gia_giam, phan_tram = tinh_gia_thuc(p_raw, d_raw)
@@ -246,7 +222,7 @@ def chay_ngay_di():
                 if gia_giam < 20000: continue
                 
                 products.append({
-                    "name": ten,
+                    "name": row.get('name'),
                     "old_price": "{:,.0f}đ".format(gia_goc).replace(",", "."),
                     "new_price": "{:,.0f}đ".format(gia_giam).replace(",", "."),
                     "percent": phan_tram,
@@ -255,40 +231,32 @@ def chay_ngay_di():
                 })
                 count_passed += 1
                 
-                # Giới hạn lấy 300 sản phẩm đẹp nhất để web nhẹ
-                if count_passed >= 1000: # Lấy dư để sort sau
-                    break
+                if count_passed >= 1000: break
 
-        # Sắp xếp và cắt
         products.sort(key=lambda x: x['percent'], reverse=True)
         final_list = products[:250]
         
-        print(f"✅ HOÀN TẤT QUÉT! Tìm thấy {len(final_list)} vật phẩm chuẩn.")
+        print(f"✅ HOÀN TẤT! Tìm thấy {len(final_list)} vật phẩm chuẩn.")
         
         with open("index.html", "w", encoding="utf-8") as f: f.write(tao_web_html(final_list))
         print("👉 Đang mở web...")
         webbrowser.open("file://" + os.path.realpath("index.html"))
         
-        # Auto Push Github (Với cơ chế thử lại)
         print("⏳ Đang đẩy lên Github (Auto-Retry)...")
         for i in range(3):
             try:
                 os.system("git add .")
-                res = os.system('git commit -m "Auto Update V6 - Smart Filter"')
-                if res != 0: print("   (Chưa có thay đổi mới)")
-                push_res = os.system("git push")
-                
-                if push_res == 0:
+                os.system('git commit -m "Hybrid Filter Update"')
+                if os.system("git push") == 0:
                     print("✅ PUSH THÀNH CÔNG!")
                     break
                 else:
-                    print(f"⚠️ Push lỗi lần {i+1}, đang thử lại...")
+                    print(f"⚠️ Thử lại lần {i+1}...")
                     time.sleep(5)
-            except:
-                pass
+            except: pass
 
     except Exception as e:
-        print(f"❌ LỖI HỆ THỐNG: {e}")
+        print(f"❌ LỖI: {e}")
 
 if __name__ == "__main__":
     chay_ngay_di()
