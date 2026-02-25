@@ -12,7 +12,10 @@ import webbrowser
 GA_ID = "G-XXXXXXXXXX"
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
 
-# ĐƯỜNG DẪN FILE CSV CỦA BẠN TRÊN Ổ F:
+# 🔴 HÌNH ẢNH KHI CHIA SẺ LÊN FACEBOOK/ZALO
+# Bạn thay tên file "tinh_radio_banner.jpg" thành tên hình sản phẩm bạn muốn hiển thị nhé!
+SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner.jpg"
+
 FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv" 
 FILE_JSON = "products.json"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
@@ -52,6 +55,14 @@ def tao_web_html(products):
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="referrer" content="no-referrer" />
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        
+        <meta property="og:title" content="VPP Tịnh Shop - Săn Deal Giá Sốc" />
+        <meta property="og:description" content="Chuyên săn deal giảm giá cực sốc các sản phẩm đồ gia dụng, văn phòng phẩm, mẹ và bé. Nhấn vào để xem ngay!" />
+        <meta property="og:image" content="{SHARE_IMAGE_URL}" />
+        <meta property="og:url" content="https://vpptinh.com/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image">
+
         <title>Tịnh Shop - Săn Deal Giá Sốc Shopee</title>
         <link rel="icon" href="{LOGO_URL}">
         {ga_script}
@@ -143,8 +154,6 @@ def chay_he_thong():
             dau_ngan_cach = ';' if ';' in first_line else ','
             
             reader = csv.DictReader(f, delimiter=dau_ngan_cach)
-            
-            # Khử khoảng trắng ở tiêu đề cột
             field_map = {name: name.strip() for name in reader.fieldnames if name}
             
             for row in reader:
@@ -156,20 +165,12 @@ def chay_he_thong():
                 link_goc = row_clean.get('link', '#').strip()
                 link_anh = row_clean.get('image', '').strip(' \'"[]')
 
-                # --- ĐOẠN CODE SIÊU CẤP: TỰ ĐỘNG FIX ẢNH ---
                 if not link_anh.startswith('http'):
-                    # Lấy đúng cái tên đuôi cùng (VD: nhan-gung.jpg)
                     ten_file_anh = link_anh.replace('\\', '/').split('/')[-1]
-                    # Ép đường dẫn về chuẩn static/images/
                     link_anh_chuan = f"static/images/{ten_file_anh}"
-                    
-                    # Cảnh báo nếu bạn chưa copy ảnh vào đúng chỗ
                     if not os.path.exists(link_anh_chuan):
                         print(f"⚠️ BÁO ĐỘNG: KHÔNG TÌM THẤY TẤM ẢNH '{ten_file_anh}'")
-                        print(f"👉 Hãy chắc chắn bạn đã chép ảnh đó vào thư mục F:\\web-banhang\\static\\images\\")
-                    
                     link_anh = link_anh_chuan
-                # -------------------------------------------
                 
                 clean_products.append({
                     "name": name.strip(),
@@ -187,15 +188,12 @@ def chay_he_thong():
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(tao_web_html(clean_products))
         
-        print("👉 Đang mở web trên máy tính để kiểm tra...")
-        webbrowser.open("file://" + os.path.realpath("index.html"))
-        
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Fix anh va canh bao thieu anh"')
+        os.system('git commit -m "Them hinh anh chia se Facebook"')
         os.system("git push")
-        print("✅ HOÀN TẤT!")
+        print("✅ HOÀN TẤT! Web vpptinh.com đã lên sóng.")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
