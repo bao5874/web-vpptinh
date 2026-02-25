@@ -71,16 +71,24 @@ def tao_web_html(products):
             .header {{ text-align: center; background: white; padding: 0; border-bottom: 3px solid var(--primary); margin-bottom: 20px; position: relative; overflow: hidden; }}
             
             /* --- CẬP NHẬT BANNER TẠI ĐÂY --- */
+            /* --- CẬP NHẬT BANNER NHỎ GỌN HƠN --- */
             .header-bg {{ 
                 width: 100%; 
-                aspect-ratio: 1360 / 453; 
-                /* Đã đổi đường dẫn sang static/images */
+                max-width: 1200px; /* 1. Giới hạn chiều ngang tối đa */
+                margin: 0 auto;    /* 2. Căn giữa banner */
+                
+                /* Tỷ lệ cũ là 1360 / 453 (hơi cao). Đổi sang tỷ lệ mới thấp hơn: */
+                aspect-ratio: 1360 / 350;  /* 3. Giảm số 453 xuống 350 (hoặc nhỏ hơn nếu muốn thấp nữa) */
+                
                 background-image: url('static/images/tinh_radio_banner.jpg'); 
                 background-size: cover; 
                 background-position: center; 
                 background-repeat: no-repeat;
                 display: flex; align-items: center; justify-content: center; 
             }}
+            
+            /* Trên điện thoại thì cho cao lên một chút để rõ hình */
+            @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: 1360 / 600; min-height: 180px; }} }}
             
             @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: unset; min-height: 150px; }} }}
             .header-bg h1, .header-bg p {{ display: none; }}
