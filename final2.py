@@ -42,7 +42,7 @@ def goi_ai_viet_mo_ta(ten_sp):
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
         
-        prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 80 - 100 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
+        prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 50 - 70 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
         YÊU CẦU BẮT BUỘC:
         1. Đa dạng hóa: KHÔNG dùng lại các từ như "Khám phá ngay", "Sản phẩm chính hãng". 
         2. Bắt đầu bằng một câu 'Hook' (câu móc ngoặc) thật bắt tai.
