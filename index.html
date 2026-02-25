@@ -29,11 +29,8 @@
             .price-box { margin-bottom: 8px; }
             .old-price { text-decoration: line-through; color: #999; font-size: 12px; margin-right: 5px; }
             .new-price { color: var(--primary); font-weight: bold; font-size: 16px; }
-            
-            /* Nút ở ngoài trang chủ */
             .btn { background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; border-radius: 4px; font-weight: bold; font-size: 14px; cursor: pointer; border: none; width: 100%; box-sizing: border-box; }
             .btn:hover { background: #b00117; }
-            
             .seo-content { max-width: 1200px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; color: #444; line-height: 1.6; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
             
             /* CSS POPUP */
@@ -47,22 +44,16 @@
             .modal-title { font-size: 16px; color: #333; margin-top: 0; margin-bottom: 10px; line-height: 1.4; }
             .modal-price { font-size: 20px; color: var(--primary); font-weight: bold; margin-bottom: 15px; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
             .modal-desc { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 25px; white-space: pre-line; flex-grow: 1; }
-            
-            /* 2 NÚT BÊN TRONG POPUP */
             .modal-buttons { display: flex; gap: 10px; width: 100%; }
             .modal-btn-buy { background: var(--primary); color: white; text-decoration: none; padding: 12px; text-align: center; border-radius: 4px; font-weight: bold; font-size: 15px; cursor: pointer; border: none; flex: 1; text-transform: uppercase; }
             .modal-btn-buy:hover { background: #b00117; }
             .modal-btn-back { background: #e0e0e0; color: #333; text-decoration: none; padding: 12px; text-align: center; border-radius: 4px; font-weight: bold; font-size: 15px; cursor: pointer; border: none; flex: 1; }
             .modal-btn-back:hover { background: #ccc; }
-            
-            @media (max-width: 400px) {
-                .modal-buttons { flex-direction: column; }
-            }
+            @media (max-width: 400px) { .modal-buttons { flex-direction: column; } }
         </style>
     </head>
     <body>
         <div class="header-bg"><h1 style="display:none;">VPP Tịnh Shop</h1></div>
-        
         <div class="grid">
     
             <div class="card">
@@ -199,7 +190,6 @@
                 <h3 id="m-title" class="modal-title"></h3>
                 <div id="m-price" class="modal-price"></div>
                 <div id="m-desc" class="modal-desc"></div>
-                
                 <div class="modal-buttons">
                     <button class="modal-btn-back" onclick="closeModal()">Quay Lại Xem Tiếp</button>
                     <a id="m-link" href="#" class="modal-btn-buy" target="_blank" rel="nofollow">Mua Ngay</a>
