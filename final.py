@@ -77,7 +77,7 @@ def tao_web_html(products):
                 max-width: 1200px;
                 margin: 0 auto;
                 aspect-ratio: 1360 / 350; 
-                background-image: url('static/images/tinh_radio_banner.jpg'); 
+                background-image: url('static/images/tinh_radio_banner1.jpg'); 
                 background-size: cover; 
                 background-position: center; 
                 background-repeat: no-repeat;
