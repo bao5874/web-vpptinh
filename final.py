@@ -11,10 +11,7 @@ import webbrowser
 # ==========================================
 GA_ID = "G-XXXXXXXXXX"
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
-
-# 🔴 HÌNH ẢNH KHI CHIA SẺ LÊN FACEBOOK/ZALO
-# Bạn thay tên file "tinh_radio_banner.jpg" thành tên hình sản phẩm bạn muốn hiển thị nhé!
-SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner1.jpg"
+SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner.jpg"
 
 FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv" 
 FILE_JSON = "products.json"
@@ -56,6 +53,8 @@ def tao_web_html(products):
         <meta name="referrer" content="no-referrer" />
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         
+        <link rel="canonical" href="https://vpptinh.com/" />
+        
         <meta property="og:title" content="VPP Tịnh Shop - Săn Deal Giá Sốc" />
         <meta property="og:description" content="Chuyên săn deal giảm giá cực sốc các sản phẩm đồ gia dụng, văn phòng phẩm, mẹ và bé. Nhấn vào để xem ngay!" />
         <meta property="og:image" content="{SHARE_IMAGE_URL}" />
@@ -77,7 +76,7 @@ def tao_web_html(products):
                 max-width: 1200px;
                 margin: 0 auto;
                 aspect-ratio: 1360 / 350; 
-                background-image: url('static/images/tinh_radio_banner1.jpg'); 
+                background-image: url('static/images/tinh_radio_banner.jpg'); 
                 background-size: cover; 
                 background-position: center; 
                 background-repeat: no-repeat;
@@ -191,9 +190,9 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Them hinh anh chia se Facebook"')
+        os.system('git commit -m "Them the Canonical cho Google SEO"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Web vpptinh.com đã lên sóng.")
+        print("✅ HOÀN TẤT! Đã báo cáo bản gốc cho Google.")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
