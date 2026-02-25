@@ -18,7 +18,7 @@ except ImportError:
 # ==========================================
 GA_ID = "G-XXXXXXXXXX"
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
-SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner.jpg"
+SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner1.jpg"
 FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv" 
 FILE_JSON = "products.json"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
@@ -33,12 +33,12 @@ if GEMINI_API_KEY != "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
 # ==========================================
 def goi_ai_viet_mo_ta(ten_sp):
     """Hàm nhờ AI viết mô tả biến hóa đa dạng, siêu cuốn hút"""
-    if GEMINI_API_KEY == "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY":
+    if GEMINI_API_KEY == "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
         return "Sản phẩm chính hãng chất lượng cao đang được ưu đãi. Bấm Mua Ngay để xem trên Shopee!"
     
     print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:30]}...")
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         
         # --- CÂU LỆNH MỚI: ÉP AI SÁNG TẠO ĐA PHONG CÁCH ---
         prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 35 - 50 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
