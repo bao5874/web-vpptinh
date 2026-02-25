@@ -32,28 +32,34 @@ if GEMINI_API_KEY != "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
 # CÁC HÀM XỬ LÝ LÕI
 # ==========================================
 def goi_ai_viet_mo_ta(ten_sp):
-    """Hàm nhờ AI viết mô tả ngắn gọn và CHUẨN SEO cho sản phẩm"""
-    if GEMINI_API_KEY == "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
+    """Hàm nhờ AI viết mô tả biến hóa đa dạng, siêu cuốn hút"""
+    if GEMINI_API_KEY == "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY":
         return "Sản phẩm chính hãng chất lượng cao đang được ưu đãi. Bấm Mua Ngay để xem trên Shopee!"
     
-    print(f"🤖 AI đang viết mô tả cho: {ten_sp[:30]}...")
+    print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:30]}...")
     try:
         model = genai.GenerativeModel('gemini-1.5-flash')
-        prompt = f"""Đóng vai một chuyên gia SEO Website và Copywriter bán hàng. 
-        Hãy viết đúng 1 đoạn văn ngắn gọn (khoảng 35 - 50 chữ) để mô tả và bán sản phẩm sau: '{ten_sp}'.
-        Yêu cầu:
-        1. Lặp lại tên sản phẩm tự nhiên.
-        2. Nêu bật 1-2 lợi ích thiết thực nhất.
-        3. Tuyệt đối KHÔNG sử dụng icon, KHÔNG dùng hashtag, KHÔNG gạch đầu dòng. Viết 1 đoạn văn liền mạch."""
         
-        response = model.generate_content(prompt)
+        # --- CÂU LỆNH MỚI: ÉP AI SÁNG TẠO ĐA PHONG CÁCH ---
+        prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 35 - 50 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
+        
+        YÊU CẦU BẮT BUỘC:
+        1. Đa dạng hóa: KHÔNG dùng lại các từ như "Khám phá ngay", "Sản phẩm chính hãng". 
+        2. Bắt đầu bằng một câu 'Hook' (câu móc ngoặc) thật bắt tai, ví dụ: Nêu một nỗi đau của khách hàng, hoặc một lời hứa hẹn về công dụng tuyệt vời nhất của sản phẩm (như an toàn, mùi hương thư giãn...).
+        3. Văn phong tự nhiên như người đang tâm tình, tư vấn.
+        4. Tuyệt đối KHÔNG sử dụng icon, KHÔNG gạch đầu dòng. Viết thành 1 đoạn văn liền mạch trôi chảy.
+        """
+        
+        # Tăng tính sáng tạo (temperature) để mỗi câu văn ra một vẻ khác nhau
+        response = model.generate_content(prompt, generation_config=genai.types.GenerationConfig(temperature=0.9))
+        
         time.sleep(4) # Chống khóa API
         
         mo_ta_ai = response.text.replace('"', '').replace('\n', ' ').strip()
         return mo_ta_ai
     except Exception as e:
         print(f"⚠️ AI lỗi nhẹ: {e}")
-        return f"Khám phá ngay {ten_sp} với mức giá siêu ưu đãi. Sản phẩm chất lượng cao, tiện ích vượt trội. Bấm Mua Ngay để xem chi tiết!"
+        return f"Bạn đang tìm kiếm {ten_sp}? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội và giá cực mềm. Bấm Xem Thêm để rinh ngay deal hời nhé!"
 
 def tao_link_aff(url_goc):
     if not url_goc: return "#"
