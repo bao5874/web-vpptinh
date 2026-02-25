@@ -35,12 +35,12 @@ def goi_ai_viet_mo_ta(ten_sp):
     if GEMINI_API_KEY == "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
         return "Sản phẩm chính hãng chất lượng cao đang được ưu đãi. Bấm Mua Ngay để xem trên Shopee!"
     
-    print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:30]}...")
+    print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:50]}...")
     try:
         # Khởi tạo Client theo chuẩn mới của Google
         client = genai.Client(api_key=GEMINI_API_KEY)
         
-        prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 35 - 50 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
+        prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 80 - 100 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
         YÊU CẦU BẮT BUỘC:
         1. Đa dạng hóa: KHÔNG dùng lại các từ như "Khám phá ngay", "Sản phẩm chính hãng". 
         2. Bắt đầu bằng một câu 'Hook' (câu móc ngoặc) thật bắt tai.
