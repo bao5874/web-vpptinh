@@ -61,7 +61,6 @@ def tao_web_html(products):
             
             .header {{ text-align: center; background: white; padding: 0; border-bottom: 3px solid var(--primary); margin-bottom: 20px; position: relative; overflow: hidden; }}
             
-            /* CSS BANNER CHUẨN */
             .header-bg {{ 
                 width: 100%; 
                 max-width: 1200px;
@@ -76,7 +75,6 @@ def tao_web_html(products):
             @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: 1360 / 600; min-height: 180px; }} }}
             .header-bg h1, .header-bg p {{ display: none; }}
             
-            /* GRID SẢN PHẨM */
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; padding: 0 10px; }}
             .card {{ background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}}
             .card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }}
@@ -145,21 +143,38 @@ def chay_he_thong():
             dau_ngan_cach = ';' if ';' in first_line else ','
             
             reader = csv.DictReader(f, delimiter=dau_ngan_cach)
+            
+            # Khử khoảng trắng ở tiêu đề cột
+            field_map = {name: name.strip() for name in reader.fieldnames if name}
+            
             for row in reader:
-                name = row.get('name', '').strip()
+                row_clean = {field_map[k]: v for k, v in row.items() if k in field_map}
+                
+                name = row_clean.get('name')
                 if not name: continue
                 
-                link_goc = row.get('link', '#').strip()
-                link_anh = row.get('image', '').strip(' \'"[]')
+                link_goc = row_clean.get('link', '#').strip()
+                link_anh = row_clean.get('image', '').strip(' \'"[]')
 
-                # Tự động thêm static/ cho ảnh nội bộ
-                if not link_anh.startswith('http') and not link_anh.startswith('static/'):
-                    link_anh = 'static/' + link_anh
+                # --- ĐOẠN CODE SIÊU CẤP: TỰ ĐỘNG FIX ẢNH ---
+                if not link_anh.startswith('http'):
+                    # Lấy đúng cái tên đuôi cùng (VD: nhan-gung.jpg)
+                    ten_file_anh = link_anh.replace('\\', '/').split('/')[-1]
+                    # Ép đường dẫn về chuẩn static/images/
+                    link_anh_chuan = f"static/images/{ten_file_anh}"
+                    
+                    # Cảnh báo nếu bạn chưa copy ảnh vào đúng chỗ
+                    if not os.path.exists(link_anh_chuan):
+                        print(f"⚠️ BÁO ĐỘNG: KHÔNG TÌM THẤY TẤM ẢNH '{ten_file_anh}'")
+                        print(f"👉 Hãy chắc chắn bạn đã chép ảnh đó vào thư mục F:\\web-banhang\\static\\images\\")
+                    
+                    link_anh = link_anh_chuan
+                # -------------------------------------------
                 
                 clean_products.append({
-                    "name": name,
-                    "old_price": row.get('old_price', '0').strip(),
-                    "new_price": row.get('new_price', '0').strip(),
+                    "name": name.strip(),
+                    "old_price": row_clean.get('old_price', '0').strip(),
+                    "new_price": row_clean.get('new_price', '0').strip(),
                     "image": link_anh,
                     "link": tao_link_aff(link_goc)
                 })
@@ -178,14 +193,12 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Bo danh muc san pham"')
+        os.system('git commit -m "Fix anh va canh bao thieu anh"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Web đã xóa danh mục.")
+        print("✅ HOÀN TẤT!")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
-        import traceback
-        traceback.print_exc()
 
 if __name__ == "__main__":
     chay_he_thong()
