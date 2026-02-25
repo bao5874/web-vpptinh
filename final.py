@@ -9,7 +9,7 @@ import webbrowser
 # ==========================================
 # CẤU HÌNH HỆ THỐNG
 # ==========================================
-GA_ID = "G-XXXXXXXXXX"  # Mã Google Analytics của bạn
+GA_ID = "G-XXXXXXXXXX"
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
 
 # ĐƯỜNG DẪN FILE CSV CỦA BẠN TRÊN Ổ F:
@@ -59,6 +59,8 @@ def tao_web_html(products):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="referrer" content="no-referrer" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <title>Tịnh Shop - Săn Deal Giá Sốc Shopee</title>
         <link rel="icon" href="{LOGO_URL}">
         {ga_script}
@@ -103,11 +105,15 @@ def tao_web_html(products):
     
     for p in products:
         try:
-            goc = float(p['old_price'])
-            moi = float(p['new_price'])
+            # LỌC GIÁ BỌC THÉP: Loại bỏ mọi dấu chấm, phẩy, chữ cái
+            chuoi_goc = re.sub(r'[^\d]', '', str(p['old_price']))
+            chuoi_moi = re.sub(r'[^\d]', '', str(p['new_price']))
+            
+            goc = float(chuoi_goc) if chuoi_goc else 0
+            moi = float(chuoi_moi) if chuoi_moi else 0
             percent = int((goc - moi) / goc * 100) if goc > moi else 0
         except:
-            percent = 0
+            goc, moi, percent = 0, 0, 0
 
         discount_html = f'<div class="discount-tag">-{percent}%</div>' if percent > 0 else ""
         old_price_html = f'<span class="old-price">{int(goc):,}₫</span>'.replace(",", ".") if percent > 0 else ""
@@ -161,9 +167,8 @@ def chay_he_thong():
 
         clean_products = []
         with open(FILE_CSV_LOCAL, mode='r', encoding='utf-8-sig') as f:
-            # Code thông minh: Tự động phát hiện xem Excel dùng dấu phẩy hay chấm phẩy
             first_line = f.readline()
-            f.seek(0) # Đưa con trỏ chuột về lại đầu file
+            f.seek(0)
             dau_ngan_cach = ';' if ';' in first_line else ','
             
             reader = csv.DictReader(f, delimiter=dau_ngan_cach)
@@ -171,11 +176,13 @@ def chay_he_thong():
                 if not row.get('name') or not row.get('new_price'): continue
                 
                 link_goc = row.get('link', '#').strip()
+                link_anh = row.get('image', '').strip(' \'"[]')
+                
                 clean_products.append({
                     "name": row.get('name').strip(),
                     "old_price": row.get('old_price', '0').strip(),
                     "new_price": row.get('new_price', '0').strip(),
-                    "image": row.get('image', '').strip(),
+                    "image": link_anh,
                     "link": tao_link_aff(link_goc)
                 })
 
@@ -193,9 +200,9 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Fix loi doc file Excel VN"')
+        os.system('git commit -m "Fix loi gia và toi uu hinh anh"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Web vpptinh.com đã được cập nhật.")
+        print("✅ HOÀN TẤT! Vấn đề giá đã được xử lý.")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
