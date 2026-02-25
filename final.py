@@ -14,7 +14,7 @@ LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
 
 # 🔴 HÌNH ẢNH KHI CHIA SẺ LÊN FACEBOOK/ZALO
 # Bạn thay tên file "tinh_radio_banner.jpg" thành tên hình sản phẩm bạn muốn hiển thị nhé!
-SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner.jpg"
+SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner1.jpg"
 
 FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv" 
 FILE_JSON = "products.json"
