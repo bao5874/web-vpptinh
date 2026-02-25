@@ -24,8 +24,8 @@ FILE_JSON = "products.json"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
 
 # 🔴 DÁN API KEY CỦA BẠN VÀO ĐÂY:
-GEMINI_API_KEY = "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY"
-if GEMINI_API_KEY != "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY":
+GEMINI_API_KEY = "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg"
+if GEMINI_API_KEY != "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
     genai.configure(api_key=GEMINI_API_KEY)
 
 # ==========================================
@@ -33,7 +33,7 @@ if GEMINI_API_KEY != "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY":
 # ==========================================
 def goi_ai_viet_mo_ta(ten_sp):
     """Hàm nhờ AI viết mô tả ngắn gọn và CHUẨN SEO cho sản phẩm"""
-    if GEMINI_API_KEY == "ĐIỀN_API_KEY_CỦA_BẠN_VÀO_ĐÂY":
+    if GEMINI_API_KEY == "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
         return "Sản phẩm chính hãng chất lượng cao đang được ưu đãi. Bấm Mua Ngay để xem trên Shopee!"
     
     print(f"🤖 AI đang viết mô tả cho: {ten_sp[:30]}...")
