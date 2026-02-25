@@ -9,7 +9,7 @@ import webbrowser
 # ==========================================
 # CẤU HÌNH HỆ THỐNG
 # ==========================================
-GA_ID = "G-XXXXXXXXXX"
+GA_ID = "G-XXXXXXXXXX"  # Mã Google Analytics (nếu có)
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
 
 # ĐƯỜNG DẪN FILE CSV CỦA BẠN TRÊN Ổ F:
@@ -67,18 +67,34 @@ def tao_web_html(products):
         <style>
             :root {{ --primary: #d0011b; --bg: #f5f5f5; --text-gray: #555; }}
             body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0 0 40px 0; }}
+            
             .header {{ text-align: center; background: white; padding: 0; border-bottom: 3px solid var(--primary); margin-bottom: 20px; position: relative; overflow: hidden; }}
-            .header-bg {{ width: 100%; aspect-ratio: 1360 / 453; background-image: url('banner-top.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }}
+            
+            /* --- CẬP NHẬT BANNER TẠI ĐÂY --- */
+            .header-bg {{ 
+                width: 100%; 
+                aspect-ratio: 1360 / 453; 
+                /* Đã đổi đường dẫn sang static/images */
+                background-image: url('static/images/tinh_radio_banner.jpg'); 
+                background-size: cover; 
+                background-position: center; 
+                background-repeat: no-repeat;
+                display: flex; align-items: center; justify-content: center; 
+            }}
+            
             @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: unset; min-height: 150px; }} }}
             .header-bg h1, .header-bg p {{ display: none; }}
+            
             .category-menu {{ display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; padding: 0 10px; position: sticky; top: 10px; z-index: 100; }}
             .cat-btn {{ padding: 8px 16px; border: 1px solid #ddd; background: white; color: var(--text-gray); cursor: pointer; border-radius: 20px; font-weight: 600; font-size: 14px; transition: all 0.3s ease; }}
             .cat-btn:hover {{ background: #eee; }}
             .cat-btn.active {{ background: var(--primary); color: white; border-color: var(--primary); }}
+            
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; padding: 0 10px; }}
             .card {{ background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}}
             .card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }}
             .card.hide {{ display: none; }}
+            
             .discount-tag {{ position: absolute; top: 0; right: 0; background: #ffd424; color: #d0011b; padding: 4px 8px; font-weight: bold; font-size: 12px; z-index: 1; border-bottom-left-radius: 4px;}}
             .img-box {{ width: 100%; height: 190px; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; background: white;}}
             .img-box img {{ max-width: 100%; max-height: 100%; object-fit: contain; }}
@@ -169,29 +185,17 @@ def chay_he_thong():
             f.seek(0)
             dau_ngan_cach = ';' if ';' in first_line else ','
             
-            # Đọc file và tự động chuẩn hóa tên cột (xóa khoảng trắng thừa)
             reader = csv.DictReader(f, delimiter=dau_ngan_cach)
-            
-            # Tạo map chuẩn hóa tên cột
-            field_map = {name: name.strip() for name in reader.fieldnames}
-            
             for row in reader:
-                # Lấy dữ liệu an toàn bằng tên cột đã chuẩn hóa
-                # Code này chấp nhận cả " image" và "image"
-                row_clean = {field_map[k]: v for k, v in row.items() if k in field_map}
+                if not row.get('name') or not row.get('new_price'): continue
                 
-                name = row_clean.get('name')
-                new_price = row_clean.get('new_price')
-                
-                if not name or not new_price: continue
-                
-                link_goc = row_clean.get('link', '#').strip()
-                link_anh = row_clean.get('image', '').strip(' \'"[]')
+                link_goc = row.get('link', '#').strip()
+                link_anh = row.get('image', '').strip(' \'"[]')
                 
                 clean_products.append({
-                    "name": name.strip(),
-                    "old_price": row_clean.get('old_price', '0').strip(),
-                    "new_price": new_price.strip(),
+                    "name": row.get('name').strip(),
+                    "old_price": row.get('old_price', '0').strip(),
+                    "new_price": row.get('new_price', '0').strip(),
                     "image": link_anh,
                     "link": tao_link_aff(link_goc)
                 })
@@ -210,14 +214,12 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Fix loi cot image co dau cach"')
+        os.system('git commit -m "Update Banner Tinh Radio"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Web đã lên hình.")
+        print("✅ HOÀN TẤT! Web đã có banner mới.")
 
     except Exception as e:
-        print(f"❌ Có lỗi: {e}")
-        import traceback
-        traceback.print_exc()
+        print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
 
 if __name__ == "__main__":
     chay_he_thong()

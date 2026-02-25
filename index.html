@@ -12,18 +12,34 @@
         <style>
             :root { --primary: #d0011b; --bg: #f5f5f5; --text-gray: #555; }
             body { font-family: sans-serif; background: var(--bg); margin: 0; padding: 0 0 40px 0; }
+            
             .header { text-align: center; background: white; padding: 0; border-bottom: 3px solid var(--primary); margin-bottom: 20px; position: relative; overflow: hidden; }
-            .header-bg { width: 100%; aspect-ratio: 1360 / 453; background-image: url('banner-top.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
+            
+            /* --- CẬP NHẬT BANNER TẠI ĐÂY --- */
+            .header-bg { 
+                width: 100%; 
+                aspect-ratio: 1360 / 453; 
+                /* Đã đổi đường dẫn sang static/images */
+                background-image: url('static/images/tinh_radio_banner.jpg'); 
+                background-size: cover; 
+                background-position: center; 
+                background-repeat: no-repeat;
+                display: flex; align-items: center; justify-content: center; 
+            }
+            
             @media (max-width: 630px) { .header-bg { aspect-ratio: unset; min-height: 150px; } }
             .header-bg h1, .header-bg p { display: none; }
+            
             .category-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; padding: 0 10px; position: sticky; top: 10px; z-index: 100; }
             .cat-btn { padding: 8px 16px; border: 1px solid #ddd; background: white; color: var(--text-gray); cursor: pointer; border-radius: 20px; font-weight: 600; font-size: 14px; transition: all 0.3s ease; }
             .cat-btn:hover { background: #eee; }
             .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+            
             .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; padding: 0 10px; }
             .card { background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}
             .card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
             .card.hide { display: none; }
+            
             .discount-tag { position: absolute; top: 0; right: 0; background: #ffd424; color: #d0011b; padding: 4px 8px; font-weight: bold; font-size: 12px; z-index: 1; border-bottom-left-radius: 4px;}
             .img-box { width: 100%; height: 190px; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; background: white;}
             .img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -49,7 +65,7 @@
     
             <div class="card" data-category="dien-tu">
                 
-                <div class="img-box"><img src="images/nhan-thien-an.webp" loading="lazy"></div>
+                <div class="img-box"><img src="" loading="lazy"></div>
                 <div class="info">
                     <div class="title">Hương Nhang Thảo Mộc 100 Cây Thơm Cao Cấp 29cm 39cm - Nhang Tài Lộc - Hương Sạch Tàn Cong Giữ Tàn Vàng Óng Chiêu Tài Lộc</div>
                     <div class="price-box"><span class="new-price">55.000₫</span></div>
@@ -59,7 +75,7 @@
         
             <div class="card" data-category="nha-cua">
                 
-                <div class="img-box"><img src="images/nhan-gung.jpg" loading="lazy"></div>
+                <div class="img-box"><img src="" loading="lazy"></div>
                 <div class="info">
                     <div class="title">Nhang Gừng Mộc Thảo An Hương thơm dịu | Nhang thơm thờ cúng</div>
                     <div class="price-box"><span class="new-price">50.000₫</span></div>
@@ -69,7 +85,7 @@
         
             <div class="card" data-category="nha-cua">
                 
-                <div class="img-box"><img src="images/nhang-khuynh-diep.webp" loading="lazy"></div>
+                <div class="img-box"><img src="" loading="lazy"></div>
                 <div class="info">
                     <div class="title">Nhang Khuynh Diệp Thiên Nhiên (1KG) Hương Thơm Đậm Mùi - An Toàn -Sức Khỏe, Giúp Xua Đuổi Côn Trùng!</div>
                     <div class="price-box"><span class="new-price">51.401₫</span></div>
@@ -79,7 +95,7 @@
         
             <div class="card" data-category="dien-tu">
                 
-                <div class="img-box"><img src="images/nhang-khoanh-tram-huong.webp" loading="lazy"></div>
+                <div class="img-box"><img src="" loading="lazy"></div>
                 <div class="info">
                     <div class="title">Nhang khoanh trầm hương sạch xông nhà, hương vòng thơm dịu nhẹ THIÊN MỘC HƯƠNG hộp 40 khoanh</div>
                     <div class="price-box"><span class="new-price">79.000₫</span></div>
@@ -89,7 +105,7 @@
         
             <div class="card" data-category="dien-tu">
                 
-                <div class="img-box"><img src="images/nhang-khoanh.webp" loading="lazy"></div>
+                <div class="img-box"><img src="" loading="lazy"></div>
                 <div class="info">
                     <div class="title">NHANG VÒNG TRẦM BẮC THƠM SẠCH ÍT KHÓI XÔNG NHÀ, Nhang Vòng Cháy 1 ngày, 3 ngày hương trầm Ngự Ân</div>
                     <div class="price-box"><span class="new-price">130.000₫</span></div>
@@ -99,7 +115,7 @@
         
             <div class="card" data-category="nha-cua">
                 
-                <div class="img-box"><img src="images/lu-nhang.webp" loading="lazy"></div>
+                <div class="img-box"><img src="" loading="lazy"></div>
                 <div class="info">
                     <div class="title">Lư Xông Trầm Hương Nhang Vòng Hợp Kim Size 16.5cm - Đế Cắm Nhang Vòng 12h 24h</div>
                     <div class="price-box"><span class="new-price">209.999₫</span></div>
