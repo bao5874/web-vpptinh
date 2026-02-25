@@ -105,10 +105,8 @@ def tao_web_html(products):
     
     for p in products:
         try:
-            # LỌC GIÁ BỌC THÉP: Loại bỏ mọi dấu chấm, phẩy, chữ cái
             chuoi_goc = re.sub(r'[^\d]', '', str(p['old_price']))
             chuoi_moi = re.sub(r'[^\d]', '', str(p['new_price']))
-            
             goc = float(chuoi_goc) if chuoi_goc else 0
             moi = float(chuoi_moi) if chuoi_moi else 0
             percent = int((goc - moi) / goc * 100) if goc > moi else 0
@@ -171,17 +169,29 @@ def chay_he_thong():
             f.seek(0)
             dau_ngan_cach = ';' if ';' in first_line else ','
             
+            # Đọc file và tự động chuẩn hóa tên cột (xóa khoảng trắng thừa)
             reader = csv.DictReader(f, delimiter=dau_ngan_cach)
+            
+            # Tạo map chuẩn hóa tên cột
+            field_map = {name: name.strip() for name in reader.fieldnames}
+            
             for row in reader:
-                if not row.get('name') or not row.get('new_price'): continue
+                # Lấy dữ liệu an toàn bằng tên cột đã chuẩn hóa
+                # Code này chấp nhận cả " image" và "image"
+                row_clean = {field_map[k]: v for k, v in row.items() if k in field_map}
                 
-                link_goc = row.get('link', '#').strip()
-                link_anh = row.get('image', '').strip(' \'"[]')
+                name = row_clean.get('name')
+                new_price = row_clean.get('new_price')
+                
+                if not name or not new_price: continue
+                
+                link_goc = row_clean.get('link', '#').strip()
+                link_anh = row_clean.get('image', '').strip(' \'"[]')
                 
                 clean_products.append({
-                    "name": row.get('name').strip(),
-                    "old_price": row.get('old_price', '0').strip(),
-                    "new_price": row.get('new_price', '0').strip(),
+                    "name": name.strip(),
+                    "old_price": row_clean.get('old_price', '0').strip(),
+                    "new_price": new_price.strip(),
                     "image": link_anh,
                     "link": tao_link_aff(link_goc)
                 })
@@ -200,12 +210,14 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Fix loi gia và toi uu hinh anh"')
+        os.system('git commit -m "Fix loi cot image co dau cach"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Vấn đề giá đã được xử lý.")
+        print("✅ HOÀN TẤT! Web đã lên hình.")
 
     except Exception as e:
-        print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
+        print(f"❌ Có lỗi: {e}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
     chay_he_thong()
