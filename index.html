@@ -15,38 +15,25 @@
             
             .header { text-align: center; background: white; padding: 0; border-bottom: 3px solid var(--primary); margin-bottom: 20px; position: relative; overflow: hidden; }
             
-            /* --- CẬP NHẬT BANNER TẠI ĐÂY --- */
-            /* --- CẬP NHẬT BANNER NHỎ GỌN HƠN --- */
+            /* CSS BANNER CHUẨN */
             .header-bg { 
                 width: 100%; 
-                max-width: 1200px; /* 1. Giới hạn chiều ngang tối đa */
-                margin: 0 auto;    /* 2. Căn giữa banner */
-                
-                /* Tỷ lệ cũ là 1360 / 453 (hơi cao). Đổi sang tỷ lệ mới thấp hơn: */
-                aspect-ratio: 1360 / 350;  /* 3. Giảm số 453 xuống 350 (hoặc nhỏ hơn nếu muốn thấp nữa) */
-                
+                max-width: 1200px;
+                margin: 0 auto;
+                aspect-ratio: 1360 / 350; 
                 background-image: url('static/images/tinh_radio_banner.jpg'); 
                 background-size: cover; 
                 background-position: center; 
                 background-repeat: no-repeat;
                 display: flex; align-items: center; justify-content: center; 
             }
-            
-            /* Trên điện thoại thì cho cao lên một chút để rõ hình */
             @media (max-width: 630px) { .header-bg { aspect-ratio: 1360 / 600; min-height: 180px; } }
-            
-            @media (max-width: 630px) { .header-bg { aspect-ratio: unset; min-height: 150px; } }
             .header-bg h1, .header-bg p { display: none; }
             
-            .category-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; padding: 0 10px; position: sticky; top: 10px; z-index: 100; }
-            .cat-btn { padding: 8px 16px; border: 1px solid #ddd; background: white; color: var(--text-gray); cursor: pointer; border-radius: 20px; font-weight: 600; font-size: 14px; transition: all 0.3s ease; }
-            .cat-btn:hover { background: #eee; }
-            .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-            
+            /* GRID SẢN PHẨM */
             .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; padding: 0 10px; }
             .card { background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}
             .card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
-            .card.hide { display: none; }
             
             .discount-tag { position: absolute; top: 0; right: 0; background: #ffd424; color: #d0011b; padding: 4px 8px; font-weight: bold; font-size: 12px; z-index: 1; border-bottom-left-radius: 4px;}
             .img-box { width: 100%; height: 190px; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; background: white;}
@@ -62,18 +49,12 @@
     </head>
     <body>
         <div class="header header-bg"><div><p>VPP Tịnh Shop</p></div></div>
-        <div class="category-menu">
-            <button class="cat-btn active" data-filter="all">Tất cả</button>
-            <button class="cat-btn" data-filter="thoi-trang">Thời trang & Phụ kiện</button>
-            <button class="cat-btn" data-filter="dien-tu">Điện tử & Remote</button>
-            <button class="cat-btn" data-filter="nha-cua">Nhà cửa & Đời sống</button>
-            <button class="cat-btn" data-filter="me-be">Mẹ & Bé / Đồ chơi</button>
-        </div>
+        
         <div class="grid">
     
-            <div class="card" data-category="dien-tu">
+            <div class="card">
                 
-                <div class="img-box"><img src="" loading="lazy"></div>
+                <div class="img-box"><img src="static/" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></div>
                 <div class="info">
                     <div class="title">Hương Nhang Thảo Mộc 100 Cây Thơm Cao Cấp 29cm 39cm - Nhang Tài Lộc - Hương Sạch Tàn Cong Giữ Tàn Vàng Óng Chiêu Tài Lộc</div>
                     <div class="price-box"><span class="new-price">55.000₫</span></div>
@@ -81,9 +62,9 @@
                 </div>
             </div>
         
-            <div class="card" data-category="nha-cua">
+            <div class="card">
                 
-                <div class="img-box"><img src="" loading="lazy"></div>
+                <div class="img-box"><img src="static/" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></div>
                 <div class="info">
                     <div class="title">Nhang Gừng Mộc Thảo An Hương thơm dịu | Nhang thơm thờ cúng</div>
                     <div class="price-box"><span class="new-price">50.000₫</span></div>
@@ -91,9 +72,9 @@
                 </div>
             </div>
         
-            <div class="card" data-category="nha-cua">
+            <div class="card">
                 
-                <div class="img-box"><img src="" loading="lazy"></div>
+                <div class="img-box"><img src="static/" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></div>
                 <div class="info">
                     <div class="title">Nhang Khuynh Diệp Thiên Nhiên (1KG) Hương Thơm Đậm Mùi - An Toàn -Sức Khỏe, Giúp Xua Đuổi Côn Trùng!</div>
                     <div class="price-box"><span class="new-price">51.401₫</span></div>
@@ -101,9 +82,9 @@
                 </div>
             </div>
         
-            <div class="card" data-category="dien-tu">
+            <div class="card">
                 
-                <div class="img-box"><img src="" loading="lazy"></div>
+                <div class="img-box"><img src="static/" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></div>
                 <div class="info">
                     <div class="title">Nhang khoanh trầm hương sạch xông nhà, hương vòng thơm dịu nhẹ THIÊN MỘC HƯƠNG hộp 40 khoanh</div>
                     <div class="price-box"><span class="new-price">79.000₫</span></div>
@@ -111,9 +92,9 @@
                 </div>
             </div>
         
-            <div class="card" data-category="dien-tu">
+            <div class="card">
                 
-                <div class="img-box"><img src="" loading="lazy"></div>
+                <div class="img-box"><img src="static/" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></div>
                 <div class="info">
                     <div class="title">NHANG VÒNG TRẦM BẮC THƠM SẠCH ÍT KHÓI XÔNG NHÀ, Nhang Vòng Cháy 1 ngày, 3 ngày hương trầm Ngự Ân</div>
                     <div class="price-box"><span class="new-price">130.000₫</span></div>
@@ -121,9 +102,9 @@
                 </div>
             </div>
         
-            <div class="card" data-category="nha-cua">
+            <div class="card">
                 
-                <div class="img-box"><img src="" loading="lazy"></div>
+                <div class="img-box"><img src="static/" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></div>
                 <div class="info">
                     <div class="title">Lư Xông Trầm Hương Nhang Vòng Hợp Kim Size 16.5cm - Đế Cắm Nhang Vòng 12h 24h</div>
                     <div class="price-box"><span class="new-price">209.999₫</span></div>
@@ -132,25 +113,5 @@
             </div>
         
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const filterButtons = document.querySelectorAll('.cat-btn');
-                const productCards = document.querySelectorAll('.card');
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-                        const filterValue = button.getAttribute('data-filter');
-                        productCards.forEach(card => {
-                            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                                card.classList.remove('hide');
-                            } else {
-                                card.classList.add('hide');
-                            }
-                        });
-                    });
-                });
-            });
-        </script>
     </body></html>
     

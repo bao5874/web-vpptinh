@@ -9,13 +9,12 @@ import webbrowser
 # ==========================================
 # CẤU HÌNH HỆ THỐNG
 # ==========================================
-GA_ID = "G-XXXXXXXXXX"  # Mã Google Analytics (nếu có)
+GA_ID = "G-XXXXXXXXXX"
 LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3225/3225194.png"
 
 # ĐƯỜNG DẪN FILE CSV CỦA BẠN TRÊN Ổ F:
 FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv" 
 FILE_JSON = "products.json"
-
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
 
 # ==========================================
@@ -30,14 +29,6 @@ def tao_link_aff(url_goc):
         return f"{BASE_AFF_URL}{encoded}"
     except:
         return url_goc
-
-def phan_loai_danh_muc(ten_san_pham):
-    ten = ten_san_pham.lower()
-    if any(k in ten for k in ['remote', 'điều khiển', 'pin', 'sạc', 'cáp', 'tai nghe', 'loa', 'chuột', 'phím', 'wifi', 'sim', 'ốp lưng', 'tivi', 'máy chiếu']): return 'dien-tu'
-    if any(k in ten for k in ['túi', 'áo', 'quần', 'váy', 'đầm', 'kính', 'giày', 'dép', 'bông tai', 'dây chuyền', 'nhẫn', 'đồng hồ', 'mũ', 'nón', 'ví', 'balo']): return 'thoi-trang'
-    if any(k in ten for k in ['đồ chơi', 'thú', 'gấu', 'búp bê', 'lắp ráp', 'lego', 'xe trượt', 'tã', 'bỉm', 'sữa', 'bé', 'trẻ', 'treo nôi']): return 'me-be'
-    if any(k in ten for k in ['tranh', 'decal', 'kệ', 'hộp', 'bút', 'sổ', 'giấy', 'đèn', 'khay', 'bếp', 'nồi', 'chảo', 'dao', 'kéo', 'gối', 'chăn', 'ga', 'nhà', 'decor', 'nhang', 'trầm', 'lư']): return 'nha-cua'
-    return 'khac'
 
 def tao_web_html(products):
     v = int(time.time())
@@ -70,38 +61,25 @@ def tao_web_html(products):
             
             .header {{ text-align: center; background: white; padding: 0; border-bottom: 3px solid var(--primary); margin-bottom: 20px; position: relative; overflow: hidden; }}
             
-            /* --- CẬP NHẬT BANNER TẠI ĐÂY --- */
-            /* --- CẬP NHẬT BANNER NHỎ GỌN HƠN --- */
+            /* CSS BANNER CHUẨN */
             .header-bg {{ 
                 width: 100%; 
-                max-width: 1200px; /* 1. Giới hạn chiều ngang tối đa */
-                margin: 0 auto;    /* 2. Căn giữa banner */
-                
-                /* Tỷ lệ cũ là 1360 / 453 (hơi cao). Đổi sang tỷ lệ mới thấp hơn: */
-                aspect-ratio: 1360 / 350;  /* 3. Giảm số 453 xuống 350 (hoặc nhỏ hơn nếu muốn thấp nữa) */
-                
+                max-width: 1200px;
+                margin: 0 auto;
+                aspect-ratio: 1360 / 350; 
                 background-image: url('static/images/tinh_radio_banner.jpg'); 
                 background-size: cover; 
                 background-position: center; 
                 background-repeat: no-repeat;
                 display: flex; align-items: center; justify-content: center; 
             }}
-            
-            /* Trên điện thoại thì cho cao lên một chút để rõ hình */
             @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: 1360 / 600; min-height: 180px; }} }}
-            
-            @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: unset; min-height: 150px; }} }}
             .header-bg h1, .header-bg p {{ display: none; }}
             
-            .category-menu {{ display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; padding: 0 10px; position: sticky; top: 10px; z-index: 100; }}
-            .cat-btn {{ padding: 8px 16px; border: 1px solid #ddd; background: white; color: var(--text-gray); cursor: pointer; border-radius: 20px; font-weight: 600; font-size: 14px; transition: all 0.3s ease; }}
-            .cat-btn:hover {{ background: #eee; }}
-            .cat-btn.active {{ background: var(--primary); color: white; border-color: var(--primary); }}
-            
+            /* GRID SẢN PHẨM */
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto; padding: 0 10px; }}
             .card {{ background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}}
             .card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }}
-            .card.hide {{ display: none; }}
             
             .discount-tag {{ position: absolute; top: 0; right: 0; background: #ffd424; color: #d0011b; padding: 4px 8px; font-weight: bold; font-size: 12px; z-index: 1; border-bottom-left-radius: 4px;}}
             .img-box {{ width: 100%; height: 190px; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; background: white;}}
@@ -117,13 +95,7 @@ def tao_web_html(products):
     </head>
     <body>
         <div class="header header-bg"><div><p>VPP Tịnh Shop</p></div></div>
-        <div class="category-menu">
-            <button class="cat-btn active" data-filter="all">Tất cả</button>
-            <button class="cat-btn" data-filter="thoi-trang">Thời trang & Phụ kiện</button>
-            <button class="cat-btn" data-filter="dien-tu">Điện tử & Remote</button>
-            <button class="cat-btn" data-filter="nha-cua">Nhà cửa & Đời sống</button>
-            <button class="cat-btn" data-filter="me-be">Mẹ & Bé / Đồ chơi</button>
-        </div>
+        
         <div class="grid">
     """
     
@@ -140,12 +112,11 @@ def tao_web_html(products):
         discount_html = f'<div class="discount-tag">-{percent}%</div>' if percent > 0 else ""
         old_price_html = f'<span class="old-price">{int(goc):,}₫</span>'.replace(",", ".") if percent > 0 else ""
         new_price_format = f"{int(moi):,}₫".replace(",", ".")
-        category_code = phan_loai_danh_muc(p['name'])
         
         html += f"""
-            <div class="card" data-category="{category_code}">
+            <div class="card">
                 {discount_html}
-                <div class="img-box"><img src="{p['image']}" loading="lazy"></div>
+                <div class="img-box"><img src="{p['image']}" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></div>
                 <div class="info">
                     <div class="title">{p['name']}</div>
                     <div class="price-box">{old_price_html}<span class="new-price">{new_price_format}</span></div>
@@ -156,26 +127,6 @@ def tao_web_html(products):
     
     html += """
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const filterButtons = document.querySelectorAll('.cat-btn');
-                const productCards = document.querySelectorAll('.card');
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-                        const filterValue = button.getAttribute('data-filter');
-                        productCards.forEach(card => {
-                            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                                card.classList.remove('hide');
-                            } else {
-                                card.classList.add('hide');
-                            }
-                        });
-                    });
-                });
-            });
-        </script>
     </body></html>
     """
     return html
@@ -195,13 +146,18 @@ def chay_he_thong():
             
             reader = csv.DictReader(f, delimiter=dau_ngan_cach)
             for row in reader:
-                if not row.get('name') or not row.get('new_price'): continue
+                name = row.get('name', '').strip()
+                if not name: continue
                 
                 link_goc = row.get('link', '#').strip()
                 link_anh = row.get('image', '').strip(' \'"[]')
+
+                # Tự động thêm static/ cho ảnh nội bộ
+                if not link_anh.startswith('http') and not link_anh.startswith('static/'):
+                    link_anh = 'static/' + link_anh
                 
                 clean_products.append({
-                    "name": row.get('name').strip(),
+                    "name": name,
                     "old_price": row.get('old_price', '0').strip(),
                     "new_price": row.get('new_price', '0').strip(),
                     "image": link_anh,
@@ -222,12 +178,14 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Update Banner Tinh Radio"')
+        os.system('git commit -m "Bo danh muc san pham"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Web đã có banner mới.")
+        print("✅ HOÀN TẤT! Web đã xóa danh mục.")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
     chay_he_thong()
