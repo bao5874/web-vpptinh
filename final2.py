@@ -32,8 +32,6 @@ GEMINI_API_KEY = "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg"
 # ==========================================
 def goi_ai_viet_mo_ta(ten_sp):
     """Hàm nhờ AI viết mô tả biến hóa đa dạng, siêu cuốn hút (Dùng SDK mới)"""
-    if GEMINI_API_KEY == "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg":
-        return "Sản phẩm chính hãng chất lượng cao đang được ưu đãi. Bấm Mua Ngay để xem trên Shopee!"
     
     print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:50]}...")
     try:
@@ -63,7 +61,6 @@ def goi_ai_viet_mo_ta(ten_sp):
     except Exception as e:
         print(f"⚠️ AI lỗi nhẹ: {e}")
         return f"Bạn đang tìm kiếm {ten_sp}? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội và giá cực mềm. Bấm Xem Thêm để rinh ngay deal hời nhé!"
-
 def tao_link_aff(url_goc):
     if not url_goc: return "#"
     if "shope.ee" in url_goc or "isclix.com" in url_goc or "c.lazada.vn" in url_goc: return url_goc
