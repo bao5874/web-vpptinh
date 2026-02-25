@@ -6,7 +6,6 @@ import base64
 import time
 import webbrowser 
 
-# Try import thư viện AI THẾ HỆ MỚI của Google
 try:
     from google import genai
     from google.genai import types
@@ -24,18 +23,23 @@ FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv"
 FILE_JSON = "products.json"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
 
-# 🔴 DÁN API KEY CỦA BẠN VÀO ĐÂY:
-GEMINI_API_KEY = "AIzaSyBvqxBbfmCuulcNxMyyEJvrUtjDxtDTDQg"
+# 🔴 HỆ THỐNG ĐỌC API KEY TỪ FILE ẨN
+GEMINI_API_KEY = ""
+try:
+    with open("api_key.txt", "r") as f:
+        GEMINI_API_KEY = f.read().strip()
+except FileNotFoundError:
+    print("⚠️ CHƯA CÓ FILE api_key.txt! Vui lòng tạo file api_key.txt và dán mã API vào đó.")
 
 # ==========================================
 # CÁC HÀM XỬ LÝ LÕI
 # ==========================================
 def goi_ai_viet_mo_ta(ten_sp):
-    """Hàm nhờ AI viết mô tả biến hóa đa dạng, siêu cuốn hút (Dùng SDK mới)"""
+    if not GEMINI_API_KEY:
+        return "Sản phẩm chính hãng chất lượng cao đang được ưu đãi. Bấm Xem Thêm để rinh ngay!"
     
-    print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:50]}...")
+    print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:40]}...")
     try:
-        # Khởi tạo Client theo chuẩn mới của Google
         client = genai.Client(api_key=GEMINI_API_KEY)
         
         prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 80 - 100 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
@@ -45,22 +49,18 @@ def goi_ai_viet_mo_ta(ten_sp):
         3. Văn phong tự nhiên như người đang tâm tình, tư vấn.
         4. Tuyệt đối KHÔNG sử dụng icon, KHÔNG gạch đầu dòng. Viết thành 1 đoạn văn liền mạch trôi chảy."""
         
-        # Gọi mô hình AI với cấu hình sáng tạo
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=prompt,
-            config=types.GenerateContentConfig(
-                temperature=0.9,
-            ),
+            config=types.GenerateContentConfig(temperature=0.9),
         )
         
-        time.sleep(4) # Nghỉ 4 giây chống khóa API
-        
-        mo_ta_ai = response.text.replace('"', '').replace('\n', ' ').strip()
-        return mo_ta_ai
+        time.sleep(4)
+        return response.text.replace('"', '').replace('\n', ' ').strip()
     except Exception as e:
         print(f"⚠️ AI lỗi nhẹ: {e}")
-        return f"Bạn đang tìm kiếm {ten_sp}? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội và giá cực mềm. Bấm Xem Thêm để rinh ngay deal hời nhé!"
+        return f"Bạn đang tìm kiếm {ten_sp}? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội. Bấm Xem Thêm để rinh deal hời nhé!"
+
 def tao_link_aff(url_goc):
     if not url_goc: return "#"
     if "shope.ee" in url_goc or "isclix.com" in url_goc or "c.lazada.vn" in url_goc: return url_goc
@@ -69,9 +69,7 @@ def tao_link_aff(url_goc):
 
 def tao_web_html(products):
     v = int(time.time())
-    ga_script = ""
-    if GA_ID != "G-XXXXXXXXXX":
-        ga_script = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>"""
+    ga_script = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>""" if GA_ID != "G-XXXXXXXXXX" else ""
 
     html = f"""
     <!DOCTYPE html>
@@ -90,7 +88,7 @@ def tao_web_html(products):
         <style>
             :root {{ --primary: #d0011b; --bg: #f5f5f5; --text-gray: #555; }}
             body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0 0 40px 0; }}
-            .header-bg {{ width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360 / 350; background-image: url('static/images/tinh_radio_banner.jpg'); background-size: cover; background-position: center; }}
+            .header-bg {{ width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360 / 350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; }}
             @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: 1360 / 600; min-height: 180px; }} }}
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 20px auto; padding: 0 10px; }}
             .card {{ background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}}
@@ -108,7 +106,6 @@ def tao_web_html(products):
             .btn:hover {{ background: #b00117; }}
             .seo-content {{ max-width: 1200px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; color: #444; line-height: 1.6; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }}
             
-            /* CSS POPUP */
             .modal-overlay {{ display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); align-items: center; justify-content: center; }}
             .modal-content {{ background-color: #fff; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; position: relative; animation: slideDown 0.3s ease-out; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; }}
             @keyframes slideDown {{ from {{ transform: translateY(-30px); opacity: 0; }} to {{ transform: translateY(0); opacity: 1; }} }}
@@ -168,7 +165,7 @@ def tao_web_html(products):
         
         <div class="seo-content">
             <h2>Về VPP Tịnh Shop - Săn deal giá rẻ mỗi ngày</h2>
-            <p>Chào mừng bạn đến với <strong>VPP Tịnh Shop</strong>. Chúng tôi là nền tảng chuyên tổng hợp và cập nhật liên tục các deal giảm giá cực sốc, mã freeship và voucher khuyến mãi tốt nhất từ Shopee. Khách hàng có thể dễ dàng tìm thấy các sản phẩm chất lượng với mức giá ưu đãi chưa từng có.</p>
+            <p>Chào mừng bạn đến với <strong>VPP Tịnh Shop</strong>. Chúng tôi là nền tảng chuyên tổng hợp và cập nhật liên tục các deal giảm giá cực sốc, mã freeship và voucher khuyến mãi tốt nhất từ Shopee.</p>
         </div>
 
         <div id="productModal" class="modal-overlay">
@@ -228,7 +225,7 @@ def chay_he_thong():
                 if not name: continue
                 
                 mo_ta = row_clean.get('mo_ta', '').strip()
-                if not mo_ta:
+                if not mo_ta or "Bạn đang tìm kiếm" in mo_ta or "Sản phẩm chính hãng" in mo_ta:
                     mo_ta = goi_ai_viet_mo_ta(name)
                     row_clean['mo_ta'] = mo_ta
 
@@ -274,9 +271,9 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Update thu vien AI the he moi nhat"')
+        os.system('git commit -m "Fix AI Leaked Key & Use api_key.txt"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Trải nghiệm người dùng đã được nâng cấp lên mức tối đa.")
+        print("✅ HOÀN TẤT! Chìa khóa AI đã được bảo mật an toàn tuyệt đối.")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
