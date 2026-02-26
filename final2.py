@@ -23,7 +23,6 @@ FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv"
 FILE_JSON = "products.json"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
 
-# 🔴 TỪ ĐIỂN DỊCH TÊN DANH MỤC LÊN WEB (Bạn có thể tự thêm/sửa ở đây)
 DANH_MUC_MAP = {
     "tho_cung": "Đồ Thờ Cúng",
     "dc_vs": "Dụng Cụ Vệ Sinh",
@@ -33,7 +32,6 @@ DANH_MUC_MAP = {
     "khac": "Sản Phẩm Khác"
 }
 
-# 🔴 HỆ THỐNG ĐỌC API KEY TỪ FILE ẨN
 GEMINI_API_KEY = ""
 try:
     with open("api_key.txt", "r") as f:
@@ -49,27 +47,42 @@ def goi_ai_viet_mo_ta(ten_sp):
         return "Sản phẩm chính hãng chất lượng cao đang được ưu đãi. Bấm Xem Thêm để rinh ngay!"
     
     print(f"🤖 AI đang vắt óc sáng tạo mô tả cho: {ten_sp[:40]}...")
-    try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
+    
+    # Số lần thử lại tối đa nếu bị lỗi Quota (Giới hạn lượt gọi)
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            client = genai.Client(api_key=GEMINI_API_KEY)
+            
+            prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 80 - 100 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
+            YÊU CẦU BẮT BUỘC:
+            1. Đa dạng hóa: KHÔNG dùng lại các từ như "Khám phá ngay", "Sản phẩm chính hãng". 
+            2. Bắt đầu bằng một câu 'Hook' (câu móc ngoặc) thật bắt tai.
+            3. Văn phong tự nhiên như người đang tâm tình, tư vấn.
+            4. Tuyệt đối KHÔNG sử dụng icon, KHÔNG gạch đầu dòng. Viết thành 1 đoạn văn liền mạch trôi chảy."""
+            
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=prompt,
+                config=types.GenerateContentConfig(temperature=0.9),
+            )
+            
+            time.sleep(4)
+            return response.text.replace('"', '').replace('\n', ' ').strip()
         
-        prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Hãy viết đúng 1 đoạn văn (khoảng 80 - 100 chữ) cực kỳ cuốn hút để thuyết phục khách mua sản phẩm này: '{ten_sp}'.
-        YÊU CẦU BẮT BUỘC:
-        1. Đa dạng hóa: KHÔNG dùng lại các từ như "Khám phá ngay", "Sản phẩm chính hãng". 
-        2. Bắt đầu bằng một câu 'Hook' (câu móc ngoặc) thật bắt tai.
-        3. Văn phong tự nhiên như người đang tâm tình, tư vấn.
-        4. Tuyệt đối KHÔNG sử dụng icon, KHÔNG gạch đầu dòng. Viết thành 1 đoạn văn liền mạch trôi chảy."""
-        
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-            config=types.GenerateContentConfig(temperature=0.9),
-        )
-        
-        time.sleep(4)
-        return response.text.replace('"', '').replace('\n', ' ').strip()
-    except Exception as e:
-        print(f"⚠️ AI lỗi nhẹ: {e}")
-        return f"Bạn đang tìm kiếm {ten_sp}? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội. Bấm Xem Thêm để rinh deal hời nhé!"
+        except Exception as e:
+            error_msg = str(e)
+            # Kiểm tra xem có phải lỗi vượt quá số lượng cuộc gọi không (429)
+            if "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+                if attempt < max_retries - 1:
+                    print(f"   ⏳ Google đang nghỉ mệt (giới hạn 15 lượt/phút). Đợi 25 giây rồi tự động chạy tiếp...")
+                    time.sleep(25) # Đứng đợi 25 giây rồi chạy vòng lặp lại
+                else:
+                    print(f"⚠️ AI lỗi nặng (đã thử 3 lần vẫn lỗi): {e}")
+                    return f"Bạn đang tìm kiếm {ten_sp}? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội. Bấm Xem Thêm để rinh deal hời nhé!"
+            else:
+                print(f"⚠️ AI lỗi nhẹ: {e}")
+                return f"Bạn đang tìm kiếm {ten_sp}? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội. Bấm Xem Thêm để rinh deal hời nhé!"
 
 def tao_link_aff(url_goc):
     if not url_goc: return "#"
@@ -81,7 +94,6 @@ def tao_web_html(products):
     v = int(time.time())
     ga_script = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>""" if GA_ID != "G-XXXXXXXXXX" else ""
 
-    # TỰ ĐỘNG TẠO MENU DANH MỤC DỰA TRÊN DỮ LIỆU EXCEL
     unique_cats = []
     for p in products:
         c = p.get('danh_muc', 'khac')
@@ -91,7 +103,6 @@ def tao_web_html(products):
     menu_html = '<div class="category-menu">'
     menu_html += '<button class="cat-btn active" onclick="filterCategory(\'all\', this)">Tất Cả</button>'
     for cat in unique_cats:
-        # Nếu có trong TỪ ĐIỂN thì dịch ra, không thì thay dấu gạch dưới thành dấu cách
         display_name = DANH_MUC_MAP.get(cat, cat.replace("_", " ").title())
         menu_html += f'<button class="cat-btn" onclick="filterCategory(\'{cat}\', this)">{display_name}</button>'
     menu_html += '</div>'
@@ -115,13 +126,10 @@ def tao_web_html(products):
             body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0 0 40px 0; }}
             .header-bg {{ width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360 / 350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; margin-bottom: 20px;}}
             @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: 1360 / 600; min-height: 180px; }} }}
-            
-            /* CSS MENU DANH MỤC */
             .category-menu {{ display: flex; justify-content: center; gap: 10px; margin: 0 auto 20px; max-width: 1200px; padding: 0 10px; flex-wrap: wrap; }}
             .cat-btn {{ background: white; color: #555; border: 1px solid #ddd; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.3s; white-space: nowrap; }}
             .cat-btn:hover {{ border-color: var(--primary); color: var(--primary); }}
             .cat-btn.active {{ background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px rgba(208,1,27,0.2); }}
-
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto 20px; padding: 0 10px; }}
             .card {{ background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}}
             .card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }}
@@ -137,7 +145,6 @@ def tao_web_html(products):
             .btn {{ background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; border-radius: 4px; font-weight: bold; font-size: 14px; cursor: pointer; border: none; width: 100%; box-sizing: border-box; }}
             .btn:hover {{ background: #b00117; }}
             .seo-content {{ max-width: 1200px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; color: #444; line-height: 1.6; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }}
-            
             .modal-overlay {{ display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); align-items: center; justify-content: center; }}
             .modal-content {{ background-color: #fff; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; position: relative; animation: slideDown 0.3s ease-out; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; }}
             @keyframes slideDown {{ from {{ transform: translateY(-30px); opacity: 0; }} to {{ transform: translateY(0); opacity: 1; }} }}
@@ -158,9 +165,7 @@ def tao_web_html(products):
     </head>
     <body>
         <div class="header-bg"><h1 style="display:none;">VPP Tịnh Shop</h1></div>
-        
         {menu_html}
-
         <div class="grid">
     """
     
@@ -181,7 +186,6 @@ def tao_web_html(products):
         safe_title = str(p['name']).replace('"', '&quot;').replace("'", "&#39;")
         safe_desc = str(p['mo_ta']).replace('"', '&quot;').replace("'", "&#39;")
         
-        # 🔴 BƯỚC QUAN TRỌNG: Đính kèm mã danh mục vào data-category của thẻ chứa sản phẩm
         html += f"""
             <div class="card" data-category="{p.get('danh_muc', 'khac')}">
                 {discount_html}
@@ -219,13 +223,9 @@ def tao_web_html(products):
         </div>
 
         <script>
-            // JAVASCRIPT: CODE LỌC DANH MỤC THẦN TỐC
             function filterCategory(cat, btn) {
-                // Xóa trạng thái active của các nút khác và bôi đỏ nút đang bấm
                 document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
-                // Quét từng sản phẩm, nếu đúng danh mục thì hiện ra, sai thì giấu đi
                 document.querySelectorAll('.card').forEach(card => {
                     if (cat === 'all' || card.getAttribute('data-category') === cat) {
                         card.style.display = 'flex';
@@ -234,8 +234,6 @@ def tao_web_html(products):
                     }
                 });
             }
-
-            // MỞ ĐÓNG CỬA SỔ NỔI
             const modal = document.getElementById("productModal");
             function openModal(title, img, price, desc, link) {
                 document.getElementById("m-title").innerText = title;
@@ -277,13 +275,12 @@ def chay_he_thong():
                 name = row_clean.get('name')
                 if not name: continue
                 
-                # NẾU CỘT DANH MỤC TRỐNG THÌ MẶC ĐỊNH LÀ "khac"
                 danh_muc = row_clean.get('danh_muc', '').strip()
-                if not danh_muc:
-                    danh_muc = "khac"
+                if not danh_muc: danh_muc = "khac"
                 row_clean['danh_muc'] = danh_muc
 
                 mo_ta = row_clean.get('mo_ta', '').strip()
+                # Kiểm tra cả câu lỗi của AI để tự sửa
                 if not mo_ta or "Bạn đang tìm kiếm" in mo_ta or "Sản phẩm chính hãng" in mo_ta:
                     mo_ta = goi_ai_viet_mo_ta(name)
                     row_clean['mo_ta'] = mo_ta
@@ -331,9 +328,9 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Them tinh nang Menu Loc Danh Muc san pham"')
+        os.system('git commit -m "Xu ly loi vuot qua gioi han API"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Web đã có Menu danh mục cực mượt.")
+        print("✅ HOÀN TẤT! Web đã sẵn sàng.")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")

@@ -17,13 +17,10 @@
             body { font-family: sans-serif; background: var(--bg); margin: 0; padding: 0 0 40px 0; }
             .header-bg { width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360 / 350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; margin-bottom: 20px;}
             @media (max-width: 630px) { .header-bg { aspect-ratio: 1360 / 600; min-height: 180px; } }
-            
-            /* CSS MENU DANH MỤC */
             .category-menu { display: flex; justify-content: center; gap: 10px; margin: 0 auto 20px; max-width: 1200px; padding: 0 10px; flex-wrap: wrap; }
             .cat-btn { background: white; color: #555; border: 1px solid #ddd; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.3s; white-space: nowrap; }
             .cat-btn:hover { border-color: var(--primary); color: var(--primary); }
             .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px rgba(208,1,27,0.2); }
-
             .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto 20px; padding: 0 10px; }
             .card { background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}
             .card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
@@ -39,7 +36,6 @@
             .btn { background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; border-radius: 4px; font-weight: bold; font-size: 14px; cursor: pointer; border: none; width: 100%; box-sizing: border-box; }
             .btn:hover { background: #b00117; }
             .seo-content { max-width: 1200px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; color: #444; line-height: 1.6; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-            
             .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
             .modal-content { background-color: #fff; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; position: relative; animation: slideDown 0.3s ease-out; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; }
             @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -60,9 +56,7 @@
     </head>
     <body>
         <div class="header-bg"><h1 style="display:none;">VPP Tịnh Shop</h1></div>
-        
         <div class="category-menu"><button class="cat-btn active" onclick="filterCategory('all', this)">Tất Cả</button><button class="cat-btn" onclick="filterCategory('tho_cung', this)">Đồ Thờ Cúng</button><button class="cat-btn" onclick="filterCategory('dc_vs', this)">Dụng Cụ Vệ Sinh</button></div>
-
         <div class="grid">
     
             <div class="card" data-category="tho_cung">
@@ -247,13 +241,13 @@
         
             <div class="card" data-category="dc_vs">
                 
-                <div class="img-box" onclick="openModal('Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.', 'static/images/choi-quet-nha-nhua.webp', '53.214₫', 'Bạn đang tìm kiếm Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội. Bấm Xem Thêm để rinh deal hời nhé!', 'https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zLnNob3BlZS52bi82Vkloc0lqbUFT')">
+                <div class="img-box" onclick="openModal('Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.', 'static/images/choi-quet-nha-nhua.webp', '53.214₫', 'Mệt mỏi với những sợi lông chổi rụng vương vãi khắp nơi, khiến việc dọn dẹp càng thêm phiền toái? Đã đến lúc bạn cảm nhận sự khác biệt cùng Chổi nhựa quét nhà Hiwa! Với thiết kế đặc biệt, từng sợi lông mềm mại của Hiwa không chỉ gom sạch mọi hạt bụi mịn li ti mà còn đảm bảo không hề gãy rụng, giữ cho không gian luôn tinh tươm. Việc vệ sinh chổi cũng đơn giản hơn bao giờ hết, chỉ cần rửa nhẹ dưới vòi nước là sạch bong, sẵn sàng cho lần quét dọn tiếp theo. Trải nghiệm sự tiện lợi và hiệu quả vượt trội, để việc nhà không còn là gánh nặng!', 'https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zLnNob3BlZS52bi82Vkloc0lqbUFT')">
                     <img src="static/images/choi-quet-nha-nhua.webp" alt="Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước." loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'">
                 </div>
                 <div class="info">
-                    <div class="title" onclick="openModal('Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.', 'static/images/choi-quet-nha-nhua.webp', '53.214₫', 'Bạn đang tìm kiếm Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội. Bấm Xem Thêm để rinh deal hời nhé!', 'https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zLnNob3BlZS52bi82Vkloc0lqbUFT')" style="cursor:pointer;">Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.</div>
+                    <div class="title" onclick="openModal('Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.', 'static/images/choi-quet-nha-nhua.webp', '53.214₫', 'Mệt mỏi với những sợi lông chổi rụng vương vãi khắp nơi, khiến việc dọn dẹp càng thêm phiền toái? Đã đến lúc bạn cảm nhận sự khác biệt cùng Chổi nhựa quét nhà Hiwa! Với thiết kế đặc biệt, từng sợi lông mềm mại của Hiwa không chỉ gom sạch mọi hạt bụi mịn li ti mà còn đảm bảo không hề gãy rụng, giữ cho không gian luôn tinh tươm. Việc vệ sinh chổi cũng đơn giản hơn bao giờ hết, chỉ cần rửa nhẹ dưới vòi nước là sạch bong, sẵn sàng cho lần quét dọn tiếp theo. Trải nghiệm sự tiện lợi và hiệu quả vượt trội, để việc nhà không còn là gánh nặng!', 'https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zLnNob3BlZS52bi82Vkloc0lqbUFT')" style="cursor:pointer;">Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.</div>
                     <div class="price-box"><span class="new-price">53.214₫</span></div>
-                    <button class="btn" onclick="openModal('Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.', 'static/images/choi-quet-nha-nhua.webp', '53.214₫', 'Bạn đang tìm kiếm Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.? Đây chính là lựa chọn hoàn hảo nhất với chất lượng vượt trội. Bấm Xem Thêm để rinh deal hời nhé!', 'https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zLnNob3BlZS52bi82Vkloc0lqbUFT')">Xem Thêm</button>
+                    <button class="btn" onclick="openModal('Chổi nhựa quét nhà Hiwa. Lông chổi mềm, k rụng, quét sạch bụi mịn, vệ sinh được với nước.', 'static/images/choi-quet-nha-nhua.webp', '53.214₫', 'Mệt mỏi với những sợi lông chổi rụng vương vãi khắp nơi, khiến việc dọn dẹp càng thêm phiền toái? Đã đến lúc bạn cảm nhận sự khác biệt cùng Chổi nhựa quét nhà Hiwa! Với thiết kế đặc biệt, từng sợi lông mềm mại của Hiwa không chỉ gom sạch mọi hạt bụi mịn li ti mà còn đảm bảo không hề gãy rụng, giữ cho không gian luôn tinh tươm. Việc vệ sinh chổi cũng đơn giản hơn bao giờ hết, chỉ cần rửa nhẹ dưới vòi nước là sạch bong, sẵn sàng cho lần quét dọn tiếp theo. Trải nghiệm sự tiện lợi và hiệu quả vượt trội, để việc nhà không còn là gánh nặng!', 'https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc=aHR0cHM6Ly9zLnNob3BlZS52bi82Vkloc0lqbUFT')">Xem Thêm</button>
                 </div>
             </div>
         
@@ -303,13 +297,9 @@
         </div>
 
         <script>
-            // JAVASCRIPT: CODE LỌC DANH MỤC THẦN TỐC
             function filterCategory(cat, btn) {
-                // Xóa trạng thái active của các nút khác và bôi đỏ nút đang bấm
                 document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
-                // Quét từng sản phẩm, nếu đúng danh mục thì hiện ra, sai thì giấu đi
                 document.querySelectorAll('.card').forEach(card => {
                     if (cat === 'all' || card.getAttribute('data-category') === cat) {
                         card.style.display = 'flex';
@@ -318,8 +308,6 @@
                     }
                 });
             }
-
-            // MỞ ĐÓNG CỬA SỔ NỔI
             const modal = document.getElementById("productModal");
             function openModal(title, img, price, desc, link) {
                 document.getElementById("m-title").innerText = title;
