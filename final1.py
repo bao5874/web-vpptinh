@@ -4,7 +4,6 @@ import os
 import re
 import base64 
 import time
-import random
 import webbrowser 
 
 try:
@@ -23,7 +22,6 @@ SHARE_IMAGE_URL = "https://vpptinh.com/static/images/tinh_radio_banner1.jpg"
 FILE_CSV_LOCAL = r"F:\web-banhang\danh_sach_san_pham.csv" 
 FILE_JSON = "products.json"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?sub4=oneatweb&utm_source=shopee&utm_campaign=sansale&url_enc="
-ZALO_NUMBER = "0931736266" # Số điện thoại Zalo của bạn
 
 DANH_MUC_MAP = {
     "tho_cung": "Đồ Thờ Cúng",
@@ -53,34 +51,32 @@ def tao_link_aff(url_goc):
 
 def goi_ai_viet_mo_ta_hang_loat(danh_sach_sp_thieu):
     """
-    AI Đọc mô tả gốc từ Shopee và xào nấu lại thành Content SEO
+    Tuyệt chiêu 'Gộp Đơn': Gửi 1 lần nhiều sản phẩm cho AI để tránh lỗi Quota 429
+    Trả về một Dictionary map từ ID sản phẩm -> Mô tả AI
     """
     if not GEMINI_API_KEY:
         print("⚠️ Không có API Key, dùng câu dự phòng.")
         return {}
 
-    print(f"📦 Đang đóng gói {len(danh_sach_sp_thieu)} sản phẩm gửi cho AI xử lý...")
+    print(f"📦 Đang đóng gói {len(danh_sach_sp_thieu)} sản phẩm gửi cho AI xử lý 1 lần duy nhất...")
     
+    # Chuẩn bị danh sách dạng Text để gửi AI
     sp_text = ""
     for sp in danh_sach_sp_thieu:
         ten_dm = DANH_MUC_MAP.get(sp['danh_muc'], "Sản phẩm")
-        # Gửi cả tên và MÔ TẢ GỐC cho AI
-        sp_text += f"- ID: {sp['id']} | Tên: {sp['name']} | Nhóm: {ten_dm} | Mô tả gốc: {sp['mo_ta_goc'][:300]}...\n"
+        sp_text += f"- ID: {sp['id']} | Tên: {sp['name']} | Thuộc nhóm: {ten_dm}\n"
 
-    prompt = f"""Bạn là chuyên gia Copywriter và SEO Website bậc thầy. 
-    Dưới đây là danh sách sản phẩm gồm Tên và "Mô tả gốc" (được copy từ Shopee thường chứa nhiều rác, hashtag, chính sách...).
+    prompt = f"""Đóng vai một Copywriter bán hàng bậc thầy. Dưới đây là danh sách các sản phẩm cần viết mô tả (khoảng 80 - 100 chữ mỗi sản phẩm).
     
-    Nhiệm vụ của bạn: Dựa vào thông số trong "Mô tả gốc", hãy viết lại cho mỗi sản phẩm 1 đoạn văn (80 - 100 chữ) cực kỳ cuốn hút để chốt sale.
-    
-    Quy tắc TỐI QUAN TRỌNG:
-    1. LỌC RÁC: Tuyệt đối không đưa hashtag (#), ký tự đặc biệt, thông tin liên hệ hay chính sách shop cũ vào bài. Chỉ giữ lại tính năng, công dụng cốt lõi.
-    2. ĐA DẠNG: Luân phiên các phong cách (Kể chuyện, Phân tích chuyên gia, Gợi mở nỗi đau, Tạo FOMO) cho các sản phẩm khác nhau.
-    3. Trình bày thành 1 đoạn văn liền mạch, mở đầu bằng 1 câu 'Hook' bắt tai. KHÔNG gạch đầu dòng, KHÔNG icon.
+    Quy tắc viết bắt buộc:
+    1. Đa dạng hóa: Vì có nhiều sản phẩm, hãy luân phiên các phong cách: Kể chuyện cảm xúc, Phân tích chuyên gia, Gợi mở nỗi đau, và Tạo sự khan hiếm (FOMO).
+    2. Mỗi mô tả bắt đầu bằng một câu 'Hook' bắt tai. KHÔNG dùng icon, KHÔNG gạch đầu dòng. Viết thành 1 đoạn văn liền mạch trôi chảy.
 
-    BẮT BUỘC TRẢ VỀ JSON hợp lệ theo cấu trúc:
+    ĐÂY LÀ ĐIỀU QUAN TRỌNG NHẤT: Bạn BẮT BUỘC phải trả về kết quả dưới dạng JSON hợp lệ, với cấu trúc như sau:
     {{
         "results": [
-            {{"id": "id_sp", "mo_ta_ai": "nội dung bạn đã viết lại..."}}
+            {{"id": "id_cua_san_pham_1", "mo_ta": "nội dung mô tả 1..."}},
+            {{"id": "id_cua_san_pham_2", "mo_ta": "nội dung mô tả 2..."}}
         ]
     }}
 
@@ -88,39 +84,31 @@ def goi_ai_viet_mo_ta_hang_loat(danh_sach_sp_thieu):
     {sp_text}
     """
 
-    max_retries = 3
-    for attempt in range(max_retries):
-        try:
-            client = genai.Client(api_key=GEMINI_API_KEY)
-            response = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    temperature=0.8,
-                    response_mime_type="application/json" 
-                ),
-            )
-            
-            data = json.loads(response.text)
-            ket_qua = {}
-            if "results" in data:
-                for item in data["results"]:
-                    ket_qua[str(item["id"])] = str(item["mo_ta_ai"]).strip()
-            
-            print("✅ AI đã xào nấu thành công mẻ Content siêu chất lượng!")
-            return ket_qua
+    try:
+        client = genai.Client(api_key=GEMINI_API_KEY)
+        # Ép AI phải trả về định dạng JSON
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.8,
+                response_mime_type="application/json" 
+            ),
+        )
+        
+        # Đọc dữ liệu JSON AI trả về
+        data = json.loads(response.text)
+        ket_qua = {}
+        if "results" in data:
+            for item in data["results"]:
+                ket_qua[str(item["id"])] = str(item["mo_ta"]).strip()
+        
+        print("✅ AI đã xử lý xong toàn bộ đơn hàng sỉ!")
+        return ket_qua
 
-        except Exception as e:
-            error_msg = str(e)
-            if "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
-                if attempt < max_retries - 1:
-                    print(f"   ⏳ Quá tải API. Tự động chờ 60 giây... (Lần thử {attempt+1}/{max_retries})")
-                    time.sleep(60) 
-                else: return {}
-            else:
-                if attempt < max_retries - 1: time.sleep(10) 
-                else: return {}
-    return {}
+    except Exception as e:
+        print(f"⚠️ Quá trình Gộp Đơn AI gặp lỗi: {e}")
+        return {}
 
 def tao_web_html(products):
     v = int(time.time())
@@ -132,10 +120,10 @@ def tao_web_html(products):
         if c not in unique_cats: unique_cats.append(c)
     
     menu_html = '<div class="category-menu">'
-    menu_html += '<button class="cat-btn active" onclick="setCategory(\'all\', this)">Tất Cả</button>'
+    menu_html += '<button class="cat-btn active" onclick="filterCategory(\'all\', this)">Tất Cả</button>'
     for cat in unique_cats:
         display_name = DANH_MUC_MAP.get(cat, cat.replace("_", " ").title())
-        menu_html += f'<button class="cat-btn" onclick="setCategory(\'{cat}\', this)">{display_name}</button>'
+        menu_html += f'<button class="cat-btn" onclick="filterCategory(\'{cat}\', this)">{display_name}</button>'
     menu_html += '</div>'
 
     schema_list = []
@@ -143,13 +131,14 @@ def tao_web_html(products):
         try:
             moi = float(re.sub(r'[^\d]', '', str(p['new_price']))) if re.sub(r'[^\d]', '', str(p['new_price'])) else 0
         except: moi = 0
+        
         img_url = p['image'] if p['image'].startswith('http') else f"https://vpptinh.com/{p['image']}"
         schema_list.append({
             "@context": "https://schema.org/",
             "@type": "Product",
             "name": p['name'],
             "image": img_url,
-            "description": p['mo_ta_ai'], # Schema giờ dùng AI content
+            "description": p['mo_ta'],
             "offers": {
                 "@type": "Offer",
                 "url": p['link'],
@@ -180,17 +169,10 @@ def tao_web_html(products):
             body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0 0 40px 0; }}
             .header-bg {{ width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360 / 350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; margin-bottom: 20px;}}
             @media (max-width: 630px) {{ .header-bg {{ aspect-ratio: 1360 / 600; min-height: 180px; }} }}
-            
-            /* THANH TÌM KIẾM */
-            .search-container {{ max-width: 600px; margin: 0 auto 20px; padding: 0 15px; text-align: center; }}
-            .search-input {{ width: 100%; padding: 12px 20px; border: 2px solid #ddd; border-radius: 30px; font-size: 15px; outline: none; transition: border-color 0.3s; box-sizing: border-box; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }}
-            .search-input:focus {{ border-color: var(--primary); }}
-
             .category-menu {{ display: flex; justify-content: center; gap: 10px; margin: 0 auto 20px; max-width: 1200px; padding: 0 10px; flex-wrap: wrap; }}
             .cat-btn {{ background: white; color: #555; border: 1px solid #ddd; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.3s; white-space: nowrap; }}
             .cat-btn:hover {{ border-color: var(--primary); color: var(--primary); }}
             .cat-btn.active {{ background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px rgba(208,1,27,0.2); }}
-            
             .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto 20px; padding: 0 10px; }}
             .card {{ background: white; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: transform 0.2s; border: 1px solid #eee;}}
             .card:hover {{ transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }}
@@ -206,7 +188,6 @@ def tao_web_html(products):
             .btn {{ background: var(--primary); color: white; text-decoration: none; padding: 8px; display: block; text-align: center; border-radius: 4px; font-weight: bold; font-size: 14px; cursor: pointer; border: none; width: 100%; box-sizing: border-box; }}
             .btn:hover {{ background: #b00117; }}
             .seo-content {{ max-width: 1200px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; color: #444; line-height: 1.6; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }}
-            
             .modal-overlay {{ display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); align-items: center; justify-content: center; }}
             .modal-content {{ background-color: #fff; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; position: relative; animation: slideDown 0.3s ease-out; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; }}
             @keyframes slideDown {{ from {{ transform: translateY(-30px); opacity: 0; }} to {{ transform: translateY(0); opacity: 1; }} }}
@@ -223,21 +204,10 @@ def tao_web_html(products):
             .modal-btn-back {{ background: #e0e0e0; color: #333; text-decoration: none; padding: 12px; text-align: center; border-radius: 4px; font-weight: bold; font-size: 15px; cursor: pointer; border: none; flex: 1; }}
             .modal-btn-back:hover {{ background: #ccc; }}
             @media (max-width: 400px) {{ .modal-buttons {{ flex-direction: column; }} }}
-
-            /* NÚT ZALO RUNG LẮC */
-            .zalo-btn {{ position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; z-index: 999; animation: bounce 2s infinite; }}
-            .zalo-btn img {{ width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s; }}
-            .zalo-btn:hover img {{ transform: scale(1.1); }}
-            @keyframes bounce {{ 0%, 20%, 50%, 80%, 100% {{transform: translateY(0);}} 40% {{transform: translateY(-12px);}} 60% {{transform: translateY(-6px);}} }}
         </style>
     </head>
     <body>
         <div class="header-bg"><h1 style="display:none;">VPP Tịnh Shop</h1></div>
-        
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" onkeyup="filterProducts()" placeholder="🔍 Tìm kiếm sản phẩm bạn muốn...">
-        </div>
-
         {menu_html}
         <div class="grid">
     """
@@ -257,25 +227,23 @@ def tao_web_html(products):
         new_price_format = f"{int(moi):,}₫".replace(",", ".")
         
         safe_title = str(p['name']).replace('"', '&quot;').replace("'", "&#39;")
-        
-        # Web hiển thị Cột MÔ TẢ AI (chứa nội dung tinh đã xào nấu)
-        safe_desc_ai = str(p['mo_ta_ai']).replace('"', '&quot;').replace("'", "&#39;")
+        safe_desc = str(p['mo_ta']).replace('"', '&quot;').replace("'", "&#39;")
         
         html += f"""
             <div class="card" data-category="{p.get('danh_muc', 'khac')}">
                 {discount_html}
-                <div class="img-box" onclick="openModal('{safe_title}', '{p['image']}', '{new_price_format}', '{safe_desc_ai}', '{p['link']}')">
+                <div class="img-box" onclick="openModal('{safe_title}', '{p['image']}', '{new_price_format}', '{safe_desc}', '{p['link']}')">
                     <img src="{p['image']}" alt="{safe_title} giá rẻ" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'">
                 </div>
                 <div class="info">
-                    <div class="title" onclick="openModal('{safe_title}', '{p['image']}', '{new_price_format}', '{safe_desc_ai}', '{p['link']}')" style="cursor:pointer;">{p['name']}</div>
+                    <div class="title" onclick="openModal('{safe_title}', '{p['image']}', '{new_price_format}', '{safe_desc}', '{p['link']}')" style="cursor:pointer;">{p['name']}</div>
                     <div class="price-box">{old_price_html}<span class="new-price">{new_price_format}</span></div>
-                    <button class="btn" onclick="openModal('{safe_title}', '{p['image']}', '{new_price_format}', '{safe_desc_ai}', '{p['link']}')">Xem Thêm</button>
+                    <button class="btn" onclick="openModal('{safe_title}', '{p['image']}', '{new_price_format}', '{safe_desc}', '{p['link']}')">Xem Thêm</button>
                 </div>
             </div>
         """
     
-    html += f"""
+    html += """
         </div>
         
         <div class="seo-content">
@@ -297,51 +265,31 @@ def tao_web_html(products):
             </div>
         </div>
 
-        <a href="https://zalo.me/{ZALO_NUMBER}" target="_blank" class="zalo-btn" title="Chat Zalo ngay">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1200px-Icon_of_Zalo.svg.png" alt="Zalo Chat">
-        </a>
-
         <script>
-            // LỌC KÉP: THEO DANH MỤC VÀ TÌM KIẾM
-            let currentCategory = 'all';
-            
-            function setCategory(cat, btn) {{
+            function filterCategory(cat, btn) {
                 document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                currentCategory = cat;
-                filterProducts();
-            }}
-
-            function filterProducts() {{
-                let searchQuery = document.getElementById('searchInput').value.toLowerCase();
-                document.querySelectorAll('.card').forEach(card => {{
-                    let cat = card.getAttribute('data-category');
-                    let title = card.querySelector('.title').innerText.toLowerCase();
-                    
-                    let matchCat = (currentCategory === 'all' || cat === currentCategory);
-                    let matchSearch = title.includes(searchQuery);
-                    
-                    if (matchCat && matchSearch) {{
+                document.querySelectorAll('.card').forEach(card => {
+                    if (cat === 'all' || card.getAttribute('data-category') === cat) {
                         card.style.display = 'flex';
-                    }} else {{
+                    } else {
                         card.style.display = 'none';
-                    }}
-                }});
-            }}
-
+                    }
+                });
+            }
             const modal = document.getElementById("productModal");
-            function openModal(title, img, price, desc, link) {{
+            function openModal(title, img, price, desc, link) {
                 document.getElementById("m-title").innerText = title;
                 document.getElementById("m-img").src = img;
                 document.getElementById("m-price").innerText = price;
                 document.getElementById("m-desc").innerText = desc;
                 document.getElementById("m-link").href = link;
                 modal.style.display = "flex"; document.body.style.overflow = "hidden";
-            }}
-            function closeModal() {{
+            }
+            function closeModal() {
                 modal.style.display = "none"; document.body.style.overflow = "auto";
-            }}
-            window.onclick = function(event) {{ if (event.target == modal) {{ closeModal(); }} }}
+            }
+            window.onclick = function(event) { if (event.target == modal) { closeModal(); } }
         </script>
     </body></html>
     """
@@ -355,8 +303,9 @@ def chay_he_thong():
             return
 
         raw_data = []
-        danh_sach_sp_thieu = [] 
+        danh_sach_sp_thieu = [] # Danh sách lưu các SP cần viết mô tả
         
+        # 1. ĐỌC EXCEL VÀ LỌC CÁC SẢN PHẨM CẦN VIẾT BÀI
         with open(FILE_CSV_LOCAL, mode='r', encoding='utf-8-sig') as f:
             first_line = f.readline()
             f.seek(0)
@@ -370,47 +319,50 @@ def chay_he_thong():
                 name = row_clean.get('name')
                 if not name: continue
                 
+                # Cấp ID tạm thời cho mỗi sản phẩm để lúc AI trả về biết của ai
                 row_clean['_id'] = str(idx) 
 
                 danh_muc = row_clean.get('danh_muc', '').strip()
                 if not danh_muc: danh_muc = "khac"
                 row_clean['danh_muc'] = danh_muc
 
-                mo_ta_goc = row_clean.get('mo_ta', '').strip() # Cột copy từ Shopee
-                mo_ta_ai = row_clean.get('mo_ta_ai', '').strip() # Cột AI đã xào nấu
-                
+                mo_ta = row_clean.get('mo_ta', '').strip()
                 cau_du_phong = ["Bạn đang tìm kiếm", "Sản phẩm chính hãng", "Deal hời", "Đừng bỏ lỡ"]
                 
-                # NẾU chưa có mô tả AI hoặc dính câu mẫu -> Mang mô tả gốc đi nấu lại
-                if not mo_ta_ai or any(cau in mo_ta_ai for cau in cau_du_phong):
+                # Nếu trống hoặc có chứa văn mẫu -> Cho vào danh sách gửi sỉ
+                if not mo_ta or any(cau in mo_ta for cau in cau_du_phong):
                     danh_sach_sp_thieu.append({
                         "id": str(idx),
                         "name": name,
-                        "danh_muc": danh_muc,
-                        "mo_ta_goc": mo_ta_goc
+                        "danh_muc": danh_muc
                     })
 
                 raw_data.append(row_clean)
 
+        # 2. GỌI AI XỬ LÝ SỈ (GỘP ĐƠN)
         ket_qua_ai = {}
         if danh_sach_sp_thieu:
+            # Nếu có nhiều hơn 15 sản phẩm, ta chia mẻ ra gọi (để AI không bị ngợp)
+            # Ở đây bạn có 18 SP, chia mỗi mẻ 10 SP thì chỉ mất đúng 2 lượt gọi API, siêu tốc!
             chunk_size = 10 
             for i in range(0, len(danh_sach_sp_thieu), chunk_size):
                 batch = danh_sach_sp_thieu[i : i+chunk_size]
                 batch_result = goi_ai_viet_mo_ta_hang_loat(batch)
                 ket_qua_ai.update(batch_result)
                 if i + chunk_size < len(danh_sach_sp_thieu):
-                    time.sleep(3) 
+                    time.sleep(3) # Nghỉ nhẹ giữa các mẻ
 
+        # 3. LẮP RÁP KẾT QUẢ VÀO DANH SÁCH CHÍNH
         clean_products = []
         for r in raw_data:
             sp_id = r['_id']
-            # Lưu thành quả của AI vào cột mới 'mo_ta_ai'
+            # Cập nhật mô tả mới nếu AI có viết
             if sp_id in ket_qua_ai:
-                r['mo_ta_ai'] = ket_qua_ai[sp_id]
+                r['mo_ta'] = ket_qua_ai[sp_id]
             
-            if not r.get('mo_ta_ai') or "Đừng bỏ lỡ" in r.get('mo_ta_ai'):
-                r['mo_ta_ai'] = f"Đừng bỏ lỡ {r['name']} với mức giá siêu ưu đãi hôm nay. Bấm Xem Thêm để rinh deal hời nhé!"
+            # Nếu AI bị lỗi, dùng tạm câu này để web không bị chết
+            if not r.get('mo_ta'):
+                r['mo_ta'] = f"Đừng bỏ lỡ {r['name']} với mức giá siêu ưu đãi hôm nay. Bấm Xem Thêm để rinh deal hời nhé!"
             
             link_goc = r.get('link', '#').strip()
             link_anh = r.get('image', '').strip(' \'"[]')
@@ -424,17 +376,17 @@ def chay_he_thong():
                 "new_price": r.get('new_price', '0').strip(),
                 "image": link_anh,
                 "link": tao_link_aff(link_goc),
-                "mo_ta": r.get('mo_ta', ''), # Giữ nguyên mô tả gốc của bạn
-                "mo_ta_ai": r['mo_ta_ai'],   # Lấy mô tả AI để lên web
+                "mo_ta": r['mo_ta'],
                 "danh_muc": r['danh_muc']
             })
+            # Xóa ID tạm đi trước khi lưu Excel
             del r['_id']
 
+        # 4. LƯU EXCEL VÀ ĐẨY LÊN MẠNG
         print("💾 Đang lưu thông tin vào lại file Excel...")
         with open(FILE_CSV_LOCAL, mode='w', encoding='utf-8-sig', newline='') as f:
             all_fields = list(field_map.values())
             if 'mo_ta' not in all_fields: all_fields.append('mo_ta')
-            if 'mo_ta_ai' not in all_fields: all_fields.append('mo_ta_ai')
             if 'danh_muc' not in all_fields: all_fields.append('danh_muc')
                 
             writer = csv.DictWriter(f, fieldnames=all_fields, delimiter=dau_ngan_cach)
@@ -456,9 +408,9 @@ def chay_he_thong():
         print("\n⏳ Đang đẩy code lên kho chứa (Github)...")
         time.sleep(2)
         os.system("git add .")
-        os.system('git commit -m "Them tinh nang Tim kiem, Nut Zalo, AI doc du lieu tho Shopee"')
+        os.system('git commit -m "Chien thuat Gop Don AI + SEO Schema"')
         os.system("git push")
-        print("✅ HOÀN TẤT! Web đã sẵn sàng.")
+        print("✅ HOÀN TẤT! Siêu hệ thống đã sẵn sàng chinh phục khách hàng.")
 
     except Exception as e:
         print(f"❌ Có lỗi nghiêm trọng xảy ra: {e}")
