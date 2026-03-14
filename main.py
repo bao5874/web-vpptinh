@@ -250,11 +250,11 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
 
     # Tạo Menu Danh Mục
     html_menu = "<div class='category-nav'>"
-    html_menu += "<a href='index.html' class='cat-btn active'>Tất cả</a>"
+    html_menu += "<a href='#' class='cat-btn active' onclick='filterCat(\"all\", event)'>Tất cả</a>"
     danh_muc_co_sp = set([p.get('danh_muc', 'khac') for p in tat_ca_san_pham])
     for ma_dm in danh_muc_co_sp:
         ten_dm = DANH_MUC_MAP.get(ma_dm, ma_dm.title())
-        html_menu += f"<a href='#' class='cat-btn' onclick='filterCat(\"{ma_dm}\")'>{ten_dm}</a>"
+        html_menu += f"<a href='#' class='cat-btn' onclick='filterCat(\"{ma_dm}\", event)'>{ten_dm}</a>"
     html_menu += "</div>"
 
     html_links = ""
@@ -267,15 +267,12 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         sp_ket_thuc = sp_bat_dau + SP_MOI_TRANG
         sp_tren_trang = tat_ca_san_pham[sp_bat_dau:sp_ket_thuc]
 
-        # Sinh lưới sản phẩm cho trang này
         html_sp_grid = ""
         for p in sp_tren_trang:
             dm = p.get('danh_muc', 'khac')
-            # Thêm data-cat để JS có thể lọc
             html_the = sinh_the_san_pham_html(p, "").replace('class="sp-card"', f'class="sp-card mix-{dm}"')
             html_sp_grid += html_the
 
-        # Thanh phân trang (Pagination UI)
         html_pagination = "<div class='pagination'>"
         for i in range(1, tong_trang + 1):
             link = "index.html" if i == 1 else f"page-{i}.html"
@@ -283,23 +280,26 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
             html_pagination += f"<a href='{link}' class='page-num {active}'>{i}</a>"
         html_pagination += "</div>"
 
-        # Chỉ hiển thị bài viết ở Trang 1
         html_bai_viet_section = f"""<div style="text-align: center;"><h2 class="section-title">📰 TƯ VẤN SẢN PHẨM</h2></div><div class="blog-list-vertical">{html_links}</div>""" if trang == 1 else ""
 
         html = f"""<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VPP Tịnh | Trang Chủ (Trang {trang})</title>
         <meta property="og:title" content="VPP Tịnh - Đối tác cung cấp sỉ lẻ toàn quốc">
-        <style>:root {{ --primary: #d0011b; --bg: #f5f5f5; }} body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0; }} 
+        <style>:root {{ --primary: #d0011b; --bg: #f5f5f5; }} body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0; scroll-behavior: smooth;}} 
         .header-bg {{ width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360/350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; }} 
         .ticker-wrap {{ width: 100%; max-width: 1200px; margin: 0 auto; background-color: var(--primary); padding: 12px 0; overflow: hidden; color: white; font-weight: bold; font-size: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }} .ticker {{ display: inline-block; white-space: nowrap; padding-right: 100%; animation: ticker 25s linear infinite; }} @keyframes ticker {{ 0% {{ transform: translate3d(100%, 0, 0); }} 100% {{ transform: translate3d(-100%, 0, 0); }} }} 
         .container {{ max-width: 1100px; margin: 0 auto; padding: 0 15px; }} 
         .section-title {{ text-align: center; margin: 40px 0 20px; color: #333; text-transform: uppercase; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 10px; font-size: 24px; }}
         
-        /* THANH TÌM KIẾM & DANH MỤC */
-        .tools-bar {{ display: flex; justify-content: space-between; align-items: center; margin: 30px 0; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 15px; }}
+        /* THANH CÔNG CỤ ĐÃ ĐƯỢC CHUYỂN LÊN TRÊN CÙNG */
+        .tools-bar {{ display: flex; justify-content: space-between; align-items: center; margin: 20px 0 30px 0; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex-wrap: wrap; gap: 15px; border-left: 5px solid var(--primary); }}
         .category-nav {{ display: flex; gap: 10px; flex-wrap: wrap; }}
         .cat-btn {{ padding: 8px 15px; background: #eee; color: #333; text-decoration: none; border-radius: 20px; font-size: 14px; font-weight: bold; transition: 0.2s; border: 1px solid transparent; }}
-        .cat-btn:hover, .cat-btn.active {{ background: #ffeeee; color: var(--primary); border-color: var(--primary); }}
-        .search-box {{ display: flex; }} .search-box input {{ padding: 10px 15px; border: 1px solid #ddd; border-radius: 20px 0 0 20px; outline: none; width: 200px; }} .search-box button {{ padding: 10px 20px; border: none; background: var(--primary); color: #fff; border-radius: 0 20px 20px 0; cursor: pointer; font-weight: bold; }}
+        .cat-btn:hover, .cat-btn.active {{ background: #ffeeee; color: var(--primary); border-color: var(--primary); box-shadow: 0 2px 5px rgba(208,1,27,0.2);}}
+        .search-box {{ display: flex; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 20px; }} 
+        .search-box input {{ padding: 12px 20px; border: 1px solid #ddd; border-radius: 25px 0 0 25px; outline: none; width: 250px; font-size: 15px; border-right: none; }} 
+        .search-box input:focus {{ border-color: var(--primary); }}
+        .search-box button {{ padding: 12px 25px; border: 1px solid var(--primary); background: var(--primary); color: #fff; border-radius: 0 25px 25px 0; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.2s; }}
+        .search-box button:hover {{ background: #a80015; }}
         
         /* BÀI VIẾT & SẢN PHẨM */
         .blog-list-vertical {{ display: flex; flex-direction: column; gap: 20px; }} .blog-card-vertical {{ display: flex; flex-direction: row; background: white; border-radius: 10px; overflow: hidden; text-decoration: none; color: #333; box-shadow: 0 3px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }} .blog-img {{ width: 250px; height: 180px; object-fit: contain; border-right: 1px solid #eee; padding: 10px; }} .blog-content {{ padding: 20px; display: flex; flex-direction: column; justify-content: center; flex: 1; }} .blog-tag {{ background: #ffeeee; color: var(--primary); padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; align-self: flex-start; margin-bottom: 10px; }} .blog-content h3 {{ color: var(--primary); margin: 0 0 10px 0; font-size: 20px; }}
@@ -311,21 +311,22 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         .page-num {{ display: inline-block; width: 40px; height: 40px; line-height: 40px; text-align: center; background: #fff; border: 1px solid #ddd; border-radius: 50%; text-decoration: none; color: #333; font-weight: bold; transition: 0.2s; }}
         .page-num.active, .page-num:hover {{ background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(208,1,27,0.3); }}
         
-        @media (max-width: 650px) {{ .blog-card-vertical {{ flex-direction: column; }} .blog-img {{ width: 100%; border-right: none; border-bottom: 1px solid #eee; }} .tools-bar {{ justify-content: center; }} .search-box input {{ width: 150px; }} }}
+        @media (max-width: 650px) {{ .blog-card-vertical {{ flex-direction: column; }} .blog-img {{ width: 100%; border-right: none; border-bottom: 1px solid #eee; }} .tools-bar {{ justify-content: center; flex-direction: column-reverse; }} .search-box {{ width: 100%; }} .search-box input {{ width: 100%; }} }}
         </style></head>
         <body><div class="header-bg"></div><div class="ticker-wrap"><div class="ticker">🔥 ĐỐI TÁC CUNG CẤP VĂN PHÒNG PHẨM TRỌN GÓI 🔥 | 🚚 FREESHIP TỪ 500K | 📞 ZALO SỈ: {ZALO_NUMBER}</div></div>
+        
         <div class="container">
-            {html_bai_viet_section}
-            
-            <div style="text-align: center; margin-top: 50px;"><h2 class="section-title" id="khu-vuc-sp">🛍️ SIÊU THỊ SẢN PHẨM</h2></div>
-            
             <div class="tools-bar">
                 {html_menu}
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Tìm trên trang này...">
-                    <button onclick="searchSP()">Tìm</button>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." onkeyup="if(event.key === 'Enter') searchSP()">
+                    <button onclick="searchSP()">Tìm Kiếm</button>
                 </div>
             </div>
+
+            {html_bai_viet_section}
+            
+            <div style="text-align: center; margin-top: 50px; padding-top: 20px;"><h2 class="section-title" id="khu-vuc-sp">🛍️ SIÊU THỊ SẢN PHẨM</h2></div>
 
             <div class="grid" id="productGrid">{html_sp_grid}</div>
             {html_pagination}
@@ -334,16 +335,25 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         {UI_FLOATING} {UI_FOOTER}
         
         <script>
-            // JS Lọc danh mục cơ bản trên trang
-            function filterCat(cat) {{
-                event.preventDefault();
+            // JS ĐÃ ĐƯỢC NÂNG CẤP ĐỂ TỰ ĐỘNG TRƯỢT MÀN HÌNH
+            function filterCat(cat, event) {{
+                if(event) event.preventDefault();
+                
+                // Cập nhật nút active
+                let btns = document.getElementsByClassName('cat-btn');
+                for(let b of btns) b.classList.remove('active');
+                if(event) event.target.classList.add('active');
+
                 let cards = document.getElementsByClassName('sp-card');
                 for (let i = 0; i < cards.length; i++) {{
-                    if (cards[i].classList.contains('mix-' + cat)) cards[i].style.display = 'flex';
+                    if (cat === 'all' || cards[i].classList.contains('mix-' + cat)) cards[i].style.display = 'flex';
                     else cards[i].style.display = 'none';
                 }}
+                
+                // Ma thuật tự động trượt xuống
+                document.getElementById('khu-vuc-sp').scrollIntoView({{behavior: "smooth", block: "start"}});
             }}
-            // JS Tìm kiếm cơ bản trên trang
+
             function searchSP() {{
                 let input = document.getElementById('searchInput').value.toLowerCase();
                 let cards = document.getElementsByClassName('sp-card');
@@ -352,11 +362,14 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
                     if (title.includes(input)) cards[i].style.display = 'flex';
                     else cards[i].style.display = 'none';
                 }}
+                
+                // Ma thuật tự động trượt xuống
+                document.getElementById('khu-vuc-sp').scrollIntoView({{behavior: "smooth", block: "start"}});
             }}
         </script>
         </body></html>"""
         with open(os.path.join(BASE_DIR, ten_file), "w", encoding="utf-8") as f: f.write(html)
-
+        
 def chay_he_thong():
     print("🚀 ĐANG TẢI DỮ LIỆU TỪ GOOGLE SHEETS...")
     data_san_pham = lay_data_tu_google_sheet(URL_CSV_SAN_PHAM)
