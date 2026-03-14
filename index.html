@@ -6,19 +6,22 @@
     <title>VPP Tịnh | Kiến thức & Mua sắm thông minh</title>
     <style>
         body { font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
-        /* Dòng chữ chạy (News Ticker) */
-        .ticker-wrap { width: 100%; background-color: #333; padding: 8px 0; overflow: hidden; color: white; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
+        
+        /* 1. HEADER CŨ CỦA BẠN (Giữ nguyên) */
+        .header-bg { width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360/350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; }
+        
+        /* 2. DÒNG CHỮ CHẠY (Nằm sát dưới Header, màu đỏ cho nổi) */
+        .ticker-wrap { width: 100%; max-width: 1200px; margin: 0 auto 30px auto; background-color: #d0011b; padding: 12px 0; overflow: hidden; color: white; font-weight: bold; font-size: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .ticker { display: inline-block; white-space: nowrap; padding-right: 100%; box-sizing: content-box; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translate3d(100%, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
         
-        .header-bg { background: #d0011b; color: white; text-align: center; padding: 40px 20px; margin-bottom: 30px; }
-        .header-bg h1 { margin: 0; font-size: 32px; text-transform: uppercase; }
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 30px; color: #333; text-transform: uppercase; border-bottom: 2px solid #d0011b; display: inline-block; padding-bottom: 10px; font-size: 24px; }
         
-        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding-bottom: 50px; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding-bottom: 50px; text-align: left; }
         .blog-card { background: white; padding: 20px; border-radius: 8px; text-decoration: none; color: #333; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 5px solid #d0011b; transition: transform 0.2s; }
-        .blog-card:hover { transform: scale(1.02); }
-        .blog-card h3 { color: #d0011b; margin-top: 0; }
+        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .blog-card h3 { color: #d0011b; margin-top: 0; line-height: 1.4; }
         
         /* Zalo Button */
         .zalo-btn { position: fixed; bottom: 20px; right: 20px; background: #0068ff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); animation: rung 1.5s infinite; z-index: 1000; text-align: center; line-height: 1.2;}
@@ -26,17 +29,14 @@
     </style>
 </head>
 <body>
+    <div class="header-bg"></div>
+    
     <div class="ticker-wrap"><div class="ticker">
         🔥 CHÀO MỪNG ĐẾN VỚI VPP TỊNH - ĐỐI TÁC CUNG CẤP VĂN PHÒNG PHẨM TRỌN GÓI 🔥 | 🚚 FREESHIP CHO ĐƠN HÀNG TỪ 500K | 📞 MUA SỈ LIÊN HỆ ZALO: 0931736266 ĐỂ NHẬN BÁO GIÁ CHIẾT KHẤU CAO NHẤT!
     </div></div>
     
-    <div class="header-bg">
-        <h1>GÓC TƯ VẤN & SĂN DEAL VPP TỊNH</h1>
-        <p>Kiến thức chuyên sâu - Mua sắm thông minh - Tiết kiệm tối đa</p>
-    </div>
-    
-    <div class="container">
-        <h2 style="text-align: center; margin-bottom: 30px; color: #333;">📚 BÀI VIẾT MỚI NHẤT</h2>
+    <div class="container" style="text-align: center;">
+        <h2 class="section-title">📚 GÓC TƯ VẤN & SĂN DEAL</h2>
         <div class="blog-grid">
             
         <a href="bai-viet/bai1.html" class="blog-card">
