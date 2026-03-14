@@ -20,7 +20,7 @@ except ImportError:
 # CHỈ CẦN 1 LINK KHO HÀNG DUY NHẤT CỦA BẠN:
 URL_CSV_SAN_PHAM = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzftzzjfyPE6MujJRirjKeXub0RmgpmAQNuTr9IjaLGe9BGukp4RnPisW7tZo3sDBBqiumtY3RWNbX/pub?gid=0&single=true&output=csv"
 
-BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/111111/222222?utm_source=vpptinh_web&url_enc="
+BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc="
 ZALO_NUMBER = "0931736266"
 
 # Danh mục để AI hiểu nó đang viết về cái gì
