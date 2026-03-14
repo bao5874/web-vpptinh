@@ -18,7 +18,6 @@ except ImportError:
 # ==========================================
 # CẤU HÌNH HỆ THỐNG
 # ==========================================
-# Giai đoạn 2: Dùng đường dẫn tương đối để chạy được trên mọi máy tính và Server
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_CSV_LOCAL = os.path.join(BASE_DIR, "danh_sach_san_pham.csv")
 FILE_JSON = os.path.join(BASE_DIR, "products.json")
@@ -36,7 +35,6 @@ DANH_MUC_MAP = {
     "me_be": "Mẹ & Bé", "khac": "Sản Phẩm Khác"
 }
 
-# Lấy API Key từ biến môi trường (cho Github Actions) hoặc từ file local
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     try:
@@ -55,7 +53,6 @@ def tao_link_aff(url_goc):
     except: return url_goc
 
 def tao_slug(chuoi):
-    """Tạo URL thân thiện cho SEO (VD: but-bi-den)"""
     chuoi = str(chuoi)
     chuoi = unicodedata.normalize('NFKD', chuoi).encode('ascii', 'ignore').decode('utf-8')
     chuoi = re.sub(r'[^\w\s-]', '', chuoi).strip().lower()
@@ -67,7 +64,6 @@ def goi_ai_viet_mo_ta_hang_loat(danh_sach_sp_thieu):
     
     sp_text = "".join([f"- ID: {sp['id']} | Tên: {sp['name']} | Mô tả gốc: {sp['mo_ta_goc'][:300]}...\n" for sp in danh_sach_sp_thieu])
 
-    # Giai đoạn 2: Tối ưu Prompt chèn keyword và CTA
     prompt = f"""Bạn là Copywriter SEO đỉnh cao của VPP Tịnh Shop (chuyên văn phòng phẩm & đồ gia dụng).
     Dựa vào thông số trong "Mô tả gốc", hãy viết lại cho mỗi sản phẩm 1 đoạn văn (80 - 100 chữ) chốt sale.
     
@@ -82,7 +78,6 @@ def goi_ai_viet_mo_ta_hang_loat(danh_sach_sp_thieu):
     {sp_text}
     """
 
-    # Giai đoạn 2: Xử lý Rate Limit với Exponential Backoff (chờ tăng dần)
     for attempt in range(4):
         try:
             client = genai.Client(api_key=GEMINI_API_KEY)
@@ -93,13 +88,12 @@ def goi_ai_viet_mo_ta_hang_loat(danh_sach_sp_thieu):
             data = json.loads(response.text)
             return {str(item["id"]): str(item["mo_ta_ai"]).strip() for item in data.get("results", [])}
         except Exception as e:
-            thoi_gian_cho = (attempt + 1) * 15 # Chờ 15s, 30s, 45s...
+            thoi_gian_cho = (attempt + 1) * 15 
             print(f" ⏳ Lỗi API/Quá tải. Tự động chờ {thoi_gian_cho} giây... (Lần {attempt+1}/4)")
             time.sleep(thoi_gian_cho)
     return {}
 
 def tao_trang_chi_tiet(p):
-    """Giai đoạn 1: Tạo trang HTML riêng biệt cho từng sản phẩm"""
     slug = p['slug']
     chuoi_moi = re.sub(r'[^\d]', '', str(p['new_price']))
     moi = float(chuoi_moi) if chuoi_moi else 0
@@ -121,7 +115,7 @@ def tao_trang_chi_tiet(p):
         .breadcrumb {{ font-size: 14px; margin-bottom: 20px; color: #777; }}
         .breadcrumb a {{ color: #d0011b; text-decoration: none; }}
         .product-img {{ text-align: center; margin-bottom: 20px; }}
-        .product-img img {{ max-width: 100%; max-height: 400px; border-radius: 8px; }}
+        .product-img img {{ max-width: 100%; max-height: 400px; border-radius: 8px; object-fit: contain; }}
         h1 {{ font-size: 24px; color: #222; margin-bottom: 10px; }}
         .price {{ font-size: 28px; color: #d0011b; font-weight: bold; margin-bottom: 20px; }}
         .desc {{ line-height: 1.6; color: #555; margin-bottom: 30px; white-space: pre-line; }}
@@ -145,7 +139,6 @@ def tao_trang_chi_tiet(p):
         f.write(html)
 
 def tao_web_html(products):
-    """Giai đoạn 3: Tối ưu UI/UX Trang chủ"""
     ga_script = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>""" if GA_ID != "G-XXXXXXXXXX" else ""
 
     unique_cats = list(set([p.get('danh_muc', 'khac') for p in products]))
@@ -164,7 +157,6 @@ def tao_web_html(products):
     <title>VPP Tịnh Shop | Săn Deal Đồ Gia Dụng & Văn Phòng Phẩm</title>
     {ga_script}
     <style>
-        /* CSS Gốc của bạn giữ nguyên, tôi thêm phần sr-only và load-more */
         :root {{ --primary: #d0011b; --bg: #f5f5f5; }}
         body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0 0 40px 0; }}
         .header-bg {{ width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360/350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; margin-bottom: 20px;}}
@@ -176,7 +168,7 @@ def tao_web_html(products):
         .cat-btn.active {{ background: var(--primary); color: white; border-color: var(--primary); }}
         .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; max-width: 1200px; margin: 0 auto 20px; padding: 0 10px; }}
         .card {{ background: white; border-radius: 4px; overflow: hidden; display: none; flex-direction: column; position: relative; border: 1px solid #eee; }}
-        .card.show {{ display: flex; }} /* Phục vụ cho Load More */
+        .card.show {{ display: flex; }}
         .img-box {{ width: 100%; height: 190px; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }}
         .img-box img {{ max-width: 100%; max-height: 100%; object-fit: contain; }}
         .info {{ padding: 10px; display: flex; flex-direction: column; flex-grow: 1; }}
@@ -197,19 +189,16 @@ def tao_web_html(products):
 """
     
     for p in products:
-        try:
-            moi = float(re.sub(r'[^\d]', '', str(p['new_price']))) if re.sub(r'[^\d]', '', str(p['new_price'])) else 0
+        try: moi = float(re.sub(r'[^\d]', '', str(p['new_price']))) if re.sub(r'[^\d]', '', str(p['new_price'])) else 0
         except: moi = 0
 
         new_price_format = f"{int(moi):,}₫".replace(",", ".")
-        fake_sold = random.randint(120, 3500) # Giai đoạn 3: Hiệu ứng chim mồi
+        fake_sold = random.randint(120, 3500) 
         link_chi_tiet = f"san-pham/{p['slug']}.html"
 
         html += f"""
         <div class="card" data-category="{p.get('danh_muc', 'khac')}" data-title="{p['name'].lower()}">
-            <a href="{link_chi_tiet}" class="img-box">
-                <img src="{p['image']}" alt="{p['name']} giá rẻ" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'">
-            </a>
+            <a href="{link_chi_tiet}" class="img-box"><img src="{p['image']}" alt="{p['name']} giá rẻ" loading="lazy" onerror="this.src='https://placehold.co/200x200?text=No+Image'"></a>
             <div class="info">
                 <a href="{link_chi_tiet}" class="title">{p['name']}</a>
                 <div class="rating">⭐⭐⭐⭐⭐ (Đã bán {fake_sold})</div>
@@ -225,7 +214,7 @@ def tao_web_html(products):
 
     <script>
         let currentCat = 'all';
-        let itemsToShow = 20; // Giai đoạn 3: Phân trang JS nhẹ nhàng
+        let itemsToShow = 20; 
         
         function updateDisplay() {
             let cards = document.querySelectorAll('.card');
@@ -264,16 +253,43 @@ def tao_web_html(products):
         function filterProducts() { itemsToShow = 20; updateDisplay(); }
         function loadMore() { itemsToShow += 20; updateDisplay(); }
 
-        // Khởi chạy lần đầu
         updateDisplay();
     </script>
 </body></html>
 """
     return html
 
+def tao_sitemap_va_robots(products):
+    """Tạo Tự động Sitemap.xml và Robots.txt cho SEO"""
+    print("🗺️ Đang tạo Sitemap và Robots.txt chuẩn SEO...")
+    
+    # 1. Tạo file robots.txt
+    robots_content = "User-agent: *\nAllow: /\nSitemap: https://vpptinh.com/sitemap.xml\n"
+    with open(os.path.join(BASE_DIR, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write(robots_content)
+
+    # 2. Tạo file sitemap.xml
+    ngay_hien_tai = time.strftime("%Y-%m-%d")
+    sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    # URL Trang chủ
+    sitemap_xml += f'  <url>\n    <loc>https://vpptinh.com/</loc>\n    <lastmod>{ngay_hien_tai}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n'
+    
+    # URL Từng trang sản phẩm
+    for p in products:
+        loc = f"https://vpptinh.com/san-pham/{p['slug']}.html"
+        sitemap_xml += f'  <url>\n    <loc>{loc}</loc>\n    <lastmod>{ngay_hien_tai}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n'
+    
+    sitemap_xml += '</urlset>'
+    
+    with open(os.path.join(BASE_DIR, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(sitemap_xml)
+    print("✅ Đã tạo xong bản đồ Sitemap!")
+
 def chay_he_thong():
     print(f"🚀 KHỞI ĐỘNG HỆ THỐNG SEO ĐA TRANG")
-    os.makedirs(THU_MUC_SAN_PHAM, exist_ok=True) # Giai đoạn 1: Tạo thư mục chứa web con
+    os.makedirs(THU_MUC_SAN_PHAM, exist_ok=True) 
 
     try:
         if not os.path.exists(FILE_CSV_LOCAL): return print(f"❌ KHÔNG TÌM THẤY: {FILE_CSV_LOCAL}")
@@ -282,13 +298,13 @@ def chay_he_thong():
         
         with open(FILE_CSV_LOCAL, mode='r', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f, delimiter=';' if ';' in f.readline() else ',')
-            f.seek(0); next(reader) # Reset con trỏ
+            f.seek(0); next(reader) 
             
             for idx, row in enumerate(reader):
                 if not row.get('name'): continue
                 row['_id'] = str(idx)
                 row['danh_muc'] = row.get('danh_muc', 'khac') or 'khac'
-                row['slug'] = tao_slug(row['name']) # Giai đoạn 1: Tạo Slug URL
+                row['slug'] = tao_slug(row['name']) 
                 
                 mo_ta_ai = row.get('mo_ta_ai', '').strip()
                 if not mo_ta_ai or "Đừng bỏ lỡ" in mo_ta_ai:
@@ -317,14 +333,16 @@ def chay_he_thong():
                 "mo_ta_ai": r['mo_ta_ai'], "danh_muc": r['danh_muc']
             }
             clean_products.append(sp_sach)
-            tao_trang_chi_tiet(sp_sach) # Giai đoạn 1: Sinh file HTML tĩnh
+            tao_trang_chi_tiet(sp_sach) 
 
         print(f"✅ Đã tạo {len(clean_products)} trang sản phẩm con.")
+        
+        # GỌI HÀM TẠO SITEMAP Ở ĐÂY
+        tao_sitemap_va_robots(clean_products)
         
         with open(os.path.join(BASE_DIR, "index.html"), "w", encoding="utf-8") as f:
             f.write(tao_web_html(clean_products))
         
-        # Cập nhật lại CSV
         with open(FILE_CSV_LOCAL, mode='w', encoding='utf-8-sig', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=raw_data[0].keys() - {'_id', 'slug'})
             writer.writeheader()
@@ -334,7 +352,6 @@ def chay_he_thong():
 
         print("🎉 HOÀN TẤT BUILD WEBSITE LÊN LOCAL!")
         
-        # Nếu đang chạy trên máy tính cá nhân (không phải Github Actions) thì tự mở web
         if not os.environ.get("GITHUB_ACTIONS"):
             webbrowser.open("file://" + os.path.realpath(os.path.join(BASE_DIR, "index.html")))
 
