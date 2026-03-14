@@ -1,0 +1,39 @@
+name: Tự động Build Web và Đăng Sản Phẩm
+on:
+  push:
+    branches:
+      - main # (Hoặc thay bằng nhánh 'master' tùy kho của bạn)
+    paths:
+      - 'danh_sach_san_pham.csv' # Chỉ chạy khi file này thay đổi
+
+permissions:
+  contents: write # Cấp quyền cho bot tự động commit code mới lên
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Lấy mã nguồn về máy chủ Github
+        uses: actions/checkout@v3
+
+      - name: Cài đặt Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Cài đặt thư viện AI
+        run: pip install google-genai unicodedata2
+
+      - name: Chạy Script Python xào nấu nội dung và Build Web
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python main.py
+
+      - name: Commit và Push các file HTML mới lên Github
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add index.html san-pham/ danh_sach_san_pham.csv
+          git commit -m "🚀 Auto: Build web & generate SEO pages by AI" || echo "Không có thay đổi mới"
+          git push
