@@ -112,32 +112,45 @@ def tao_trang_chi_tiet(p):
     <style>
         body {{ font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 20px; color: #333; }}
         .container {{ max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
-        .breadcrumb {{ font-size: 14px; margin-bottom: 20px; color: #777; }}
-        .breadcrumb a {{ color: #d0011b; text-decoration: none; }}
+        
+        /* CSS MỚI CHO THANH ĐIỀU HƯỚNG */
+        .header-nav {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }}
+        .btn-back {{ display: inline-flex; align-items: center; justify-content: center; background: #fff; color: #d0011b; border: 2px solid #d0011b; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; transition: all 0.3s; box-sizing: border-box; }}
+        .btn-back:hover {{ background: #d0011b; color: #fff; }}
+        .category-tag {{ background: #f0f0f0; padding: 5px 12px; border-radius: 20px; font-size: 13px; color: #555; font-weight: bold; }}
+        
         .product-img {{ text-align: center; margin-bottom: 20px; }}
         .product-img img {{ max-width: 100%; max-height: 400px; border-radius: 8px; object-fit: contain; }}
-        h1 {{ font-size: 24px; color: #222; margin-bottom: 10px; }}
+        h1 {{ font-size: 24px; color: #222; margin-bottom: 10px; line-height: 1.4; }}
         .price {{ font-size: 28px; color: #d0011b; font-weight: bold; margin-bottom: 20px; }}
-        .desc {{ line-height: 1.6; color: #555; margin-bottom: 30px; white-space: pre-line; }}
-        .btn-buy {{ display: block; background: #d0011b; color: white; text-align: center; padding: 15px; text-decoration: none; font-size: 18px; font-weight: bold; border-radius: 5px; }}
+        .desc {{ line-height: 1.6; color: #555; margin-bottom: 30px; white-space: pre-line; font-size: 16px; }}
+        
+        .btn-buy {{ display: block; background: #d0011b; color: white; text-align: center; padding: 15px; text-decoration: none; font-size: 18px; font-weight: bold; border-radius: 5px; margin-bottom: 15px; transition: background 0.3s;}}
         .btn-buy:hover {{ background: #b00117; }}
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="breadcrumb"><a href="../index.html">Trang chủ</a> / {DANH_MUC_MAP.get(p['danh_muc'], 'Sản phẩm')} / {p['name']}</div>
+        <div class="header-nav">
+            <a href="../index.html" class="btn-back">🔙 Quay lại Trang Chủ</a>
+            <span class="category-tag">{DANH_MUC_MAP.get(p['danh_muc'], 'Sản phẩm')}</span>
+        </div>
+        
         <div class="product-img"><img src="{img_url}" alt="{p['name']} chính hãng giá rẻ"></div>
         <h1>{p['name']}</h1>
         <div class="price">{new_price_format}</div>
         <div class="desc">{p['mo_ta_ai']}</div>
-        <a href="{p['link']}" class="btn-buy" target="_blank" rel="nofollow">ĐẾN NƠI BÁN / NHẬN ƯU ĐÃI NGAY</a>
+        
+        <a href="{p['link']}" class="btn-buy" target="_blank" rel="nofollow">🛒 ĐẾN NƠI BÁN / NHẬN ƯU ĐÃI NGAY</a>
+        
+        <a href="../index.html" class="btn-back" style="width: 100%;">🏠 Xem thêm sản phẩm khác</a>
     </div>
 </body>
 </html>"""
     
     with open(os.path.join(THU_MUC_SAN_PHAM, f"{slug}.html"), "w", encoding="utf-8") as f:
         f.write(html)
-
+        
 def tao_web_html(products):
     ga_script = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>""" if GA_ID != "G-XXXXXXXXXX" else ""
 
