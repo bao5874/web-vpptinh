@@ -35,6 +35,7 @@ DANH_MUC_MAP = {
     "me_be": "Mẹ & Bé", "khac": "Sản Phẩm Khác"
 }
 
+# Đọc API Key
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     try:
@@ -113,7 +114,7 @@ def tao_trang_chi_tiet(p):
         body {{ font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 20px; color: #333; }}
         .container {{ max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
         
-        /* CSS MỚI CHO THANH ĐIỀU HƯỚNG */
+        /* CSS CHO THANH ĐIỀU HƯỚNG VÀ NÚT */
         .header-nav {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }}
         .btn-back {{ display: inline-flex; align-items: center; justify-content: center; background: #fff; color: #d0011b; border: 2px solid #d0011b; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; transition: all 0.3s; box-sizing: border-box; }}
         .btn-back:hover {{ background: #d0011b; color: #fff; }}
@@ -150,7 +151,7 @@ def tao_trang_chi_tiet(p):
     
     with open(os.path.join(THU_MUC_SAN_PHAM, f"{slug}.html"), "w", encoding="utf-8") as f:
         f.write(html)
-        
+
 def tao_web_html(products):
     ga_script = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{GA_ID}');</script>""" if GA_ID != "G-XXXXXXXXXX" else ""
 
@@ -273,23 +274,18 @@ def tao_web_html(products):
     return html
 
 def tao_sitemap_va_robots(products):
-    """Tạo Tự động Sitemap.xml và Robots.txt cho SEO"""
     print("🗺️ Đang tạo Sitemap và Robots.txt chuẩn SEO...")
     
-    # 1. Tạo file robots.txt
     robots_content = "User-agent: *\nAllow: /\nSitemap: https://vpptinh.com/sitemap.xml\n"
     with open(os.path.join(BASE_DIR, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(robots_content)
 
-    # 2. Tạo file sitemap.xml
     ngay_hien_tai = time.strftime("%Y-%m-%d")
     sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     
-    # URL Trang chủ
     sitemap_xml += f'  <url>\n    <loc>https://vpptinh.com/</loc>\n    <lastmod>{ngay_hien_tai}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n'
     
-    # URL Từng trang sản phẩm
     for p in products:
         loc = f"https://vpptinh.com/san-pham/{p['slug']}.html"
         sitemap_xml += f'  <url>\n    <loc>{loc}</loc>\n    <lastmod>{ngay_hien_tai}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n'
@@ -350,7 +346,6 @@ def chay_he_thong():
 
         print(f"✅ Đã tạo {len(clean_products)} trang sản phẩm con.")
         
-        # GỌI HÀM TẠO SITEMAP Ở ĐÂY
         tao_sitemap_va_robots(clean_products)
         
         with open(os.path.join(BASE_DIR, "index.html"), "w", encoding="utf-8") as f:
