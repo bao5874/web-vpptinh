@@ -20,18 +20,18 @@ except ImportError:
 # 1. CẤU HÌNH HỆ THỐNG
 # ==========================================
 URL_CSV_SAN_PHAM = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzftzzjfyPE6MujJRirjKeXub0RmgpmAQNuTr9IjaLGe9BGukp4RnPisW7tZo3sDBBqiumtY3RWNbX/pub?gid=0&single=true&output=csv"
-
-# THAY MÃ ID ACCESSTRADE CỦA BẠN VÀO ĐÂY:
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/THAY_MA_CUA_BAN/THAY_MA_CUA_BAN?utm_source=vpptinh_web&url_enc="
+
+# THÊM TÊN MIỀN CỦA BẠN ĐỂ LÀM SEO (SITEMAP, CANONICAL)
+DOMAIN = "https://vpptinh.com"
 
 ZALO_NUMBER = "0931736266"
 PHONE_NUMBER = "0931736266"
 SP_MOI_TRANG = 24
 
-# 🔑 DANH SÁCH BĂNG ĐẠN API QUAY VÒNG (XOAY TUA SÚNG)
 DANH_SACH_API_KEYS = [
-    "AIzaSyBWxQZXIrfod0AmL7NWWgmR6tqSZ-mzXK8",
-    "AIzaSyBmm78JdbUh1S1f-pWFuqSw0b4PvW5YhGg"
+    "AIzaSyDC0NmiHAGka-m9xX4ARH7NpGU7Ff7PsD8",
+    "AIzaSyDJVA9mZnrmh7DkLgyHsB7y2yMWzs4L2ew"
 ]
 vi_tri_sung_hien_tai = 0
 
@@ -54,8 +54,8 @@ UI_FOOTER = f"""
 <footer style="background: #222; color: #ddd; padding: 40px 20px; margin-top: 50px; font-size: 14px;">
     <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
         <div><h3 style="color: #fff;">VPP TỊNH SHOP</h3><p>Đối tác cung cấp văn phòng phẩm, đồ gia dụng và vật phẩm thờ cúng trọn gói, uy tín hàng đầu.</p></div>
-        <div><h3 style="color: #fff;">LIÊN HỆ MUA SỈ</h3><p>📍 Địa chỉ: Cập nhật sau<br>📞 Hotline: {PHONE_NUMBER}<br>💬 Zalo: {ZALO_NUMBER}</p></div>
-        <div><h3 style="color: #fff;">CHÍNH SÁCH</h3><p><a href="#" style="color:#ddd; text-decoration:none;">Chính sách giao hàng</a><br><a href="#" style="color:#ddd; text-decoration:none;">Chính sách đổi trả</a><br><a href="#" style="color:#ddd; text-decoration:none;">Bảo mật thông tin</a></p></div>
+        <div><h3 style="color: #fff;">LIÊN HỆ MUA SỈ</h3><p>📞 Hotline: {PHONE_NUMBER}<br>💬 Zalo: {ZALO_NUMBER}</p></div>
+        <div><h3 style="color: #fff;">CHÍNH SÁCH</h3><p><a href="#" style="color:#ddd; text-decoration:none;">Chính sách giao hàng</a><br><a href="#" style="color:#ddd; text-decoration:none;">Đổi trả & Bảo mật</a></p></div>
     </div>
     <div style="text-align: center; border-top: 1px solid #444; margin-top: 30px; padding-top: 20px; color: #888;">&copy; 2026 VPP Tịnh. All rights reserved.</div>
 </footer>
@@ -76,9 +76,7 @@ UI_FLOATING = f"""
     <a href="tel:{PHONE_NUMBER}" class="f-btn f-call">📞</a>
     <a href="https://zalo.me/{ZALO_NUMBER}" target="_blank" class="f-btn f-zalo">Chat<br>Zalo</a>
 </div>
-<script>
-    window.onscroll = function() {{ document.getElementById("btnTop").style.display = (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) ? "flex" : "none"; }};
-</script>
+<script>window.onscroll = function() {{ document.getElementById("btnTop").style.display = (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) ? "flex" : "none"; }};</script>
 """
 
 # ==========================================
@@ -113,48 +111,42 @@ def lay_data_tu_google_sheet(url):
 
 def goi_ai_tu_dong_viet_bai(ten_danh_muc, ten_sp_dau_tien):
     api_key = rut_sung_tiep_theo()
-    if not api_key: return {"tieu_de": "Chưa cài API Key", "noi_dung_html": ""}
-    print(f"📰 AI [Súng ...{api_key[-4:]}] viết Tạp chí cho '{ten_danh_muc}'...")
+    if not api_key: return {"tieu_de": "Chưa cài API Key", "meta_description": "", "noi_dung_html": ""}
     
-    prompt = f"""Bạn là Chuyên gia SEO & Bậc thầy Kể chuyện bán hàng. 
-    Viết 1 bài tạp chí chuẩn SEO dài 800 chữ cho ngành hàng "{ten_danh_muc}". Lấy "{ten_sp_dau_tien}" làm mồi nhử, đánh trúng nỗi đau khách hàng.
-    LƯU Ý KỸ THUẬT: BẮT BUỘC TRẢ VỀ JSON. TRONG HTML CHỈ DÙNG DẤU NHÁY ĐƠN ('), KHÔNG DÙNG DẤU NHÁY KÉP ("). KHÔNG SỬ DỤNG KÝ TỰ XUỐNG DÒNG (ENTER) TRONG NỘI DUNG.
-    Cấu trúc: {{"tieu_de": "Tiêu đề (10-15 chữ)", "noi_dung_html": "HTML nội dung (<h2>, <p>, <ul>)"}}"""
+    prompt = f"""Bạn là Copywriter sáng tạo. Viết 1 bài SEO 500 chữ cho nhóm "{ten_danh_muc}". Lấy "{ten_sp_dau_tien}" làm mồi. Đổi mới góc nhìn, không rập khuôn.
+    BẮT BUỘC TRẢ VỀ JSON. TRONG HTML CHỈ DÙNG DẤU NHÁY ĐƠN ('). KHÔNG XUỐNG DÒNG (ENTER) TRONG TEXT.
+    Cấu trúc: {{"tieu_de": "Tiêu đề (10-15 chữ)", "meta_description": "Mô tả SEO tóm tắt (150 ký tự)", "noi_dung_html": "HTML (<h2>, <p>)"}}"""
     
     try:
         client = genai.Client(api_key=api_key)
-        res = client.models.generate_content(
-            model='gemini-2.5-flash', 
-            contents=prompt, 
-            config=types.GenerateContentConfig(temperature=0.85, response_mime_type="application/json")
-        )
-        time.sleep(2)
-        
-        # BỘ LỌC ÁO GIÁP: Xóa các ký tự tàng hình, xuống dòng, và markdown thừa gây vỡ JSON
+        res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.9, response_mime_type="application/json"))
+        time.sleep(2.5)
         raw_json = res.text.replace("```json", "").replace("```", "").replace("\n", " ").replace("\r", " ").strip()
-        
-        # strict=False: Ép Python bỏ qua các lỗi control character nếu vẫn còn sót
         return json.loads(raw_json, strict=False)
-        
     except Exception as e:
-        print(f"❌ Lỗi AI ({ten_danh_muc}): {e}")
-        return {"tieu_de": f"Top {ten_danh_muc} đáng mua", "noi_dung_html": "<p>Nội dung đang được cập nhật...</p>"}
-        
+        print(f"❌ Lỗi AI Tạp chí ({ten_danh_muc}): {e}")
+        return {"tieu_de": f"Top {ten_danh_muc} đáng mua", "meta_description": f"Khám phá ngay {ten_danh_muc} giá sỉ tốt nhất.", "noi_dung_html": "<p>Đang cập nhật...</p>"}
+
 def goi_ai_viet_mo_ta_sp(ten_sp):
     api_key = rut_sung_tiep_theo()
-    if not api_key: return "<p>Mô tả cập nhật sau.</p>"
-    print(f"📝 AI [Súng ...{api_key[-4:]}] chốt sale cho: '{ten_sp}'...")
+    if not api_key: return {"meta_description": "Đang cập nhật", "noi_dung_html": "<p>Mô tả cập nhật sau.</p>"}
+    print(f"📝 AI đang biến hóa phong cách cho: '{ten_sp}'...")
     
-    prompt = f"""Bạn là Sales Copywriter xuất sắc. Viết mô tả chốt sale 200 chữ cho sản phẩm: "{ten_sp}".
-    Biến tính năng thành LỢI ÍCH thực tế. Định dạng HTML (<h3>, <p>, <ul>). In đậm từ khóa. Không xuất thẻ markdown."""
+    prompt = f"""Bạn là Sales Copywriter xuất sắc, CỰC KỲ SÁNG TẠO và ghét sự rập khuôn.
+    Sản phẩm: "{ten_sp}".
+    Nhiệm vụ: Viết 1 đoạn chốt sale SIÊU NGẮN (100 - 150 chữ). Đánh thẳng vào 1 điểm "ăn tiền" nhất của sản phẩm. Chọn ngẫu nhiên 1 trong 3 phong cách (Chuyên gia / Hài hước / Kể chuyện ngắn). KHÔNG liệt kê tính năng như cái máy.
+    BẮT BUỘC TRẢ VỀ JSON. TRONG HTML CHỈ DÙNG DẤU NHÁY ĐƠN ('). KHÔNG XUỐNG DÒNG (ENTER) TRONG TEXT.
+    Cấu trúc: {{"meta_description": "Câu tóm tắt chuẩn SEO (150 ký tự)", "noi_dung_html": "Mã HTML thuần (<h3>, <p>, <ul>)"}}"""
     
     try:
         client = genai.Client(api_key=api_key)
-        res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.8))
-        return res.text.replace("```html", "").replace("```", "").strip()
+        res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.95, response_mime_type="application/json"))
+        time.sleep(2.5)
+        raw_json = res.text.replace("```json", "").replace("```", "").replace("\n", " ").replace("\r", " ").strip()
+        return json.loads(raw_json, strict=False)
     except Exception as e:
-        print(f"❌ Lỗi AI ({ten_sp}): {e}")
-        return f"<p>Siêu phẩm <strong>{ten_sp}</strong> đang có mức giá cực kỳ ưu đãi. Nhấn mua ngay!</p>"
+        print(f"❌ Lỗi AI Mô tả ({ten_sp}): {e}")
+        return {"meta_description": f"Mua {ten_sp} giá cực sốc.", "noi_dung_html": f"<p>Siêu phẩm <strong>{ten_sp}</strong> đang có ưu đãi lớn!</p>"}
 
 def sinh_the_san_pham_html(p, path_prefix=""):
     try: price = float(re.sub(r'[^\d]', '', str(p.get('new_price', '0')))) if re.sub(r'[^\d]', '', str(p.get('new_price', '0'))) else 0
@@ -162,10 +154,11 @@ def sinh_the_san_pham_html(p, path_prefix=""):
     old_price = int(price * 1.25)
     link_sp = f"{path_prefix}san-pham/{p['slug']}.html"
     
+    # Đã thêm thuộc tính ALT cho ảnh chuẩn SEO
     return f"""
     <div class="sp-card">
         <div class="sale-badge">-20%</div>
-        <img src="{p.get('image', '')}" loading="lazy" alt="{p.get('name', '')}">
+        <img src="{p.get('image', '')}" loading="lazy" alt="Giá sỉ {p.get('name', 'Sản phẩm')}">
         <div class="sp-info">
             <div class="sp-name">{p.get('name', '')}</div>
             <div class="sp-price-box">
@@ -178,20 +171,42 @@ def sinh_the_san_pham_html(p, path_prefix=""):
     """
 
 # ==========================================
-# 4. HÀM TẠO TRANG HTML (RENDER)
+# 4. HÀM TẠO TRANG HTML (SEO MASTER)
 # ==========================================
-def tao_trang_chi_tiet_sp(p, mo_ta_html):
+def tao_trang_chi_tiet_sp(p, ai_data):
     slug = p['slug']
     link_aff = tao_link_aff(p.get('link', ''))
     try: price = float(re.sub(r'[^\d]', '', str(p.get('new_price', '0')))) if re.sub(r'[^\d]', '', str(p.get('new_price', '0'))) else 0
     except: price = 0
     old_price = int(price * 1.25)
     dm_name = DANH_MUC_MAP.get(p.get('danh_muc', 'khac'), 'Sản Phẩm')
+    
+    mo_ta_html = ai_data.get('noi_dung_html', '')
+    meta_desc = ai_data.get('meta_description', p.get('name', ''))[:160].replace('"', "'")
 
     html = f"""<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{p.get('name', '')} | Mua sỉ giá tốt</title>
+    <title>{p.get('name', '')} | Giá Sỉ Tốt Nhất</title>
+    <meta name="description" content="{meta_desc}">
+    <link rel="canonical" href="{DOMAIN}/san-pham/{slug}.html" />
     <meta property="og:title" content="{p.get('name', '')} - VPP Tịnh">
+    <meta property="og:description" content="{meta_desc}">
     <meta property="og:image" content="{p.get('image', '')}">
+    <script type="application/ld+json">
+    {{
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{p.get('name', '').replace('"', "'")}",
+      "image": "{p.get('image', '')}",
+      "description": "{meta_desc}",
+      "offers": {{
+        "@type": "Offer",
+        "url": "{DOMAIN}/san-pham/{slug}.html",
+        "priceCurrency": "VND",
+        "price": "{int(price)}",
+        "availability": "https://schema.org/InStock"
+      }}
+    }}
+    </script>
     <style>
         :root {{ --primary: #d0011b; --bg: #f5f5f5; }} body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; padding-bottom: 80px; }} 
         .header {{ background: #fff; padding: 10px 25px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }} 
@@ -211,17 +226,14 @@ def tao_trang_chi_tiet_sp(p, mo_ta_html):
         .btn-buy {{ background: var(--primary); color: white; text-decoration: none; padding: 15px 20px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 15px rgba(208,1,27,0.3); display: block; }} 
         .desc-box {{ border-top: 2px dashed #eee; padding-top: 30px; line-height: 1.6; font-size: 16px; }} 
         .desc-box h3 {{ color: var(--primary); margin-top:25px; }} 
-        @media (max-width: 768px) {{ 
-            .product-top {{ flex-direction: column; }} 
-            .btn-buy {{ position: fixed; bottom: 0; left: 0; width: 100%; margin: 0; border-radius: 0; padding: 18px 0; z-index: 1000; font-size: 20px; }}
-        }}
+        @media (max-width: 768px) {{ .product-top {{ flex-direction: column; }} .btn-buy {{ position: fixed; bottom: 0; left: 0; width: 100%; margin: 0; border-radius: 0; padding: 18px 0; z-index: 1000; font-size: 20px; }} }}
     </style></head>
     <body>
     <div class="header"><a href="../index.html" class="btn-home">🔙 Về Trang Chủ</a><strong style="color:var(--primary); font-size: 18px; line-height: 36px;">VPP TỊNH SHOP</strong></div>
     <div class="breadcrumbs"><a href="../index.html">Trang chủ</a> > {dm_name} > {p.get('name', '')[:30]}...</div>
     <div class="container">
         <div class="product-top">
-            <div class="product-img"><span class="sale-tag">🔥 HOT</span><img src="{p.get('image', '')}"></div>
+            <div class="product-img"><span class="sale-tag">🔥 HOT</span><img src="{p.get('image', '')}" alt="{p.get('name', '').replace('"', "'")}"></div>
             <div class="product-info">
                 <h1 class="p-title">{p.get('name', '')}</h1>
                 <div class="p-price-box"><span class="p-price">{int(price):,}₫</span><span class="p-old-price">{int(old_price):,}₫</span></div>
@@ -235,14 +247,21 @@ def tao_trang_chi_tiet_sp(p, mo_ta_html):
     </body></html>"""
     with open(os.path.join(THU_MUC_SAN_PHAM, f"{slug}.html"), "w", encoding="utf-8") as f: f.write(html)
 
-def tao_trang_lai_bai_viet(slug, tieu_de, noi_dung_html, san_pham_lien_quan):
+def tao_trang_lai_bai_viet(slug, ai_data, san_pham_lien_quan):
     html_sp = "".join([sinh_the_san_pham_html(p, "../") for p in san_pham_lien_quan])
     sp_moi = san_pham_lien_quan[0] if san_pham_lien_quan else {}
     img_moi = sp_moi.get('image', '')
     
+    tieu_de = ai_data.get('tieu_de', 'Tạp chí VPP')
+    noi_dung_html = ai_data.get('noi_dung_html', '')
+    meta_desc = ai_data.get('meta_description', tieu_de)[:160].replace('"', "'")
+    
     html = f"""<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{tieu_de} | VPP Tịnh</title>
+    <meta name="description" content="{meta_desc}">
+    <link rel="canonical" href="{DOMAIN}/bai-viet/{slug}.html" />
     <meta property="og:title" content="{tieu_de}">
+    <meta property="og:description" content="{meta_desc}">
     <meta property="og:image" content="{img_moi}">
     <style>
         :root {{ --primary: #d0011b; --bg: #f5f5f5; }} body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }} 
@@ -254,7 +273,6 @@ def tao_trang_lai_bai_viet(slug, tieu_de, noi_dung_html, san_pham_lien_quan):
         .article-column {{ max-width: 650px; margin: 0 auto; line-height: 1.6; font-size: 16px; }} 
         .featured-img-box {{ text-align: center; margin: 20px 0; }} .featured-img-box img {{ max-width: 100%; max-height: 350px; border-radius: 8px; }} 
         .showcase-title {{ text-align: center; color: var(--primary); margin: 40px 0 20px; border-top: 2px dashed #eee; padding-top: 30px; }} 
-        /* CSS Lưới SP */
         .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; text-align: center; }} 
         .sp-card {{ border: 1px solid #eee; border-radius: 8px; padding: 10px; background: white; position: relative; display: flex; flex-direction: column; justify-content: space-between;}} 
         .sale-badge {{ position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; padding: 3px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; }}
@@ -269,7 +287,7 @@ def tao_trang_lai_bai_viet(slug, tieu_de, noi_dung_html, san_pham_lien_quan):
     <body>
     <div class="header"><a href="../index.html" class="btn-home">🔙 Về Trang Chủ</a><strong style="color:var(--primary); font-size: 18px; line-height: 36px;">VPP TỊNH SHOP</strong></div>
     <div class="breadcrumbs"><a href="../index.html">Trang chủ</a> > Tạp chí > {tieu_de[:30]}...</div>
-    <div class="container"><h1 style="text-align: center; margin-bottom: 20px;">{tieu_de}</h1><div class="article-column"><div class="featured-img-box"><img src="{img_moi}"></div>{noi_dung_html}</div><h2 class="showcase-title">🔥 CÁC SẢN PHẨM KHUYÊN DÙNG 🔥</h2><div class="grid">{html_sp}</div></div>
+    <div class="container"><h1 style="text-align: center; margin-bottom: 20px;">{tieu_de}</h1><div class="article-column"><div class="featured-img-box"><img src="{img_moi}" alt="{tieu_de.replace('"', "'")}"></div>{noi_dung_html}</div><h2 class="showcase-title">🔥 CÁC SẢN PHẨM KHUYÊN DÙNG 🔥</h2><div class="grid">{html_sp}</div></div>
     {UI_FLOATING} {UI_FOOTER}
     </body></html>"""
     with open(os.path.join(THU_MUC_BAI_VIET, f"{slug}.html"), "w", encoding="utf-8") as f: f.write(html)
@@ -289,7 +307,7 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
 
     html_links = ""
     for hub in danh_sach_hub:
-        html_links += f"""<a href="bai-viet/{hub['slug']}.html" class="blog-card-vertical"><img src="{hub['img_dai_dien']}" class="blog-img"><div class="blog-content"><span class="blog-tag">{hub['ten_danh_muc']}</span><h3>{hub['tieu_de']}</h3><p>Đọc đánh giá chi tiết ➡️</p></div></a>"""
+        html_links += f"""<a href="bai-viet/{hub['slug']}.html" class="blog-card-vertical"><img src="{hub['img_dai_dien']}" class="blog-img" alt="{hub['tieu_de']}"><div class="blog-content"><span class="blog-tag">{hub['ten_danh_muc']}</span><h3>{hub['tieu_de']}</h3><p>{hub['meta_desc']} ➡️</p></div></a>"""
 
     for trang in range(1, tong_trang + 1):
         ten_file = "index.html" if trang == 1 else f"page-{trang}.html"
@@ -313,6 +331,8 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         html_bai_viet_section = f"""<div style="text-align: center;"><h2 class="section-title">📰 TƯ VẤN SẢN PHẨM</h2></div><div class="blog-list-vertical">{html_links}</div>""" if trang == 1 else ""
 
         html = f"""<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VPP Tịnh | Trang Chủ (Trang {trang})</title>
+        <meta name="description" content="VPP Tịnh - Đối tác cung cấp văn phòng phẩm, đồ gia dụng, vật phẩm thờ cúng sỉ lẻ toàn quốc giá tốt nhất. Freeship từ 500k.">
+        <link rel="canonical" href="{DOMAIN}/{ten_file}" />
         <meta property="og:title" content="VPP Tịnh - Đối tác cung cấp sỉ lẻ toàn quốc">
         <style>:root {{ --primary: #d0011b; --bg: #f5f5f5; }} body {{ font-family: sans-serif; background: var(--bg); margin: 0; padding: 0; scroll-behavior: smooth;}} 
         .header-bg {{ width: 100%; max-width: 1200px; margin: 0 auto; aspect-ratio: 1360/350; background-image: url('static/images/tinh_radio_banner1.jpg'); background-size: cover; background-position: center; }} 
@@ -390,6 +410,24 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         </body></html>"""
         with open(os.path.join(BASE_DIR, ten_file), "w", encoding="utf-8") as f: f.write(html)
 
+def tao_sitemap_xml(danh_sach_hub, tat_ca_san_pham, tong_trang):
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    # Trang chủ & Phân trang
+    for i in range(1, tong_trang + 1):
+        link = "index.html" if i == 1 else f"page-{i}.html"
+        xml += f'  <url>\n    <loc>{DOMAIN}/{link}</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n'
+    # Tạp chí chuyên mục
+    for hub in danh_sach_hub:
+        xml += f'  <url>\n    <loc>{DOMAIN}/bai-viet/{hub["slug"]}.html</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n'
+    # Sản phẩm chi tiết
+    for p in tat_ca_san_pham:
+        xml += f'  <url>\n    <loc>{DOMAIN}/san-pham/{p["slug"]}.html</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n'
+    xml += '</urlset>'
+    
+    with open(os.path.join(BASE_DIR, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(xml)
+    print("✅ Đã tạo tự động Sitemap.xml chuẩn Google.")
+
 def chay_he_thong():
     print("🚀 ĐANG TẢI DỮ LIỆU TỪ GOOGLE SHEETS...")
     data_san_pham = lay_data_tu_google_sheet(URL_CSV_SAN_PHAM)
@@ -406,14 +444,12 @@ def chay_he_thong():
     if os.path.exists(CACHE_SAN_PHAM):
         with open(CACHE_SAN_PHAM, "r", encoding="utf-8") as f: cache_san_pham = json.load(f)
 
-    print("--- 1. AI VIẾT MÔ TẢ CHO TỪNG SẢN PHẨM ---")
+    print("--- 1. AI VIẾT MÔ TẢ SIÊU NGẮN (CHỐT SALE) ---")
     for p in data_san_pham:
         slug_sp = p['slug']
         if slug_sp not in cache_san_pham:
             cache_san_pham[slug_sp] = goi_ai_viet_mo_ta_sp(p.get('name', ''))
             with open(CACHE_SAN_PHAM, "w", encoding="utf-8") as f: json.dump(cache_san_pham, f, ensure_ascii=False, indent=2)
-            # Thời gian nghỉ an toàn khi chạy nhiều súng
-            time.sleep(3) 
         tao_trang_chi_tiet_sp(p, cache_san_pham[slug_sp])
     
     print("--- 2. AI VIẾT TẠP CHÍ CHUYÊN MỤC ---")
@@ -434,16 +470,20 @@ def chay_he_thong():
         if dm not in cache_bai_viet:
             cache_bai_viet[dm] = goi_ai_tu_dong_viet_bai(ten_dm, sp_dau_tien.get('name', ''))
             with open(CACHE_BAI_VIET, "w", encoding="utf-8") as f: json.dump(cache_bai_viet, f, ensure_ascii=False, indent=2)
-            time.sleep(3)
 
-        tieu_de = cache_bai_viet[dm].get('tieu_de', f'Top sản phẩm {ten_dm}')
-        noi_dung = cache_bai_viet[dm].get('noi_dung_html', '')
-        tao_trang_lai_bai_viet(slug_dm, tieu_de, noi_dung, ds_sp)
-        danh_sach_hub.append({"slug": slug_dm, "tieu_de": tieu_de, "ten_danh_muc": ten_dm, "img_dai_dien": sp_dau_tien.get('image', '')})
+        ai_data = cache_bai_viet[dm]
+        tao_trang_lai_bai_viet(slug_dm, ai_data, ds_sp)
+        danh_sach_hub.append({"slug": slug_dm, "tieu_de": ai_data.get('tieu_de', ''), "meta_desc": ai_data.get('meta_description', ''), "ten_danh_muc": ten_dm, "img_dai_dien": sp_dau_tien.get('image', '')})
 
     print("--- 3. HOÀN THIỆN PHÂN TRANG & GIAO DIỆN ---")
     tao_trang_chu_phan_trang(danh_sach_hub, data_san_pham)
-    print("🎉 TẤT CẢ ĐÃ XONG! HỆ THỐNG CMS 8.0 SẴN SÀNG!")
+    
+    print("--- 4. TẠO SITEMAP.XML CHO GOOGLE ---")
+    tong_trang = math.ceil(len(data_san_pham) / SP_MOI_TRANG)
+    if tong_trang == 0: tong_trang = 1
+    tao_sitemap_xml(danh_sach_hub, data_san_pham, tong_trang)
+    
+    print("🎉 TẤT CẢ ĐÃ XONG! HỆ THỐNG SEO MASTER 9.0 SẴN SÀNG!")
 
 if __name__ == "__main__":
     chay_he_thong()
