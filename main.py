@@ -21,7 +21,7 @@ except ImportError:
 # ==========================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 URL_CSV_SAN_PHAM = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzftzzjfyPE6MujJRirjKeXub0RmgpmAQNuTr9IjaLGe9BGukp4RnPisW7tZo3sDBBqiumtY3RWNbX/pub?gid=0&single=true&output=csv"
-BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/THAY_MA_CUA_BAN/THAY_MA_CUA_BAN?utm_source=vpptinh_web&url_enc="
+BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc="
 
 DOMAIN = "https://vpptinh.com"
 ZALO_NUMBER = "0931736266"
