@@ -17,22 +17,32 @@ except ImportError:
     exit()
 
 # ==========================================
-# 1. CẤU HÌNH HỆ THỐNG
+# 1. CẤU HÌNH HỆ THỐNG & ĐỌC API TỪ .env
 # ==========================================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 URL_CSV_SAN_PHAM = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzftzzjfyPE6MujJRirjKeXub0RmgpmAQNuTr9IjaLGe9BGukp4RnPisW7tZo3sDBBqiumtY3RWNbX/pub?gid=0&single=true&output=csv"
 BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/THAY_MA_CUA_BAN/THAY_MA_CUA_BAN?utm_source=vpptinh_web&url_enc="
 
-# THÊM TÊN MIỀN CỦA BẠN ĐỂ LÀM SEO (SITEMAP, CANONICAL)
 DOMAIN = "https://vpptinh.com"
-
 ZALO_NUMBER = "0931736266"
 PHONE_NUMBER = "0931736266"
 SP_MOI_TRANG = 24
 
-DANH_SACH_API_KEYS = [
-    "AIzaSyDC0NmiHAGka-m9xX4ARH7NpGU7Ff7PsD8",
-    "AIzaSyDJVA9mZnrmh7DkLgyHsB7y2yMWzs4L2ew"
-]
+# ĐỌC DANH SÁCH API KEYS TỪ FILE .env
+DANH_SACH_API_KEYS = []
+env_path = os.path.join(BASE_DIR, ".env")
+if os.path.exists(env_path):
+    with open(env_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, val = line.split("=", 1)
+                if "GEMINI_API_KEY" in key and val.strip():
+                    DANH_SACH_API_KEYS.append(val.strip())
+
+if not DANH_SACH_API_KEYS:
+    print("⚠️ CẢNH BÁO: Không tìm thấy API Key nào trong file .env!")
+
 vi_tri_sung_hien_tai = 0
 
 DANH_MUC_MAP = {
@@ -41,15 +51,32 @@ DANH_MUC_MAP = {
     "me_be": "Mẹ & Bé", "khac": "Sản Phẩm Khác"
 }
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_BAI_VIET = os.path.join(BASE_DIR, "bai_viet_tu_dong_cache.json")
 CACHE_SAN_PHAM = os.path.join(BASE_DIR, "san_pham_cache.json")
 THU_MUC_BAI_VIET = os.path.join(BASE_DIR, "bai-viet")
 THU_MUC_SAN_PHAM = os.path.join(BASE_DIR, "san-pham")
 
 # ==========================================
-# 2. GIAO DIỆN DÙNG CHUNG (UI COMPONENTS)
+# 2. GIAO DIỆN & MÃ THEO DÕI (PIXEL)
 # ==========================================
+FB_PIXEL_CODE = """
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '257713642929755');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=257713642929755&ev=PageView&noscript=1"
+/></noscript>
+"""
+
 UI_FOOTER = f"""
 <footer style="background: #222; color: #ddd; padding: 40px 20px; margin-top: 50px; font-size: 14px;">
     <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
@@ -80,11 +107,11 @@ UI_FLOATING = f"""
 """
 
 # ==========================================
-# 3. CÁC HÀM XỬ LÝ LÕI
+# 3. CÁC HÀM XỬ LÝ LÕI (CÓ CƠ CHẾ TỰ ĐỘNG CHUYỂN SÚNG)
 # ==========================================
 def rut_sung_tiep_theo():
     global vi_tri_sung_hien_tai
-    if not DANH_SACH_API_KEYS or DANH_SACH_API_KEYS[0].startswith("ĐIỀN_KEY"): return None
+    if not DANH_SACH_API_KEYS: return None
     sung = DANH_SACH_API_KEYS[vi_tri_sung_hien_tai]
     vi_tri_sung_hien_tai = (vi_tri_sung_hien_tai + 1) % len(DANH_SACH_API_KEYS)
     return sung
@@ -110,43 +137,57 @@ def lay_data_tu_google_sheet(url):
         return []
 
 def goi_ai_tu_dong_viet_bai(ten_danh_muc, ten_sp_dau_tien):
-    api_key = rut_sung_tiep_theo()
-    if not api_key: return {"tieu_de": "Chưa cài API Key", "meta_description": "", "noi_dung_html": ""}
+    if not DANH_SACH_API_KEYS: return {"tieu_de": "Chưa cài API Key", "meta_description": "", "noi_dung_html": ""}
     
-    prompt = f"""Bạn là Copywriter sáng tạo. Viết 1 bài SEO 500 chữ cho nhóm "{ten_danh_muc}". Lấy "{ten_sp_dau_tien}" làm mồi. Đổi mới góc nhìn, không rập khuôn.
+    prompt = f"""Bạn là Chuyên gia Copywriter. Viết 1 bài SEO 500 chữ cho nhóm "{ten_danh_muc}". Lấy "{ten_sp_dau_tien}" làm mồi. 
+    Yêu cầu: Nghiêm túc, chuyên nghiệp, KHÔNG đùa giỡn, tập trung đúng vào trọng tâm và giá trị thực tế của sản phẩm. Không viết lan man.
     BẮT BUỘC TRẢ VỀ JSON. TRONG HTML CHỈ DÙNG DẤU NHÁY ĐƠN ('). KHÔNG XUỐNG DÒNG (ENTER) TRONG TEXT.
     Cấu trúc: {{"tieu_de": "Tiêu đề (10-15 chữ)", "meta_description": "Mô tả SEO tóm tắt (150 ký tự)", "noi_dung_html": "HTML (<h2>, <p>)"}}"""
     
-    try:
-        client = genai.Client(api_key=api_key)
-        res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.9, response_mime_type="application/json"))
-        time.sleep(2.5)
-        raw_json = res.text.replace("```json", "").replace("```", "").replace("\n", " ").replace("\r", " ").strip()
-        return json.loads(raw_json, strict=False)
-    except Exception as e:
-        print(f"❌ Lỗi AI Tạp chí ({ten_danh_muc}): {e}")
-        return {"tieu_de": f"Top {ten_danh_muc} đáng mua", "meta_description": f"Khám phá ngay {ten_danh_muc} giá sỉ tốt nhất.", "noi_dung_html": "<p>Đang cập nhật...</p>"}
+    # Vòng lặp: Nếu súng này hỏng, rút súng tiếp theo bắn ngay lập tức
+    for _ in range(len(DANH_SACH_API_KEYS)):
+        api_key = rut_sung_tiep_theo()
+        print(f"📰 AI [Key ...{api_key[-4:]}] viết Tạp chí cho '{ten_danh_muc}'...")
+        try:
+            client = genai.Client(api_key=api_key)
+            # Giảm temperature xuống 0.7 để văn phong nghiêm túc, chắc chắn hơn
+            res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.7, response_mime_type="application/json"))
+            time.sleep(2) 
+            raw_json = res.text.replace("```json", "").replace("```", "").replace("\n", " ").replace("\r", " ").strip()
+            return json.loads(raw_json, strict=False)
+        except Exception as e:
+            print(f"⚠️ Lỗi Key ...{api_key[-4:]} ({ten_danh_muc}): {e}. Đang tự động chuyển sang Key tiếp theo...")
+            time.sleep(2) # Nghỉ nhẹ 2s trước khi đổi súng
+            
+    print(f"❌ TOÀN BỘ SÚNG ĐỀU LỖI khi viết Tạp chí {ten_danh_muc}!")
+    return {"tieu_de": f"Top {ten_danh_muc} đáng mua", "meta_description": f"Khám phá ngay {ten_danh_muc} giá sỉ tốt nhất.", "noi_dung_html": "<p>Đang cập nhật...</p>"}
 
 def goi_ai_viet_mo_ta_sp(ten_sp):
-    api_key = rut_sung_tiep_theo()
-    if not api_key: return {"meta_description": "Đang cập nhật", "noi_dung_html": "<p>Mô tả cập nhật sau.</p>"}
-    print(f"📝 AI đang biến hóa phong cách cho: '{ten_sp}'...")
+    if not DANH_SACH_API_KEYS: return {"meta_description": "Đang cập nhật", "noi_dung_html": "<p>Mô tả cập nhật sau.</p>"}
     
-    prompt = f"""Bạn là Sales Copywriter xuất sắc, CỰC KỲ SÁNG TẠO và ghét sự rập khuôn.
-    Sản phẩm: "{ten_sp}".
-    Nhiệm vụ: Viết 1 đoạn chốt sale SIÊU NGẮN (100 - 150 chữ). Đánh thẳng vào 1 điểm "ăn tiền" nhất của sản phẩm. Chọn ngẫu nhiên 1 trong 3 phong cách (Chuyên gia / Hài hước / Kể chuyện ngắn). KHÔNG liệt kê tính năng như cái máy.
-    BẮT BUỘC TRẢ VỀ JSON. TRONG HTML CHỈ DÙNG DẤU NHÁY ĐƠN ('). KHÔNG XUỐNG DÒNG (ENTER) TRONG TEXT.
+    prompt = f"""Bạn là Sales Copywriter chuyên nghiệp. Sản phẩm: "{ten_sp}".
+    Viết 1 đoạn chốt sale SIÊU NGẮN (100 - 150 chữ). Đánh thẳng vào 1 điểm "ăn tiền" nhất của sản phẩm. 
+    Yêu cầu: Văn phong chuyên nghiệp, lịch sự, KHÔNG đùa giỡn, KHÔNG lan man, tập trung 100% vào lợi ích thực tế. KHÔNG liệt kê tính năng như cái máy.
+    BẮT BUỘC TRẢ VỀ JSON. TRONG HTML CHỈ DÙNG DẤU NHÁY ĐƠN ('). KHÔNG XUỐNG DÒNG TRONG TEXT.
     Cấu trúc: {{"meta_description": "Câu tóm tắt chuẩn SEO (150 ký tự)", "noi_dung_html": "Mã HTML thuần (<h3>, <p>, <ul>)"}}"""
     
-    try:
-        client = genai.Client(api_key=api_key)
-        res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.95, response_mime_type="application/json"))
-        time.sleep(2.5)
-        raw_json = res.text.replace("```json", "").replace("```", "").replace("\n", " ").replace("\r", " ").strip()
-        return json.loads(raw_json, strict=False)
-    except Exception as e:
-        print(f"❌ Lỗi AI Mô tả ({ten_sp}): {e}")
-        return {"meta_description": f"Mua {ten_sp} giá cực sốc.", "noi_dung_html": f"<p>Siêu phẩm <strong>{ten_sp}</strong> đang có ưu đãi lớn!</p>"}
+    # Vòng lặp Failover cho mô tả sản phẩm
+    for _ in range(len(DANH_SACH_API_KEYS)):
+        api_key = rut_sung_tiep_theo()
+        print(f"📝 AI [Key ...{api_key[-4:]}] chốt sale: '{ten_sp}'...")
+        try:
+            client = genai.Client(api_key=api_key)
+            # Giảm temperature xuống 0.7 
+            res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.7, response_mime_type="application/json"))
+            time.sleep(2) 
+            raw_json = res.text.replace("```json", "").replace("```", "").replace("\n", " ").replace("\r", " ").strip()
+            return json.loads(raw_json, strict=False)
+        except Exception as e:
+            print(f"⚠️ Lỗi Key ...{api_key[-4:]} ({ten_sp}): {e}. Đang tự động chuyển sang Key tiếp theo...")
+            time.sleep(2)
+            
+    print(f"❌ TOÀN BỘ SÚNG ĐỀU LỖI khi viết mô tả {ten_sp}!")
+    return {"meta_description": f"Mua {ten_sp} giá cực sốc.", "noi_dung_html": f"<p>Siêu phẩm <strong>{ten_sp}</strong> đang có ưu đãi lớn!</p>"}
 
 def sinh_the_san_pham_html(p, path_prefix=""):
     try: price = float(re.sub(r'[^\d]', '', str(p.get('new_price', '0')))) if re.sub(r'[^\d]', '', str(p.get('new_price', '0'))) else 0
@@ -154,11 +195,10 @@ def sinh_the_san_pham_html(p, path_prefix=""):
     old_price = int(price * 1.25)
     link_sp = f"{path_prefix}san-pham/{p['slug']}.html"
     
-    # Đã thêm thuộc tính ALT cho ảnh chuẩn SEO
     return f"""
     <div class="sp-card">
         <div class="sale-badge">-20%</div>
-        <img src="{p.get('image', '')}" loading="lazy" alt="Giá sỉ {p.get('name', 'Sản phẩm')}">
+        <img src="{p.get('image', '')}" loading="lazy" alt="Giá sỉ {p.get('name', 'Sản phẩm').replace('"', "'")}">
         <div class="sp-info">
             <div class="sp-name">{p.get('name', '')}</div>
             <div class="sp-price-box">
@@ -171,7 +211,7 @@ def sinh_the_san_pham_html(p, path_prefix=""):
     """
 
 # ==========================================
-# 4. HÀM TẠO TRANG HTML (SEO MASTER)
+# 4. HÀM TẠO TRANG HTML (SEO MASTER + PIXEL)
 # ==========================================
 def tao_trang_chi_tiet_sp(p, ai_data):
     slug = p['slug']
@@ -227,7 +267,9 @@ def tao_trang_chi_tiet_sp(p, ai_data):
         .desc-box {{ border-top: 2px dashed #eee; padding-top: 30px; line-height: 1.6; font-size: 16px; }} 
         .desc-box h3 {{ color: var(--primary); margin-top:25px; }} 
         @media (max-width: 768px) {{ .product-top {{ flex-direction: column; }} .btn-buy {{ position: fixed; bottom: 0; left: 0; width: 100%; margin: 0; border-radius: 0; padding: 18px 0; z-index: 1000; font-size: 20px; }} }}
-    </style></head>
+    </style>
+    {FB_PIXEL_CODE}
+    </head>
     <body>
     <div class="header"><a href="../index.html" class="btn-home">🔙 Về Trang Chủ</a><strong style="color:var(--primary); font-size: 18px; line-height: 36px;">VPP TỊNH SHOP</strong></div>
     <div class="breadcrumbs"><a href="../index.html">Trang chủ</a> > {dm_name} > {p.get('name', '')[:30]}...</div>
@@ -283,7 +325,9 @@ def tao_trang_lai_bai_viet(slug, ai_data, san_pham_lien_quan):
         .sp-old-price {{ font-size: 13px; color: #999; text-decoration: line-through; margin-left: 5px; }}
         .sp-btn-xem {{ display: block; background: #fff; color: var(--primary); border: 1px solid var(--primary); padding: 8px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.2s;}} 
         .sp-btn-xem:hover {{ background: var(--primary); color: #fff; }}
-    </style></head>
+    </style>
+    {FB_PIXEL_CODE}
+    </head>
     <body>
     <div class="header"><a href="../index.html" class="btn-home">🔙 Về Trang Chủ</a><strong style="color:var(--primary); font-size: 18px; line-height: 36px;">VPP TỊNH SHOP</strong></div>
     <div class="breadcrumbs"><a href="../index.html">Trang chủ</a> > Tạp chí > {tieu_de[:30]}...</div>
@@ -359,7 +403,9 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         .page-num.active, .page-num:hover {{ background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(208,1,27,0.3); }}
         
         @media (max-width: 650px) {{ .blog-card-vertical {{ flex-direction: column; }} .blog-img {{ width: 100%; border-right: none; border-bottom: 1px solid #eee; }} .tools-bar {{ justify-content: center; flex-direction: column-reverse; }} .search-box {{ width: 100%; }} .search-box input {{ width: 100%; border-radius: 25px; border-right: 1px solid #ddd; margin-bottom: 10px;}} .search-box button {{ width: 100%; border-radius: 25px; }} .search-box {{ flex-direction: column; box-shadow: none;}} }}
-        </style></head>
+        </style>
+        {FB_PIXEL_CODE}
+        </head>
         <body><div class="header-bg"></div><div class="ticker-wrap"><div class="ticker">🔥 ĐỐI TÁC CUNG CẤP VĂN PHÒNG PHẨM TRỌN GÓI 🔥 | 🚚 FREESHIP TỪ 500K | 📞 ZALO SỈ: {ZALO_NUMBER}</div></div>
         
         <div class="container">
@@ -412,21 +458,24 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
 
 def tao_sitemap_xml(danh_sach_hub, tat_ca_san_pham, tong_trang):
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    # Trang chủ & Phân trang
     for i in range(1, tong_trang + 1):
         link = "index.html" if i == 1 else f"page-{i}.html"
         xml += f'  <url>\n    <loc>{DOMAIN}/{link}</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n'
-    # Tạp chí chuyên mục
     for hub in danh_sach_hub:
         xml += f'  <url>\n    <loc>{DOMAIN}/bai-viet/{hub["slug"]}.html</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n'
-    # Sản phẩm chi tiết
     for p in tat_ca_san_pham:
         xml += f'  <url>\n    <loc>{DOMAIN}/san-pham/{p["slug"]}.html</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n'
     xml += '</urlset>'
     
     with open(os.path.join(BASE_DIR, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write(xml)
-    print("✅ Đã tạo tự động Sitemap.xml chuẩn Google.")
+    print("✅ Đã tạo tự động Sitemap.xml")
+
+def tao_robots_txt():
+    noi_dung = f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml"
+    with open(os.path.join(BASE_DIR, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write(noi_dung)
+    print("✅ Đã tạo biển báo Robots.txt cho Googlebot")
 
 def chay_he_thong():
     print("🚀 ĐANG TẢI DỮ LIỆU TỪ GOOGLE SHEETS...")
@@ -482,8 +531,9 @@ def chay_he_thong():
     tong_trang = math.ceil(len(data_san_pham) / SP_MOI_TRANG)
     if tong_trang == 0: tong_trang = 1
     tao_sitemap_xml(danh_sach_hub, data_san_pham, tong_trang)
+    tao_robots_txt()
     
-    print("🎉 TẤT CẢ ĐÃ XONG! HỆ THỐNG SEO MASTER 9.0 SẴN SÀNG!")
+    print("🎉 TẤT CẢ ĐÃ XONG! HỆ THỐNG TỰ CỨU KEY & AI NGHIÊM TÚC ĐÃ SẴN SÀNG!")
 
 if __name__ == "__main__":
     chay_he_thong()
