@@ -22,11 +22,18 @@ except ImportError:
 URL_CSV_SAN_PHAM = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzftzzjfyPE6MujJRirjKeXub0RmgpmAQNuTr9IjaLGe9BGukp4RnPisW7tZo3sDBBqiumtY3RWNbX/pub?gid=0&single=true&output=csv"
 
 # THAY MÃ ID ACCESSTRADE CỦA BẠN VÀO ĐÂY:
-BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/6906519896943843292/4751584435713464237?url_enc="
+BASE_AFF_URL = "https://go.isclix.com/deep_link/v6/THAY_MA_CUA_BAN/THAY_MA_CUA_BAN?utm_source=vpptinh_web&url_enc="
 
 ZALO_NUMBER = "0931736266"
-PHONE_NUMBER = "0931736266" # Thêm số điện thoại gọi trực tiếp
-SP_MOI_TRANG = 24 # Số lượng sản phẩm hiển thị trên 1 trang
+PHONE_NUMBER = "0931736266"
+SP_MOI_TRANG = 24
+
+# 🔑 DANH SÁCH BĂNG ĐẠN API QUAY VÒNG (XOAY TUA SÚNG)
+DANH_SACH_API_KEYS = [
+    "AIzaSyBWxQZXIrfod0AmL7NWWgmR6tqSZ-mzXK8",
+    "AIzaSyBmm78JdbUh1S1f-pWFuqSw0b4PvW5YhGg"
+]
+vi_tri_sung_hien_tai = 0
 
 DANH_MUC_MAP = {
     "tho_cung": "Đồ Thờ Cúng", "dc_vs": "Dụng Cụ Vệ Sinh", 
@@ -40,16 +47,9 @@ CACHE_SAN_PHAM = os.path.join(BASE_DIR, "san_pham_cache.json")
 THU_MUC_BAI_VIET = os.path.join(BASE_DIR, "bai-viet")
 THU_MUC_SAN_PHAM = os.path.join(BASE_DIR, "san-pham")
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-if not GEMINI_API_KEY:
-    try:
-        with open(os.path.join(BASE_DIR, "api_key.txt"), "r") as f: GEMINI_API_KEY = f.read().strip()
-    except: pass
-
 # ==========================================
 # 2. GIAO DIỆN DÙNG CHUNG (UI COMPONENTS)
 # ==========================================
-# FOOTER CHUYÊN NGHIỆP
 UI_FOOTER = f"""
 <footer style="background: #222; color: #ddd; padding: 40px 20px; margin-top: 50px; font-size: 14px;">
     <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
@@ -61,7 +61,6 @@ UI_FOOTER = f"""
 </footer>
 """
 
-# BỘ NÚT NỔI (ZALO, CALL, TOP)
 UI_FLOATING = f"""
 <style>
     .float-group {{ position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }}
@@ -69,7 +68,7 @@ UI_FLOATING = f"""
     .f-btn:hover {{ transform: scale(1.1); }}
     .f-zalo {{ background: #0068ff; animation: rung 1.5s infinite; font-size:12px; text-align:center; line-height:1.2;}}
     .f-call {{ background: #00b14f; }}
-    .f-top {{ background: #555; display: none; cursor: pointer; }} /* Ẩn nút top ban đầu */
+    .f-top {{ background: #555; display: none; cursor: pointer; }} 
     @keyframes rung {{ 0% {{transform: rotate(0deg);}} 10% {{transform: rotate(-15deg);}} 20% {{transform: rotate(15deg);}} 30% {{transform: rotate(-15deg);}} 40% {{transform: rotate(15deg);}} 50% {{transform: rotate(0deg);}} 100% {{transform: rotate(0deg);}} }}
 </style>
 <div class="float-group">
@@ -85,6 +84,13 @@ UI_FLOATING = f"""
 # ==========================================
 # 3. CÁC HÀM XỬ LÝ LÕI
 # ==========================================
+def rut_sung_tiep_theo():
+    global vi_tri_sung_hien_tai
+    if not DANH_SACH_API_KEYS or DANH_SACH_API_KEYS[0].startswith("ĐIỀN_KEY"): return None
+    sung = DANH_SACH_API_KEYS[vi_tri_sung_hien_tai]
+    vi_tri_sung_hien_tai = (vi_tri_sung_hien_tai + 1) % len(DANH_SACH_API_KEYS)
+    return sung
+
 def tao_slug(text):
     text = unicodedata.normalize('NFKD', str(text)).encode('ascii', 'ignore').decode('utf-8')
     text = re.sub(r'[^\w\s-]', '', text).strip().lower()
@@ -106,29 +112,54 @@ def lay_data_tu_google_sheet(url):
         return []
 
 def goi_ai_tu_dong_viet_bai(ten_danh_muc, ten_sp_dau_tien):
-    if not GEMINI_API_KEY: return {"tieu_de": "Chưa cài API Key", "noi_dung_html": ""}
-    print(f"📰 AI đang hóa thân SEOer viết Tạp chí cho '{ten_danh_muc}'...")
-    prompt = f"""Bạn là Chuyên gia SEO & Bậc thầy Storytelling. Viết bài Advertorial 800 chữ cho "{ten_danh_muc}". Lấy "{ten_sp_dau_tien}" làm mồi câu, đánh trúng nỗi đau khách hàng. Tối ưu thẻ H2, H3. BẮT BUỘC TRẢ VỀ JSON: {{"tieu_de": "Tiêu đề giật tít (10-15 chữ)", "noi_dung_html": "HTML nội dung (không <html> body)."}}"""
+    api_key = rut_sung_tiep_theo()
+    if not api_key: return {"tieu_de": "Chưa cài API Key", "noi_dung_html": ""}
+    print(f"📰 AI [Súng ...{api_key[-4:]}] viết Tạp chí cho '{ten_danh_muc}'...")
+    
+    prompt = f"""Bạn là Chuyên gia SEO & Bậc thầy Kể chuyện bán hàng. 
+    Viết 1 bài tạp chí chuẩn SEO dài 800 chữ cho ngành hàng "{ten_danh_muc}". Lấy "{ten_sp_dau_tien}" làm mồi nhử, đánh trúng nỗi đau khách hàng.
+    LƯU Ý KỸ THUẬT: BẮT BUỘC TRẢ VỀ JSON. TRONG HTML CHỈ DÙNG DẤU NHÁY ĐƠN ('), KHÔNG DÙNG DẤU NHÁY KÉP ("). KHÔNG SỬ DỤNG KÝ TỰ XUỐNG DÒNG (ENTER) TRONG NỘI DUNG.
+    Cấu trúc: {{"tieu_de": "Tiêu đề (10-15 chữ)", "noi_dung_html": "HTML nội dung (<h2>, <p>, <ul>)"}}"""
+    
     try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.85, response_mime_type="application/json"))
-        return json.loads(res.text)
-    except Exception: return {"tieu_de": f"Bí quyết chọn {ten_danh_muc}", "noi_dung_html": "<p>Đang cập nhật...</p>"}
-
+        client = genai.Client(api_key=api_key)
+        res = client.models.generate_content(
+            model='gemini-2.5-flash', 
+            contents=prompt, 
+            config=types.GenerateContentConfig(temperature=0.85, response_mime_type="application/json")
+        )
+        time.sleep(2)
+        
+        # BỘ LỌC ÁO GIÁP: Xóa các ký tự tàng hình, xuống dòng, và markdown thừa gây vỡ JSON
+        raw_json = res.text.replace("```json", "").replace("```", "").replace("\n", " ").replace("\r", " ").strip()
+        
+        # strict=False: Ép Python bỏ qua các lỗi control character nếu vẫn còn sót
+        return json.loads(raw_json, strict=False)
+        
+    except Exception as e:
+        print(f"❌ Lỗi AI ({ten_danh_muc}): {e}")
+        return {"tieu_de": f"Top {ten_danh_muc} đáng mua", "noi_dung_html": "<p>Nội dung đang được cập nhật...</p>"}
+        
 def goi_ai_viet_mo_ta_sp(ten_sp):
-    if not GEMINI_API_KEY: return "<p>Mô tả cập nhật sau.</p>"
-    print(f"📝 AI đang tung chiêu chốt sale cho: '{ten_sp}'...")
-    prompt = f"Bạn là Sales Copywriter. Viết mô tả chuẩn SEO (250 chữ) cho: '{ten_sp}'. Biến tính năng thành Lợi ích. Kích thích FOMO. Định dạng HTML (<h3>, <p>, <ul>). Không xuất markdown."
+    api_key = rut_sung_tiep_theo()
+    if not api_key: return "<p>Mô tả cập nhật sau.</p>"
+    print(f"📝 AI [Súng ...{api_key[-4:]}] chốt sale cho: '{ten_sp}'...")
+    
+    prompt = f"""Bạn là Sales Copywriter xuất sắc. Viết mô tả chốt sale 200 chữ cho sản phẩm: "{ten_sp}".
+    Biến tính năng thành LỢI ÍCH thực tế. Định dạng HTML (<h3>, <p>, <ul>). In đậm từ khóa. Không xuất thẻ markdown."""
+    
     try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        return client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.75)).text.replace("```html", "").replace("```", "").strip()
-    except Exception: return f"<p>Sản phẩm chất lượng cao: {ten_sp}.</p>"
+        client = genai.Client(api_key=api_key)
+        res = client.models.generate_content(model='gemini-2.5-flash', contents=prompt, config=types.GenerateContentConfig(temperature=0.8))
+        return res.text.replace("```html", "").replace("```", "").strip()
+    except Exception as e:
+        print(f"❌ Lỗi AI ({ten_sp}): {e}")
+        return f"<p>Siêu phẩm <strong>{ten_sp}</strong> đang có mức giá cực kỳ ưu đãi. Nhấn mua ngay!</p>"
 
-# Sinh thẻ HTML cho 1 Sản Phẩm dùng trong Lưới (Grid)
 def sinh_the_san_pham_html(p, path_prefix=""):
     try: price = float(re.sub(r'[^\d]', '', str(p.get('new_price', '0')))) if re.sub(r'[^\d]', '', str(p.get('new_price', '0'))) else 0
     except: price = 0
-    old_price = int(price * 1.25) # Tạo giá ảo cao hơn 25%
+    old_price = int(price * 1.25)
     link_sp = f"{path_prefix}san-pham/{p['slug']}.html"
     
     return f"""
@@ -179,7 +210,7 @@ def tao_trang_chi_tiet_sp(p, mo_ta_html):
         .p-old-price {{ font-size: 18px; color: #999; text-decoration: line-through; margin-left: 10px; }}
         .btn-buy {{ background: var(--primary); color: white; text-decoration: none; padding: 15px 20px; text-align: center; border-radius: 6px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 15px rgba(208,1,27,0.3); display: block; }} 
         .desc-box {{ border-top: 2px dashed #eee; padding-top: 30px; line-height: 1.6; font-size: 16px; }} 
-        .desc-box h3 {{ color: var(--primary); }} 
+        .desc-box h3 {{ color: var(--primary); margin-top:25px; }} 
         @media (max-width: 768px) {{ 
             .product-top {{ flex-direction: column; }} 
             .btn-buy {{ position: fixed; bottom: 0; left: 0; width: 100%; margin: 0; border-radius: 0; padding: 18px 0; z-index: 1000; font-size: 20px; }}
@@ -223,7 +254,7 @@ def tao_trang_lai_bai_viet(slug, tieu_de, noi_dung_html, san_pham_lien_quan):
         .article-column {{ max-width: 650px; margin: 0 auto; line-height: 1.6; font-size: 16px; }} 
         .featured-img-box {{ text-align: center; margin: 20px 0; }} .featured-img-box img {{ max-width: 100%; max-height: 350px; border-radius: 8px; }} 
         .showcase-title {{ text-align: center; color: var(--primary); margin: 40px 0 20px; border-top: 2px dashed #eee; padding-top: 30px; }} 
-        /* CSS Dùng chung cho Lưới SP */
+        /* CSS Lưới SP */
         .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; text-align: center; }} 
         .sp-card {{ border: 1px solid #eee; border-radius: 8px; padding: 10px; background: white; position: relative; display: flex; flex-direction: column; justify-content: space-between;}} 
         .sale-badge {{ position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; padding: 3px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; }}
@@ -248,7 +279,6 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
     tong_trang = math.ceil(tong_sp / SP_MOI_TRANG)
     if tong_trang == 0: tong_trang = 1
 
-    # Tạo Menu Danh Mục
     html_menu = "<div class='category-nav'>"
     html_menu += "<a href='#' class='cat-btn active' onclick='filterCat(\"all\", event)'>Tất cả</a>"
     danh_muc_co_sp = set([p.get('danh_muc', 'khac') for p in tat_ca_san_pham])
@@ -290,7 +320,6 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         .container {{ max-width: 1100px; margin: 0 auto; padding: 0 15px; }} 
         .section-title {{ text-align: center; margin: 40px 0 20px; color: #333; text-transform: uppercase; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 10px; font-size: 24px; }}
         
-        /* THANH CÔNG CỤ ĐÃ ĐƯỢC CHUYỂN LÊN TRÊN CÙNG */
         .tools-bar {{ display: flex; justify-content: space-between; align-items: center; margin: 20px 0 30px 0; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex-wrap: wrap; gap: 15px; border-left: 5px solid var(--primary); }}
         .category-nav {{ display: flex; gap: 10px; flex-wrap: wrap; }}
         .cat-btn {{ padding: 8px 15px; background: #eee; color: #333; text-decoration: none; border-radius: 20px; font-size: 14px; font-weight: bold; transition: 0.2s; border: 1px solid transparent; }}
@@ -301,17 +330,15 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         .search-box button {{ padding: 12px 25px; border: 1px solid var(--primary); background: var(--primary); color: #fff; border-radius: 0 25px 25px 0; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.2s; }}
         .search-box button:hover {{ background: #a80015; }}
         
-        /* BÀI VIẾT & SẢN PHẨM */
         .blog-list-vertical {{ display: flex; flex-direction: column; gap: 20px; }} .blog-card-vertical {{ display: flex; flex-direction: row; background: white; border-radius: 10px; overflow: hidden; text-decoration: none; color: #333; box-shadow: 0 3px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }} .blog-img {{ width: 250px; height: 180px; object-fit: contain; border-right: 1px solid #eee; padding: 10px; }} .blog-content {{ padding: 20px; display: flex; flex-direction: column; justify-content: center; flex: 1; }} .blog-tag {{ background: #ffeeee; color: var(--primary); padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; align-self: flex-start; margin-bottom: 10px; }} .blog-content h3 {{ color: var(--primary); margin: 0 0 10px 0; font-size: 20px; }}
         .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; text-align: center; }} 
         .sp-card {{ border: 1px solid #eee; border-radius: 8px; padding: 10px; background: white; position: relative; display: flex; flex-direction: column; justify-content: space-between;}} .sale-badge {{ position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; padding: 3px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; }} .sp-card img {{ width: 100%; height: 160px; object-fit: contain; }} .sp-name {{ font-size: 14px; height: 40px; overflow: hidden; margin: 10px 0; }} .sp-price-box {{ margin-bottom: 15px; }} .sp-price {{ font-weight: bold; color: var(--primary); font-size: 18px; }} .sp-old-price {{ font-size: 13px; color: #999; text-decoration: line-through; margin-left: 5px; }} .sp-btn-xem {{ display: block; background: #fff; color: var(--primary); border: 1px solid var(--primary); padding: 8px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.2s;}} .sp-btn-xem:hover {{ background: var(--primary); color: #fff; }}
         
-        /* PHÂN TRANG */
         .pagination {{ display: flex; justify-content: center; margin: 40px 0; gap: 10px; }}
         .page-num {{ display: inline-block; width: 40px; height: 40px; line-height: 40px; text-align: center; background: #fff; border: 1px solid #ddd; border-radius: 50%; text-decoration: none; color: #333; font-weight: bold; transition: 0.2s; }}
         .page-num.active, .page-num:hover {{ background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(208,1,27,0.3); }}
         
-        @media (max-width: 650px) {{ .blog-card-vertical {{ flex-direction: column; }} .blog-img {{ width: 100%; border-right: none; border-bottom: 1px solid #eee; }} .tools-bar {{ justify-content: center; flex-direction: column-reverse; }} .search-box {{ width: 100%; }} .search-box input {{ width: 100%; }} }}
+        @media (max-width: 650px) {{ .blog-card-vertical {{ flex-direction: column; }} .blog-img {{ width: 100%; border-right: none; border-bottom: 1px solid #eee; }} .tools-bar {{ justify-content: center; flex-direction: column-reverse; }} .search-box {{ width: 100%; }} .search-box input {{ width: 100%; border-radius: 25px; border-right: 1px solid #ddd; margin-bottom: 10px;}} .search-box button {{ width: 100%; border-radius: 25px; }} .search-box {{ flex-direction: column; box-shadow: none;}} }}
         </style></head>
         <body><div class="header-bg"></div><div class="ticker-wrap"><div class="ticker">🔥 ĐỐI TÁC CUNG CẤP VĂN PHÒNG PHẨM TRỌN GÓI 🔥 | 🚚 FREESHIP TỪ 500K | 📞 ZALO SỈ: {ZALO_NUMBER}</div></div>
         
@@ -335,11 +362,8 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
         {UI_FLOATING} {UI_FOOTER}
         
         <script>
-            // JS ĐÃ ĐƯỢC NÂNG CẤP ĐỂ TỰ ĐỘNG TRƯỢT MÀN HÌNH
             function filterCat(cat, event) {{
                 if(event) event.preventDefault();
-                
-                // Cập nhật nút active
                 let btns = document.getElementsByClassName('cat-btn');
                 for(let b of btns) b.classList.remove('active');
                 if(event) event.target.classList.add('active');
@@ -349,8 +373,6 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
                     if (cat === 'all' || cards[i].classList.contains('mix-' + cat)) cards[i].style.display = 'flex';
                     else cards[i].style.display = 'none';
                 }}
-                
-                // Ma thuật tự động trượt xuống
                 document.getElementById('khu-vuc-sp').scrollIntoView({{behavior: "smooth", block: "start"}});
             }}
 
@@ -362,14 +384,12 @@ def tao_trang_chu_phan_trang(danh_sach_hub, tat_ca_san_pham):
                     if (title.includes(input)) cards[i].style.display = 'flex';
                     else cards[i].style.display = 'none';
                 }}
-                
-                // Ma thuật tự động trượt xuống
                 document.getElementById('khu-vuc-sp').scrollIntoView({{behavior: "smooth", block: "start"}});
             }}
         </script>
         </body></html>"""
         with open(os.path.join(BASE_DIR, ten_file), "w", encoding="utf-8") as f: f.write(html)
-        
+
 def chay_he_thong():
     print("🚀 ĐANG TẢI DỮ LIỆU TỪ GOOGLE SHEETS...")
     data_san_pham = lay_data_tu_google_sheet(URL_CSV_SAN_PHAM)
@@ -392,7 +412,8 @@ def chay_he_thong():
         if slug_sp not in cache_san_pham:
             cache_san_pham[slug_sp] = goi_ai_viet_mo_ta_sp(p.get('name', ''))
             with open(CACHE_SAN_PHAM, "w", encoding="utf-8") as f: json.dump(cache_san_pham, f, ensure_ascii=False, indent=2)
-            time.sleep(3)
+            # Thời gian nghỉ an toàn khi chạy nhiều súng
+            time.sleep(3) 
         tao_trang_chi_tiet_sp(p, cache_san_pham[slug_sp])
     
     print("--- 2. AI VIẾT TẠP CHÍ CHUYÊN MỤC ---")

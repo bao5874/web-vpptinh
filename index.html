@@ -6,7 +6,6 @@
         .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; } 
         .section-title { text-align: center; margin: 40px 0 20px; color: #333; text-transform: uppercase; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 10px; font-size: 24px; }
         
-        /* THANH CÔNG CỤ ĐÃ ĐƯỢC CHUYỂN LÊN TRÊN CÙNG */
         .tools-bar { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 30px 0; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex-wrap: wrap; gap: 15px; border-left: 5px solid var(--primary); }
         .category-nav { display: flex; gap: 10px; flex-wrap: wrap; }
         .cat-btn { padding: 8px 15px; background: #eee; color: #333; text-decoration: none; border-radius: 20px; font-size: 14px; font-weight: bold; transition: 0.2s; border: 1px solid transparent; }
@@ -17,30 +16,28 @@
         .search-box button { padding: 12px 25px; border: 1px solid var(--primary); background: var(--primary); color: #fff; border-radius: 0 25px 25px 0; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.2s; }
         .search-box button:hover { background: #a80015; }
         
-        /* BÀI VIẾT & SẢN PHẨM */
         .blog-list-vertical { display: flex; flex-direction: column; gap: 20px; } .blog-card-vertical { display: flex; flex-direction: row; background: white; border-radius: 10px; overflow: hidden; text-decoration: none; color: #333; box-shadow: 0 3px 15px rgba(0,0,0,0.05); border: 1px solid #eee; } .blog-img { width: 250px; height: 180px; object-fit: contain; border-right: 1px solid #eee; padding: 10px; } .blog-content { padding: 20px; display: flex; flex-direction: column; justify-content: center; flex: 1; } .blog-tag { background: #ffeeee; color: var(--primary); padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; align-self: flex-start; margin-bottom: 10px; } .blog-content h3 { color: var(--primary); margin: 0 0 10px 0; font-size: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; text-align: center; } 
         .sp-card { border: 1px solid #eee; border-radius: 8px; padding: 10px; background: white; position: relative; display: flex; flex-direction: column; justify-content: space-between;} .sale-badge { position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; padding: 3px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; } .sp-card img { width: 100%; height: 160px; object-fit: contain; } .sp-name { font-size: 14px; height: 40px; overflow: hidden; margin: 10px 0; } .sp-price-box { margin-bottom: 15px; } .sp-price { font-weight: bold; color: var(--primary); font-size: 18px; } .sp-old-price { font-size: 13px; color: #999; text-decoration: line-through; margin-left: 5px; } .sp-btn-xem { display: block; background: #fff; color: var(--primary); border: 1px solid var(--primary); padding: 8px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.2s;} .sp-btn-xem:hover { background: var(--primary); color: #fff; }
         
-        /* PHÂN TRANG */
         .pagination { display: flex; justify-content: center; margin: 40px 0; gap: 10px; }
         .page-num { display: inline-block; width: 40px; height: 40px; line-height: 40px; text-align: center; background: #fff; border: 1px solid #ddd; border-radius: 50%; text-decoration: none; color: #333; font-weight: bold; transition: 0.2s; }
         .page-num.active, .page-num:hover { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(208,1,27,0.3); }
         
-        @media (max-width: 650px) { .blog-card-vertical { flex-direction: column; } .blog-img { width: 100%; border-right: none; border-bottom: 1px solid #eee; } .tools-bar { justify-content: center; flex-direction: column-reverse; } .search-box { width: 100%; } .search-box input { width: 100%; } }
+        @media (max-width: 650px) { .blog-card-vertical { flex-direction: column; } .blog-img { width: 100%; border-right: none; border-bottom: 1px solid #eee; } .tools-bar { justify-content: center; flex-direction: column-reverse; } .search-box { width: 100%; } .search-box input { width: 100%; border-radius: 25px; border-right: 1px solid #ddd; margin-bottom: 10px;} .search-box button { width: 100%; border-radius: 25px; } .search-box { flex-direction: column; box-shadow: none;} }
         </style></head>
         <body><div class="header-bg"></div><div class="ticker-wrap"><div class="ticker">🔥 ĐỐI TÁC CUNG CẤP VĂN PHÒNG PHẨM TRỌN GÓI 🔥 | 🚚 FREESHIP TỪ 500K | 📞 ZALO SỈ: 0931736266</div></div>
         
         <div class="container">
             <div class="tools-bar">
-                <div class='category-nav'><a href='#' class='cat-btn active' onclick='filterCat("all", event)'>Tất cả</a><a href='#' class='cat-btn' onclick='filterCat("vpp", event)'>Văn Phòng Phẩm</a><a href='#' class='cat-btn' onclick='filterCat("tho_cung", event)'>Đồ Thờ Cúng</a></div>
+                <div class='category-nav'><a href='#' class='cat-btn active' onclick='filterCat("all", event)'>Tất cả</a><a href='#' class='cat-btn' onclick='filterCat("tho_cung", event)'>Đồ Thờ Cúng</a><a href='#' class='cat-btn' onclick='filterCat("vpp", event)'>Văn Phòng Phẩm</a></div>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." onkeyup="if(event.key === 'Enter') searchSP()">
                     <button onclick="searchSP()">Tìm Kiếm</button>
                 </div>
             </div>
 
-            <div style="text-align: center;"><h2 class="section-title">📰 TƯ VẤN SẢN PHẨM</h2></div><div class="blog-list-vertical"><a href="bai-viet/chuyen-muc-tho_cung.html" class="blog-card-vertical"><img src="https://down-vn.img.susercontent.com/file/vn-11134201-7ras8-m3u4sq17ljj59f.webp" class="blog-img"><div class="blog-content"><span class="blog-tag">Đồ Thờ Cúng</span><h3>Bí quyết chọn Đồ Thờ Cúng</h3><p>Đọc đánh giá chi tiết ➡️</p></div></a><a href="bai-viet/chuyen-muc-vpp.html" class="blog-card-vertical"><img src="https://down-vn.img.susercontent.com/file/sg-11134201-7rdxz-m1fegknulaj96a@resize_w900_nl.webp" class="blog-img"><div class="blog-content"><span class="blog-tag">Văn Phòng Phẩm</span><h3>Bí quyết chọn Văn Phòng Phẩm</h3><p>Đọc đánh giá chi tiết ➡️</p></div></a></div>
+            <div style="text-align: center;"><h2 class="section-title">📰 TƯ VẤN SẢN PHẨM</h2></div><div class="blog-list-vertical"><a href="bai-viet/chuyen-muc-tho_cung.html" class="blog-card-vertical"><img src="https://down-vn.img.susercontent.com/file/vn-11134201-7ras8-m3u4sq17ljj59f.webp" class="blog-img"><div class="blog-content"><span class="blog-tag">Đồ Thờ Cúng</span><h3>Nhang Thờ Cúng: Bình An Tâm Linh Cùng Nhang Khuynh Diệp Ít Khói, Thơm Dịu Nhẹ</h3><p>Đọc đánh giá chi tiết ➡️</p></div></a><a href="bai-viet/chuyen-muc-vpp.html" class="blog-card-vertical"><img src="https://down-vn.img.susercontent.com/file/sg-11134201-7rdxz-m1fegknulaj96a@resize_w900_nl.webp" class="blog-img"><div class="blog-content"><span class="blog-tag">Văn Phòng Phẩm</span><h3>Quản Lý Tài Liệu Hiệu Quả: Cặp/Bìa Đựng A4 Display Book – Chìa Khóa Đến Văn Phòng Ngăn Nắp</h3><p>Đọc đánh giá chi tiết ➡️</p></div></a></div>
             
             <div style="text-align: center; margin-top: 50px; padding-top: 20px;"><h2 class="section-title" id="khu-vuc-sp">🛍️ SIÊU THỊ SẢN PHẨM</h2></div>
 
@@ -354,7 +351,7 @@
     .f-btn:hover { transform: scale(1.1); }
     .f-zalo { background: #0068ff; animation: rung 1.5s infinite; font-size:12px; text-align:center; line-height:1.2;}
     .f-call { background: #00b14f; }
-    .f-top { background: #555; display: none; cursor: pointer; } /* Ẩn nút top ban đầu */
+    .f-top { background: #555; display: none; cursor: pointer; } 
     @keyframes rung { 0% {transform: rotate(0deg);} 10% {transform: rotate(-15deg);} 20% {transform: rotate(15deg);} 30% {transform: rotate(-15deg);} 40% {transform: rotate(15deg);} 50% {transform: rotate(0deg);} 100% {transform: rotate(0deg);} }
 </style>
 <div class="float-group">
@@ -377,11 +374,8 @@
 
         
         <script>
-            // JS ĐÃ ĐƯỢC NÂNG CẤP ĐỂ TỰ ĐỘNG TRƯỢT MÀN HÌNH
             function filterCat(cat, event) {
                 if(event) event.preventDefault();
-                
-                // Cập nhật nút active
                 let btns = document.getElementsByClassName('cat-btn');
                 for(let b of btns) b.classList.remove('active');
                 if(event) event.target.classList.add('active');
@@ -391,8 +385,6 @@
                     if (cat === 'all' || cards[i].classList.contains('mix-' + cat)) cards[i].style.display = 'flex';
                     else cards[i].style.display = 'none';
                 }
-                
-                // Ma thuật tự động trượt xuống
                 document.getElementById('khu-vuc-sp').scrollIntoView({behavior: "smooth", block: "start"});
             }
 
@@ -404,8 +396,6 @@
                     if (title.includes(input)) cards[i].style.display = 'flex';
                     else cards[i].style.display = 'none';
                 }
-                
-                // Ma thuật tự động trượt xuống
                 document.getElementById('khu-vuc-sp').scrollIntoView({behavior: "smooth", block: "start"});
             }
         </script>
